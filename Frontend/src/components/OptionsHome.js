@@ -5,9 +5,7 @@ const OptionsHome=()=>{
     return(
         <div className="containerOptionsHome">
             <div className="containerButtons">
-                <Link to="/imgperfil" className="buttonHome"><span>Iniciar sesión</span></Link>
-                <Link to="/singup" className="buttonHome"><span>Crear cuenta</span></Link>
-                <Link className="buttonHome"><span>Salir</span></Link>
+                <Link to="/access" className="buttonHome"><span>Comenzar</span></Link>
             </div>
         </div>
     );

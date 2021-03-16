@@ -25,7 +25,6 @@ mongoose_1.default.connect('mongodb+srv://sarai:12345@cluster1.jr4tq.mongodb.net
     useCreateIndex: true,
     useFindAndModify: false,
 }, () => console.log('Estas conectado a la base de datos'));
-// Middlerwares
 app.use('/', auth_1.default);
 app.listen(5001, () => console.log('Servidor corriendo en el puerto 5001'));
 //# sourceMappingURL=index.js.map

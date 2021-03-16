@@ -7,6 +7,8 @@ import { validacionRegistro, validacionLogin } from './validacionJoi';
 
 dotenv();
 
+const claveToken = 'itsSomeRandomToTheSecretKey';
+
 export const signIn = async (req: Request, res: Response) => {
 
     // Validacion con Joi
@@ -25,7 +27,7 @@ export const signIn = async (req: Request, res: Response) => {
     if (!contraseñaValida) return res.status(400).send('El correo o la contraseña ');
 
     // JWT
-    const token: string = jwt.sign({ _id: usuarioValido._id }, 'itsSomeRandomToTheSecretKey');
+    const token: string = jwt.sign({ _id: usuarioValido._id }, claveToken);
     res.header('authToken', token).send(usuarioValido);
 };
 
@@ -44,7 +46,7 @@ export const singUp = async (req: Request, res: Response) => {
     const hashContraseña = await bcrypt.hash(req.body.contraseña, salt);
 
     // Creacion de usuarios
-    const { nombre, correo, contraseña } = req.body
+    const { nombre, correo } = req.body
     const usuario = new Usuario({
         nombre,
         correo,
@@ -53,7 +55,7 @@ export const singUp = async (req: Request, res: Response) => {
     try {
         const savedUser = await usuario.save();
         // JWT
-        const token: string = jwt.sign({ _id: savedUser._id }, 'itsSomeRandomToTheSecretKey');
+        const token: string = jwt.sign({ _id: savedUser._id }, claveToken);
         res.header('authToken', token).send(savedUser).status(200);
     } catch (err) {
         res.status(400).send(err);

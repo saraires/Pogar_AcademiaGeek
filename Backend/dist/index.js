@@ -9,6 +9,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const cors_1 = __importDefault(require("cors"));
 const morgan_1 = __importDefault(require("morgan"));
+const body_parser_1 = __importDefault(require("body-parser"));
 const auth_1 = __importDefault(require("./routes/auth")); //Sale error porque el archivo "routes" esta vacio
 // Configuracion
 app.use(cors_1.default());
@@ -16,10 +17,13 @@ app.use(morgan_1.default('dev'));
 dotenv_1.default.config();
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: false }));
+app.use(body_parser_1.default.json());
 // Conexión a la base de datos (cluster de Mongo)
-mongoose_1.default.connect('mongodb+srv://sarai:12345@cluster0.jr4tq.mongodb.net/pogar?retryWrites=true&w=majority', {
+mongoose_1.default.connect('mongodb+srv://sarai:12345@cluster1.jr4tq.mongodb.net/pogar?retryWrites=true&w=majority', {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
 }, () => console.log('Estas conectado a la base de datos'));
 // Middlerwares
 app.use('/', auth_1.default);

@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import morgan from 'morgan';
+import bodyParser from 'body-parser';
 
 import authRoute from './routes/auth' //Sale error porque el archivo "routes" esta vacio
 
@@ -14,6 +15,7 @@ app.use(morgan('dev'));
 dotenv.config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // Conexión a la base de datos (cluster de Mongo)
 mongoose.connect(
@@ -27,8 +29,6 @@ mongoose.connect(
     () => console.log('Estas conectado a la base de datos')
 );
 
-// Middlerwares
 app.use('/', authRoute);
-
 
 app.listen(5001, () => console.log('Servidor corriendo en el puerto 5001'));

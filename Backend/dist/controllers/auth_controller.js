@@ -19,6 +19,7 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const dotenv_1 = require("dotenv");
 const validacionJoi_1 = require("./validacionJoi");
 dotenv_1.config();
+const claveToken = 'itsSomeRandomToTheSecretKey';
 const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // Validacion con Joi
     const { error } = validacionJoi_1.validacionLogin.validate(req.body);
@@ -35,7 +36,7 @@ const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     if (!contraseñaValida)
         return res.status(400).send('El correo o la contraseña ');
     // JWT
-    const token = jsonwebtoken_1.default.sign({ _id: usuarioValido._id }, 'itsSomeRandomToTheSecretKey');
+    const token = jsonwebtoken_1.default.sign({ _id: usuarioValido._id }, claveToken);
     res.header('authToken', token).send(usuarioValido);
 });
 exports.signIn = signIn;
@@ -52,7 +53,7 @@ const singUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const salt = yield bcrypt_1.default.genSalt(10);
     const hashContraseña = yield bcrypt_1.default.hash(req.body.contraseña, salt);
     // Creacion de usuarios
-    const { nombre, correo, contraseña } = req.body;
+    const { nombre, correo } = req.body;
     const usuario = new usuario_1.default({
         nombre,
         correo,
@@ -61,7 +62,7 @@ const singUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const savedUser = yield usuario.save();
         // JWT
-        const token = jsonwebtoken_1.default.sign({ _id: savedUser._id }, 'itsSomeRandomToTheSecretKey');
+        const token = jsonwebtoken_1.default.sign({ _id: savedUser._id }, claveToken);
         res.header('authToken', token).send(savedUser).status(200);
     }
     catch (err) {

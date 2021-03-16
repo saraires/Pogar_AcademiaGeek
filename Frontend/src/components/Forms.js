@@ -9,29 +9,21 @@ const Forms=()=>{
   const onSubmit = data => {
     console.log(data);
     axios.post(`/`, {
-        correo: data.correo,
-        contraseña: data.contraseña
+        correo: data.correoL,
+        contraseña: data.contrasenaL
     }).then((res) => {
-        console.log(res);
-        console.log(res.data);
-
-        const id = res.data["_id"];
+        const token = res.data['authToken'];
+        const id = res.data['usuarioValido']['_id'];
         saveToLocal("id", id);
-        swal.fire({
-            title: "Bienvenido!",
-            text: "Se pudo iniciar sesión correctamente",
-            icon: "success",
-            confirmButtonText: "Ok",
-        });
-    }).catch((err) => {
-        console.log(err);
-        swal.fire({
-            title: "Error!",
-            text: "Correo y/o contraseña incorrectos",
-            icon: "error",
-            confirmButtonText: "Ok",
-        });
+        saveToLocal('authToken', token);
     });
+    axios.post('signup', {
+      nombre: data.nombre,
+      correo: data.correoR,
+      contraseña: data.contrasenaR
+    }).then((res)=>{
+      console.log(res);
+    })
   };
   return (
     <div className="forms-container">

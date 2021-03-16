@@ -8,9 +8,8 @@ export const tokenValidation = (req: Request, res: Response, next: NextFunction)
     try {
         const verificado = jwt.verify(token, 'itsSomeRandomToTheSecretKey');
         console.log(verificado);
+        next();
     } catch (err) {
         res.status(400).send('Token invalido');
     }
-
-    next();
 }

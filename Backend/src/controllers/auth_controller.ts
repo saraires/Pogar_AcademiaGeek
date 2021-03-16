@@ -24,11 +24,11 @@ export const signIn = async (req: Request, res: Response) => {
 
     // La contraseña si es la correcta?
     const contraseñaValida = await bcrypt.compare(contraseña, usuarioValido.contraseña);
-    if (!contraseñaValida) return res.status(400).send('El correo o la contraseña ');
+    if (!contraseñaValida) return res.status(400).send('El correo o la contraseña son incorrectos');
 
     // JWT
     const token: string = jwt.sign({ _id: usuarioValido._id }, claveToken);
-    res.header('authToken', token).send(usuarioValido);
+    res.send({"usuarioValido":usuarioValido, "authToken":token});
 };
 
 export const singUp = async (req: Request, res: Response) => {
@@ -56,11 +56,10 @@ export const singUp = async (req: Request, res: Response) => {
         const savedUser = await usuario.save();
         // JWT
         const token: string = jwt.sign({ _id: savedUser._id }, claveToken);
-        res.header('authToken', token).send(savedUser).status(200);
+        res.send({"usuarioValido":savedUser, "authToken":token});
     } catch (err) {
         res.status(400).send(err);
     };
-
 };
 
 export const perfil = (req: Request, res: Response) => {

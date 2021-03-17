@@ -55,7 +55,7 @@ exports.editarAnt = editarAnt;
 // export const comprasAnt = async(req: Request, res: Response) => {
 //     const { _id } = req.body;
 //     const Ant = await Hormiga.find(
-//         { $and: [{ autor: _id }, ] }
+//         { $and: [{ autor: _id }, ] }   
 //         // {$and{
 //         //     { $match: { autor : _id } },
 //         //     { $group: { 

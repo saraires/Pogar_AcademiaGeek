@@ -32,6 +32,6 @@ router.delete('/eliminardeseo', authFunction_1.tokenValidation, whishes_controll
 router.get('/verant', authFunction_1.tokenValidation, ant_controllers_1.verAnt);
 router.post('/agregarant', authFunction_1.tokenValidation, ant_controllers_1.agregarAnt);
 router.put('/editarant', authFunction_1.tokenValidation, ant_controllers_1.editarAnt);
-router.get('/comprasant', authFunction_1.tokenValidation, ant_controllers_1.comprasAnt);
+// router.get('/comprasant', tokenValidation, comprasAnt);
 exports.default = router;
 //# sourceMappingURL=routes.js.map

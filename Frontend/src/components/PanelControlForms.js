@@ -1,6 +1,6 @@
 import React from 'react';
-import Login from '../images/presupuesto.svg';
-import Register from '../images/pagar.svg';
+import Login from '../images/login.svg';
+import Register from '../images/register.svg';
 
 const PanelControlForms=()=>{
   return(

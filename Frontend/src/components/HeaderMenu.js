@@ -12,7 +12,6 @@ const HeaderMenu = () => {
                                 Ten conciencia de cómo se mueve tu dinero, 
                                 para ahorrar dándole un buen uso.
                             </p>
-                            <button className="btnMenu">Read more</button>
                         </div>
                     </div>
                 </header>

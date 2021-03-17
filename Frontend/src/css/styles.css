@@ -769,3 +769,365 @@ body{
   .containerMenu.active .main:hover {
     transform: perspective(1300px) rotateY(20deg) translateZ(340px) scale(0.5);
   }
+
+  .icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    stroke-width: 0;
+    stroke: currentColor;
+    fill: currentColor;
+  }
+  
+  .wrapper {
+    width: 100%;
+    padding: 50px 20px;
+    padding-top: 100px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    background-image: linear-gradient(-20deg, #ffffff 0%, #ffc400 100%);
+  }
+  
+  @media screen and (max-width: 768px) {
+    .wrapper {
+      height: auto;
+      min-height: 100vh;
+      padding-top: 100px;
+    }
+  }
+  
+  .contenedor{
+    width: 100%;
+    min-height: 460px;
+    margin: auto;
+    -webkit-box-shadow: 0px 8px 60px -10px rgba(13, 28, 39, 0.6);
+            box-shadow: 0px 8px 60px -10px rgba(13, 28, 39, 0.6);
+    background: #fff;
+    border-radius: 12px;
+    max-width: 700px;
+    position: relative;
+  }
+  
+  .contenedor.active .perfil {
+    -webkit-filter: blur(6px);
+            filter: blur(6px);
+  }
+  
+  .contenedor.active .profile-card-message,
+  .contenedor.active .profile-card__overlay {
+    opacity: 1;
+    pointer-events: auto;
+    -webkit-transition-delay: .1s;
+            transition-delay: .1s;
+  }
+  
+  .contenedor.active .profile-card-form {
+    -webkit-transform: none;
+            transform: none;
+    -webkit-transition-delay: .1s;
+            transition-delay: .1s;
+  }
+  
+  .perfil_img {
+    width: 150px;
+    height: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    z-index: 4;
+    -webkit-box-shadow: 0px 5px 50px 0px #eafc44, 0px 0px 0px 7px rgba(237, 255, 74, 0.5);
+            box-shadow: 0px 5px 50px 0px #f9fc44, 0px 0px 0px 7px rgba(255, 228, 74, 0.5);
+  }
+  
+  @media screen and (max-width: 576px) {
+    .perfil_img {
+      width: 120px;
+      height: 120px;
+    }
+  }
+  
+  .perfil_img img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+       object-fit: cover;
+    border-radius: 50%;
+  }
+  
+  .perfil{
+    margin-top: -35px;
+    text-align: center;
+    padding: 0 20px;
+    padding-bottom: 40px;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+  }
+  
+  .nombre{
+    font-weight: 700;
+    font-size: 24px;
+    color: #000000;
+    margin-bottom: 15px;
+  }
+  
+  .txt {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1c2d3a;
+    margin-bottom: 15px;
+  }
+  
+  .txt strong {
+    font-weight: 700;
+  }
+  
+  .lacation{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  
+  .lacation_icon {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    font-size: 22px;
+    margin-right: 12px;
+  }
+  
+  .social{
+    margin-top: 25px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+  }
+  
+  .social_item {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    width: 55px;
+    height: 55px;
+    margin: 15px;
+    border-radius: 50%;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    color: #fff;
+    background: #405de6;
+    -webkit-box-shadow: 0px 7px 30px rgba(43, 98, 169, 0.5);
+            box-shadow: 0px 7px 30px rgba(43, 98, 169, 0.5);
+    position: relative;
+    font-size: 21px;
+    -ms-flex-negative: 0;
+        flex-shrink: 0;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .social_item {
+      width: 50px;
+      height: 50px;
+      margin: 10px;
+    }
+  }
+  
+  @media screen and (min-width: 768px) {
+    .social_item:hover {
+      -webkit-transform: scale(1.2);
+              transform: scale(1.2);
+    }
+  }
+  
+  .social_item.facebook {
+    background: linear-gradient(45deg, #3b5998, #0078d7);
+    -webkit-box-shadow: 0px 4px 30px rgba(43, 98, 169, 0.5);
+            box-shadow: 0px 4px 30px rgba(43, 98, 169, 0.5);
+  }
+  
+  .social_item.twitter {
+    background: linear-gradient(45deg, #1da1f2, #0e71c8);
+    -webkit-box-shadow: 0px 4px 30px rgba(19, 127, 212, 0.7);
+            box-shadow: 0px 4px 30px rgba(19, 127, 212, 0.7);
+  }
+  
+  .social_item.instagram {
+    background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
+    -webkit-box-shadow: 0px 4px 30px rgba(120, 64, 190, 0.6);
+            box-shadow: 0px 4px 30px rgba(120, 64, 190, 0.6);
+  }
+  
+  .social_item.github {
+    background: linear-gradient(45deg, #333333, #626b73);
+    -webkit-box-shadow: 0px 4px 30px rgba(63, 65, 67, 0.6);
+            box-shadow: 0px 4px 30px rgba(63, 65, 67, 0.6);
+  }
+  
+  .profile-card-social .icon-font {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+  }
+  
+  .botones{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    margin-top: 40px;
+  }
+  
+  @media screen and (max-width: 576px) {
+    .botones{
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+    }
+  }
+  
+  .button {
+    background: none;
+    border: none;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 19px;
+    margin: 15px 35px;
+    padding: 15px 40px;
+    min-width: 201px;
+    border-radius: 50px;
+    min-height: 55px;
+    color: #fff;
+    cursor: pointer;
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .button {
+      min-width: 170px;
+      margin: 15px 25px;
+    }
+  }
+  
+  @media screen and (max-width: 576px) {
+    .button {
+      min-width: inherit;
+      margin: 0;
+      margin-bottom: 16px;
+      width: 100%;
+      max-width: 300px;
+    }
+    .button:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  .button:focus {
+    outline: none !important;
+  }
+  
+  @media screen and (min-width: 768px) {
+    .button:hover {
+      -webkit-transform: translateY(-5px);
+              transform: translateY(-5px);
+    }
+  }
+  
+  .button:first-child {
+    margin-left: 0;
+  }
+  
+  .button:last-child {
+    margin-right: 0;
+  }
+  
+  .button.button--blue {
+    background: linear-gradient(45deg, #1d32f2, #0e71c8);
+    -webkit-box-shadow: 0px 4px 30px rgba(19, 127, 212, 0.4);
+            box-shadow: 0px 4px 30px rgba(19, 127, 212, 0.4);
+  }
+  
+  .button.button--blue:hover {
+    -webkit-box-shadow: 0px 7px 30px rgba(19, 127, 212, 0.75);
+            box-shadow: 0px 7px 30px rgba(19, 127, 212, 0.75);
+  }
+  
+  .button.button--orange {
+    background: linear-gradient(45deg, #d5c813, #f0ba24);
+    -webkit-box-shadow: 0px 4px 30px rgba(150, 138, 35, 0.863);
+            box-shadow: 0px 4px 30px rgba(223, 211, 45, 0.747);
+  }
+  
+  .button.button--orange:hover {
+    -webkit-box-shadow: 0px 7px 30px rgba(255, 196, 0, 0.75);
+            box-shadow: 0px 7px 30px rgba(255, 251, 0, 0.75);
+  }
+  
+  .profile-card-form {
+    -webkit-box-shadow: 0 4px 30px rgba(15, 22, 56, 0.35);
+            box-shadow: 0 4px 30px rgba(15, 22, 56, 0.35);
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 100%;
+    background: #fff;
+    border-radius: 10px;
+    padding: 35px;
+    -webkit-transform: scale(0.8);
+            transform: scale(0.8);
+    position: relative;
+    z-index: 3;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .profile-card-form {
+      max-width: 90%;
+      height: auto;
+    }
+  }
+  
+  @media screen and (max-width: 576px) {
+    .profile-card-form {
+      padding: 20px;
+    }
+  }
+  
+
+  
+
+
+  

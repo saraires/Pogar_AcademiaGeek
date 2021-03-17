@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.comprasAnt = exports.editarAnt = exports.agregarAnt = exports.verAnt = void 0;
+exports.editarAnt = exports.agregarAnt = exports.verAnt = void 0;
 const hormiga_1 = __importDefault(require("../model/hormiga"));
 // Consultar gasto hormiga (Ant)
 const verAnt = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -52,15 +52,15 @@ const editarAnt = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.editarAnt = editarAnt;
 // Total de dinero empleado en gastos hormiga
-const comprasAnt = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { _id } = req.body;
-    const Ant = yield hormiga_1.default.aggregate([
-        { $match: { autor: _id } },
-        { $group: {
-                compras
-            } - ant }, { $sum: "$votes" }
-    ]);
-});
-exports.comprasAnt = comprasAnt;
-res.send(Ant);
+// export const comprasAnt = async(req: Request, res: Response) => {
+//     const { _id } = req.body;
+//     const Ant = await Hormiga.find(
+//         { $and: [{ autor: _id }, ] }
+//         // {$and{
+//         //     { $match: { autor : _id } },
+//         //     { $group: { 
+//         //         compras-ant: { $sum: "$votes" } 
+//         //     }}}};
+//     res.send(Ant);
+// }
 //# sourceMappingURL=ant_controllers.js.map

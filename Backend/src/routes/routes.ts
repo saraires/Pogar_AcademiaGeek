@@ -5,7 +5,7 @@ const router: Router = Router();
 import { signIn, singUp, perfil, editarSaldo } from '../controllers/auth_controller';
 import { verGastos, agregarGastos, editarGastos, pagosFijo, pagosNoFijo, noPagosFijo, noPagosNoFijo } from '../controllers/expenses_controller';
 import { verDeseo, agregarDeseo, editarDeseo, eliminarDeseo  } from '../controllers/whishes_controller';
-import { verAnt, agregarAnt, editarAnt, comprasAnt  } from '../controllers/ant_controllers';
+import { verAnt, agregarAnt, editarAnt } from '../controllers/ant_controllers';
 // import { images } from '../controllers/images_controller';
 
 // Rutas de Usuario
@@ -36,7 +36,7 @@ router.delete('/eliminardeseo', tokenValidation, eliminarDeseo);
 router.get('/verant', tokenValidation, verAnt);
 router.post('/agregarant', tokenValidation, agregarAnt);
 router.put('/editarant', tokenValidation, editarAnt);
-router.get('/comprasant', tokenValidation, comprasAnt);
+// router.get('/comprasant', tokenValidation, comprasAnt);
 
 
 export default router;

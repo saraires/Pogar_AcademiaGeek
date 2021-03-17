@@ -2,38 +2,75 @@ import React from 'react';
 import { useForm } from "react-hook-form";
 import axios from "../axios/axios";
 import { saveToLocal } from "../functions/localstorage";
-import swal from "sweetalert2";
+import swal from 'sweetalert2';
 
 const Forms = () => {
+  let signin = false;
+  let signup = false;
+  const esLogin = () => signin = true; signup = false;
+  const esRegister = () => signup = true; signin = false;
+
   const { register, handleSubmit } = useForm();
 
   const onSubmit = data => {
-    console.log(data);
-    
-    axios.post(`/`, {
-      correo: data.correo,
-      contraseña: data.contraseña
-    }).then((res) => {
-      console.log(res);
-      console.log(res.data);
+    if (signin) {
+      if(data.contrasenaL.length>=8){
+        axios.post(`/`, {
+          correo: data.correoL,
+          contraseña: data.contrasenaL
+        }).then((res) => {
+          const token = res.data['authToken'];
+          const id = res.data['usuarioValido']['_id'];
+          saveToLocal("id", id);
+          saveToLocal('authToken', token);
+        }).catch(() => {
+          swal.fire({
+            title: "Error al iniciar sesión",
+            icon: "error",
+            confirmButtonText: "¡Entendido!",
+            confirmButtonColor: "#f4f800",
+          });
+        });
+      }else{
+        swal.fire({
+          title: "Error al iniciar sesión",
+          text: "¡La contraseña debe tener más de 8 carácteres!", 
+          icon: "error",
+          confirmButtonText: "¡Entendido!",
+          confirmButtonColor: "#f4f800",
+        });
+      }
+      
+    }
 
-      const id = res.data["_id"];
-      saveToLocal("id", id);
-      swal.fire({
-        title: "Bienvenido!",
-        text: "Se pudo iniciar sesión correctamente",
-        icon: "success",
-        confirmButtonText: "Ok",
-      });
-    }).catch((err) => {
-      console.log(err);
-      swal.fire({
-        title: "Error!",
-        text: "Correo y/o contraseña incorrectos",
-        icon: "error",
-        confirmButtonText: "Ok",
-      });
-    });
+    if (signup) {
+      if(data.contrasenaR.length>=8){
+        axios.post('signup', {
+          nombre: data.nombre,
+          correo: data.correoR,
+          contraseña: data.contrasenaR
+        }).then((res) => {
+          console.log(res);
+        }).catch(()=>{
+          swal.fire({
+            title: "Error al iniciar sesión",
+            icon: "error",
+            confirmButtonText: "¡Entendido!",
+            confirmButtonColor: "#f4f800",
+          });
+        });
+      }else{
+        swal.fire({
+          title: "Error al iniciar sesión",
+          text: "¡La contraseña debe tener más de 8 carácteres!", 
+          icon: "error",
+          confirmButtonText: "¡Entendido!",
+          confirmButtonColor: "#f4f800",
+        });
+      }
+      
+    }
+
   };
   return (
     <div className="forms-container">
@@ -48,7 +85,7 @@ const Forms = () => {
             <i className="fas fa-lock"></i>
             <input type="password" required placeholder="Contraseña" ref={register} name="contrasenaL" />
           </div>
-          <input type="submit" value="iniciar sesión" className="btn solid" />
+          <input type="submit" value="iniciar sesión" onClick={esLogin} className="btn solid" />
         </form>
         <form className="sign-up-form" onSubmit={handleSubmit(onSubmit)}>
           <h2 className="title">Regístrate</h2>
@@ -65,6 +102,7 @@ const Forms = () => {
             <input type="password" required placeholder="Contraseña" ref={register} name="contrasenaR" />
           </div>
           <input type="submit" className="btn" value="Regístrate" />
+          <input type="submit" className="btn" onClick={esRegister} value="Regístrate" />
         </form>
       </div>
     </div>

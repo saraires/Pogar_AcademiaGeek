@@ -1,4 +1,6 @@
 import React from 'react';
+import Login from '../images/presupuesto.svg';
+import Register from '../images/pagar.svg';
 
 const PanelControlForms=()=>{
   return(
@@ -13,7 +15,7 @@ const PanelControlForms=()=>{
               Regístrate
             </button>
           </div>
-          <img src="img/log.svg" className="image" alt="" />
+          <img src={Login} className="image" alt="" />
         </div>
         <div className="panel right-panel">
           <div className="content">
@@ -25,7 +27,7 @@ const PanelControlForms=()=>{
               Iniciar sesión
             </button>
           </div>
-          <img src="img/register.svg" className="image" alt="" />
+          <img src={Register} className="image" alt="" />
         </div>
       </div>
     );

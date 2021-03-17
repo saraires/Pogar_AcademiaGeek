@@ -3,12 +3,13 @@ import Usuario from '../model/usuario';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { config as dotenv } from 'dotenv';
-import { validacionRegistro, validacionLogin } from './validacionJoi';
+import { validacionRegistro, validacionLogin } from './validationJoi';
 
 dotenv();
 
 const claveToken = 'itsSomeRandomToTheSecretKey';
 
+// LogIn
 export const signIn = async (req: Request, res: Response) => {
 
     // Validacion con Joi
@@ -24,13 +25,14 @@ export const signIn = async (req: Request, res: Response) => {
 
     // La contraseña si es la correcta?
     const contraseñaValida = await bcrypt.compare(contraseña, usuarioValido.contraseña);
-    if (!contraseñaValida) return res.status(400).send('El correo o la contraseña ');
+    if (!contraseñaValida) return res.status(400).send('El correo o la contraseña son incorrectos');
 
     // JWT
     const token: string = jwt.sign({ _id: usuarioValido._id }, claveToken);
-    res.header('authToken', token).send(usuarioValido);
+    res.send({"usuarioValido":usuarioValido, "authToken":token});
 };
 
+// Sing Up
 export const singUp = async (req: Request, res: Response) => {
 
     // Validacion con Joi
@@ -56,14 +58,20 @@ export const singUp = async (req: Request, res: Response) => {
         const savedUser = await usuario.save();
         // JWT
         const token: string = jwt.sign({ _id: savedUser._id }, claveToken);
-        res.header('authToken', token).send(savedUser).status(200);
+        res.send({"usuarioValido":savedUser, "authToken":token});
     } catch (err) {
         res.status(400).send(err);
     };
-
 };
 
+// Consultar perfil
 export const perfil = (req: Request, res: Response) => {
+    console.log(req.header('auth-token'));
+    res.send('perfil');
+};
+
+// Editar saldo
+export const editarSaldo = (req: Request, res: Response) => {
     console.log(req.header('auth-token'));
     res.send('perfil');
 };

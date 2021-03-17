@@ -9,11 +9,11 @@ const tokenValidation = (req, res, next) => {
     try {
         const verificado = jwt.verify(token, 'itsSomeRandomToTheSecretKey');
         console.log(verificado);
+        next();
     }
     catch (err) {
         res.status(400).send('Token invalido');
     }
-    next();
 };
 exports.tokenValidation = tokenValidation;
 //# sourceMappingURL=authFunction.js.map

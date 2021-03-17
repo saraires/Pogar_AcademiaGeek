@@ -12,17 +12,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.perfil = exports.singUp = exports.signIn = void 0;
+exports.editarSaldo = exports.perfil = exports.singUp = exports.signIn = void 0;
 const usuario_1 = __importDefault(require("../model/usuario"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const dotenv_1 = require("dotenv");
-const validacionJoi_1 = require("./validacionJoi");
+const validationJoi_1 = require("./validationJoi");
 dotenv_1.config();
 const claveToken = 'itsSomeRandomToTheSecretKey';
+// LogIn
 const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // Validacion con Joi
-    const { error } = validacionJoi_1.validacionLogin.validate(req.body);
+    const { error } = validationJoi_1.validacionLogin.validate(req.body);
     if (error)
         return res.status(400).send(error.details[0].message);
     // Traemos las variables del body
@@ -34,15 +35,16 @@ const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // La contraseña si es la correcta?
     const contraseñaValida = yield bcrypt_1.default.compare(contraseña, usuarioValido.contraseña);
     if (!contraseñaValida)
-        return res.status(400).send('El correo o la contraseña ');
+        return res.status(400).send('El correo o la contraseña son incorrectos');
     // JWT
     const token = jsonwebtoken_1.default.sign({ _id: usuarioValido._id }, claveToken);
-    res.header('authToken', token).send(usuarioValido);
+    res.send({ "usuarioValido": usuarioValido, "authToken": token });
 });
 exports.signIn = signIn;
+// Sing Up
 const singUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // Validacion con Joi
-    const { error } = validacionJoi_1.validacionRegistro.validate(req.body);
+    const { error } = validationJoi_1.validacionRegistro.validate(req.body);
     if (error)
         return res.status(400).send(error.details[0].message);
     // Validar si el correo ya existe
@@ -63,7 +65,7 @@ const singUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const savedUser = yield usuario.save();
         // JWT
         const token = jsonwebtoken_1.default.sign({ _id: savedUser._id }, claveToken);
-        res.header('authToken', token).send(savedUser).status(200);
+        res.send({ "usuarioValido": savedUser, "authToken": token });
     }
     catch (err) {
         res.status(400).send(err);
@@ -71,9 +73,16 @@ const singUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     ;
 });
 exports.singUp = singUp;
+// Consultar perfil
 const perfil = (req, res) => {
     console.log(req.header('auth-token'));
     res.send('perfil');
 };
 exports.perfil = perfil;
+// Editar saldo
+const editarSaldo = (req, res) => {
+    console.log(req.header('auth-token'));
+    res.send('perfil');
+};
+exports.editarSaldo = editarSaldo;
 //# sourceMappingURL=auth_controller.js.map

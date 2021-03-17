@@ -7,7 +7,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
 
-import authRoute from './routes/auth' //Sale error porque el archivo "routes" esta vacio
+import authRoute from './routes/routes' //Sale error porque el archivo "routes" esta vacio
 
 // Configuracion
 app.use(cors());

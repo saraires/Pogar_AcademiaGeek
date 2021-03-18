@@ -4,6 +4,7 @@ import SocialPerfil from '../components/SocialPerfil';
 import SaldoPerfil from '../components/SaldoPerfil';
 import NavBar from '../components/NavBar';
 import {Link} from 'react-router-dom';
+
 const Perfil = () => {
     return (
         <div className="wrapper">
@@ -20,7 +21,6 @@ const Perfil = () => {
                     <div className="txt">saraires@gmail.com</div>
                     <div className="botones">
                         <Link to="/menu"><button className="button button--orange">Menú</button></Link>
-                        <button className="button button--blue js-btn">Cambiar saldo</button>
                     </div>
                 </div>
             </div>

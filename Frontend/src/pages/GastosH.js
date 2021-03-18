@@ -1,11 +1,11 @@
 import React from 'react';
 import NavBarModal from '../components/NavBarModal';
 
-const Gastos = () => {
+const GastosH = () => {
     return (
         <div className="conta">   
             <div className="containerG">
-                <NavBarModal prop="Gastos"/>
+                <NavBarModal prop="Gastos hormiga" />
                 <div className="card">
                     <div className="box">
                         <div className="contentG">
@@ -20,4 +20,4 @@ const Gastos = () => {
         </div>
     );
 }
-export default Gastos;
+export default GastosH;

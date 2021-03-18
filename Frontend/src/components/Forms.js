@@ -29,7 +29,8 @@ const Forms = () => {
         }).catch(() => {
           swal.fire({
             title: "Error al iniciar sesión",
-            text: "¡El correo o la contraseña es incorrecto!", 
+            text: "¡Su información es incorrecta!", 
+            footer: "Intente de nuevo", 
             icon: "error",
             confirmButtonText: "¡Entendido!",
             confirmButtonColor: "#f4f800",
@@ -57,6 +58,7 @@ const Forms = () => {
           if(res.status===200){
             swal.fire({
               title: "¡El registro se realizó con éxito!",
+              text: "¡Ya puedes inciar sesión!",
               icon: "success",
               confirmButtonText: "¡Entendido!",
               confirmButtonColor: "#f4f800",
@@ -97,7 +99,7 @@ const Forms = () => {
             <i className="fas fa-lock"></i>
             <input type="password" required placeholder="Contraseña" ref={register} name="contrasenaL" />
           </div>
-          <input type="submit" value="iniciar sesión" onClick={esLogin} className="btn solid" />
+          <input type="submit" value="Iniciar sesión" onClick={esLogin} className="btn solid" />
         </form>
         <form className="sign-up-form" onSubmit={handleSubmit(onSubmit)}>
           <h2 className="title">Regístrate</h2>

@@ -1,12 +1,12 @@
 import React from 'react';
-import NavBar from '../components/NavBar';
+import NavBarMenu from '../components/NavBarMenu';
 import HeaderMenu from '../components/HeaderMenu';
 import LinksMenu from '../components/LinksMenu';
 
 const Menu = () => {
     return (
         <div className="containerMenu">
-            <NavBar />
+            <NavBarMenu />
             <HeaderMenu />
             <LinksMenu />
         </div>

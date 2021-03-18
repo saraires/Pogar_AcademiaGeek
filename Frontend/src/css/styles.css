@@ -196,7 +196,7 @@ body{
     line-height: 1;
     font-weight: 600;
     font-size: 1.1rem;
-    color: #333;
+    color: black;
   }
 
   .input-field i {
@@ -208,7 +208,7 @@ body{
   }
   
   .input-field input::placeholder {
-    color: rgb(131, 131, 131);
+    color: rgb(0, 0, 0);
     font-weight: 500;
   }
   
@@ -1127,7 +1127,198 @@ body{
   }
   
 
-  
+.containerG{
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 40px 0;
+}
+
+.containerG .card{
+    position: relative;
+    min-width: 320px;
+    height: 440px;
+    box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.2),
+                inset -5px -5px 15px rgba(255, 255, 255, 0.1),
+                5px 5px 15px rgba(0, 0, 0, 0.3),
+                -5px -5px 15px rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    margin: 30px;
+}
+
+.containerG .card .box{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    background: #2a2b2f;
+    border: 2px solid #1e1f23;
+    border-radius: 15px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    transition: 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.containerG .card .box::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background:rgba(255, 255, 255, 0.05);
+    pointer-events: none;
+}
+
+.containerG .card .box:hover{
+    transform: translateY(-50px);
+    box-shadow: 0 40px 70px rgba(0, 0, 0, 0.5);
+}
+
+.containerG .card .box .contentG{
+    padding: 20px;
+    text-align: center;
+}
+
+.containerG .card .box .contentG h2{
+    position: absolute;
+    top: -10px;
+    right: 30px;
+    font-size: 8em;
+    color: rgba(255, 255, 255, 0.05);
+}
+
+.containerG .card .box .contentG h3{
+    font-size: 1.8em;
+    color: rgba(255, 255, 255, 0.5);
+    z-index: 1;
+    transition: 0.5s;
+}
+
+.containerG .card .box .contentG p{
+    font-size: 16px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.747);
+    z-index: 1;
+    transition: 0.5s;
+}
 
 
-  
+.btn-editar{
+  position: relative;
+    display: inline-block;
+    padding: 8px 20px;
+    background: rgb(255, 216, 41);
+    margin-top: 15px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 600;
+    color: rgb(0, 0, 0);
+    box-shadow: 0 10px 20px rgba(255, 255, 255, 0.3);
+}
+
+.conta{
+  width: 100%;
+  padding: 50px 20px;
+  padding-top: 100px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-image: linear-gradient(-20deg, #ffffff 0%, #ffc400 100%);  
+}
+
+.conatinerModal {
+  width: 80%;
+  margin: auto;
+}
+
+#modal {
+  background: rgba(0, 0, 0, 0.9);
+  color: #fff;
+  position: fixed;
+  top: -100vh;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  transition: all 0.5s;
+}
+
+#mostrar-modal {
+  display: none;
+}
+#mostrar-modal + label {
+  background-color:rgb(87, 87, 87);
+  position: absolute;
+  right: 40px;
+  top: 20px;
+  text-transform: uppercase;
+  padding: 9px;
+  border-radius:7px;
+  border: none;
+  outline: none;
+  color: white;
+}
+#mostrar-modal + label:hover {
+  cursor: pointer;
+  background-color:rgb(61, 61, 61);
+}
+#mostrar-modal:checked ~ #modal {
+  top: 0;
+}
+#mostrar-modal:checked ~ #cerrar-modal + label {
+  display: block;
+}
+
+#cerrar-modal {
+  display: none;
+}
+#cerrar-modal + label {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  z-index: 100;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  background: tomato;
+  width: 23px;
+  height: 23px;
+  line-height: 21px;
+  text-align: center;
+  border-radius: 50%;
+  display: none;
+  transition: all 0.5s;
+}
+#cerrar-modal:checked ~ #modal {
+  top: -100vh;
+}
+#cerrar-modal:checked + label {
+  display: none;
+}
+
+.tittleGastos{
+  right: 0;
+  margin: auto;
+  width: 110px;
+  font-size: 30px;
+}
+
+.modal_Interno{
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.intro_modal{
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 20px;
+  font-size: 30px;
+  padding-left: 60px;
+  padding-right: 60px;
+}

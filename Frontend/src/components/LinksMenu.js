@@ -12,6 +12,9 @@ const LinksMenu = () => {
             <Link to="/gastos" >Gastos</Link>
           </li>
           <li>
+            <Link to="/gastos-no-pagos" >Deudas</Link>
+          </li>
+          <li>
             <Link to="/gastos-hormiga" >Gastos hormiga</Link>
           </li>
           <li>

@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { config as dotenv } from 'dotenv';
 import { validacionRegistro, validacionLogin } from './validationJoi';
+import Gastos from '../model/gastos';
 
 dotenv();
 
@@ -85,13 +86,12 @@ export const editarSaldo = async (req: Request, res: Response) => {
 
 // Pagar gastos / gastos hormiga
 export const pagar = async (req: Request, res: Response) => {
-    const { _id, precio } = req.body;
-    // el id, el autor, el saldo, total de deuda, precio de la cosa a pagar
-    // try {
-    //     const actualizarSaldo = await Usuario.findByIdAndUpdate(_id, { $set: {'saldo' : saldo} });
-    //     console.log(actualizarSaldo)
-    //     res.send(actualizarSaldo);
-    // } catch (err) {
-    //     console.log(err);
-    // }
+    const { id, autor, precio, saldo, contribucion } = req.body;
+    try {
+        const aporte = await Gastos.find({ $and: [{ pagado: false }, { autor: _id }] });
+        console.log(actualizarSaldo)
+        res.send(actualizarSaldo);
+    } catch (err) {
+        console.log(err);
+    }
 };

@@ -54,6 +54,7 @@ const editarAnt = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 }); // Error
 exports.editarAnt = editarAnt;
 // Total de dinero empleado en gastos hormiga
+<<<<<<< HEAD
 const comprasAnt = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { _id } = req.body;
     const Ant = yield hormiga_1.default.aggregate([{ $group: { _id: _id, "Saldo": { $sum: "$precio" } } }]);
@@ -61,4 +62,17 @@ const comprasAnt = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     res.send(saldo);
 });
 exports.comprasAnt = comprasAnt;
+=======
+// export const comprasAnt = async(req: Request, res: Response) => {
+//     const { _id } = req.body;
+//     const Ant = await Hormiga.find(
+//         { $and: [{ autor: _id }, ] }   
+//         // {$and{
+//         //     { $match: { autor : _id } },
+//         //     { $group: { 
+//         //         compras-ant: { $sum: "$votes" } 
+//         //     }}}};
+//     res.send(Ant);
+// }
+>>>>>>> ec0fe012decadf5acb58ac3ca6162cebb2cb542e
 //# sourceMappingURL=ant_controllers.js.map

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const NavBar = () => {
+const NavBarMenu = () => {
     const transition = () => {
         const container = document.querySelector(".containerMenu");
         container.classList.toggle("active");
@@ -16,4 +16,4 @@ const NavBar = () => {
         </div>
     );
 }
-export default NavBar;
+export default NavBarMenu;

@@ -119,3 +119,11 @@ export const pagar = async (req: Request, res: Response) => {
     console.log(err);
 }
 };
+
+// Informacion de gastos y contribucion
+
+// export const infoAporte = async (req: Request, res: Response) => {
+//     const { id } = req.body;
+//     const gastos = await Gastos.find({ autor: id })
+//     res.send(gastos);
+// }

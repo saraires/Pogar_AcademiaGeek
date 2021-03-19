@@ -12,12 +12,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.condicionDeseo = exports.eliminarDeseo = exports.editarDeseo = exports.agregarDeseo = exports.verDeseo = void 0;
+exports.eliminarDeseo = exports.editarDeseo = exports.agregarDeseo = exports.verDeseo = void 0;
 const deseos_1 = __importDefault(require("../model/deseos"));
+const gastos_1 = __importDefault(require("../model/gastos"));
+const usuario_1 = __importDefault(require("../model/usuario"));
 // Consultar deseos
 const verDeseo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.body;
-    const deseos = yield deseos_1.default.find({ autor: id }); // ¿Los organizo?
+    const deseos = yield deseos_1.default.find({ autor: id });
+    const preciodeseo = yield deseos_1.default.find({ autor: id }, { "precio": 1 });
+    // Modelo de usuarios -- Sacamos el saldo
+    const usuario = yield usuario_1.default.find({ _id: id }, { "saldo": 1 });
+    const saldo = (usuario[usuario.length - 1]["saldo"]);
+    // Modelo de gastos -- Sacamos el total de los gastos
+    const gastos = yield gastos_1.default.aggregate([{ $group: { _id: id, "Gastos": { $sum: "$precio" } } }]);
+    const gastototal = (gastos[0]["Gastos"]);
+    const sobrante = (saldo - gastototal) / 2;
+    preciodeseo.forEach((jacobo) => __awaiter(void 0, void 0, void 0, function* () {
+        console.log(jacobo["_id"]);
+        if (jacobo["precio"] < sobrante) {
+            const actualizarDeseo = yield deseos_1.default.findByIdAndUpdate({ autor: id }, { $set: { "comprable": true } });
+        }
+        ;
+    }));
     res.send(deseos);
 });
 exports.verDeseo = verDeseo;
@@ -58,8 +75,5 @@ const eliminarDeseo = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     res.json({ message: 'Deseo Eliminado' });
 });
 exports.eliminarDeseo = eliminarDeseo;
-// Deseos comprables
-const condicionDeseo = (req, res) => {
-};
-exports.condicionDeseo = condicionDeseo;
+// Deseos que ya se pueden comprar
 //# sourceMappingURL=whishes_controller.js.map

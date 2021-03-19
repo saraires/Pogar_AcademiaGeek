@@ -16,9 +16,7 @@ exports.editarSaldo = exports.perfil = exports.singUp = exports.signIn = void 0;
 const usuario_1 = __importDefault(require("../model/usuario"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const dotenv_1 = require("dotenv");
 const validationJoi_1 = require("./validationJoi");
-dotenv_1.config();
 const claveToken = 'itsSomeRandomToTheSecretKey';
 // LogIn
 const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -84,6 +82,7 @@ exports.perfil = perfil;
 const editarSaldo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id, saldo } = req.body;
     try {
+        console.log(saldo);
         const actualizarSaldo = yield usuario_1.default.findByIdAndUpdate(id, { $set: { 'saldo': saldo } });
         console.log(actualizarSaldo);
         res.send(actualizarSaldo);

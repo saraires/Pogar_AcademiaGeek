@@ -113,13 +113,13 @@ const pagar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const saldo = (usuario[usuario.length - 1]["saldo"]); // Del array devuelve solo el saldo
         const saldoFinal = saldo - aporte; // Restar... Esto me da el saldo
         const cuestaFinal = cuesta - aporte; // Restar... Esto me da en cuanto queda la deuda
-        console.log(saldoFinal);
-        console.log(cuestaFinal);
         // Actualizar Saldo del usuario
-        const actualizarSaldo = yield usuario_1.default.findByIdAndUpdate({ _id: id }, { $set: { saldo: saldoFinal } });
+        const actualizarSaldo = yield usuario_1.default.findByIdAndUpdate(autor, { $set: { saldo: saldoFinal } });
         console.log(actualizarSaldo);
         // Actualizar cantidad de la deuda
-        res.send("ok");
+        const actualizarGasto = yield gastos_1.default.findByIdAndUpdate(id, { $set: { precio: cuestaFinal } });
+        console.log(actualizarGasto);
+        res.status(200).send("Ok");
     }
     catch (err) {
         console.log(err);

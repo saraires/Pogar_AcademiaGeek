@@ -3,7 +3,7 @@ import { Schema, model, Document } from 'mongoose';
 export interface IAnt extends Document {
     titulo: string,
     descripcion: string,
-    costo: number,
+    precio: number,
     fecha: string,
     autor: string,
 }
@@ -31,4 +31,4 @@ const hormigaSchema = new Schema({
     }
 });
 
-export default model('Hormiga', hormigaSchema);
+export default model<IAnt>('Hormiga', hormigaSchema);

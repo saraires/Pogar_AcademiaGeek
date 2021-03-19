@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.comprasAnt = exports.editarAnt = exports.agregarAnt = exports.verAnt = void 0;
 const hormiga_1 = __importDefault(require("../model/hormiga"));
+const usuario_1 = __importDefault(require("../model/usuario"));
 // Consultar gasto hormiga (Ant)
 const verAnt = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.body;
@@ -32,8 +33,28 @@ const agregarAnt = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         autor
     });
     try {
-        const saveAnt = yield agregarAnt.save();
-        res.send(saveAnt);
+        const saveAnt = yield agregarAnt.save(); // Guardar el gasto
+        if (!saveAnt) {
+            return res.status(404).send("Revisa de nuevo si los datos son correctos");
+        }
+        else {
+            const id = (saveAnt._id); // id de la card
+            const autor = (saveAnt.autor); // id del autor
+            console.log(id);
+            console.log(autor);
+            // Modelo de Gastos -- Sacamos el gasto del usuario
+            const card = yield hormiga_1.default.find({ _id: id }, { "precio": 1 });
+            const precio = (card[card.length - 1]["precio"]);
+            // Modelo de Usuario -- Sacamos el saldo total del usuario
+            const usuario = yield usuario_1.default.find({ _id: autor }, { "saldo": 1 });
+            const saldo = (usuario[usuario.length - 1]["saldo"]);
+            // Restar... Esto me da el saldo final de la operacion
+            const saldoFinal = saldo - precio;
+            // Actualizamos el saldo del usuario
+            const actualizarSaldo = yield usuario_1.default.findByIdAndUpdate(autor, { $set: { saldo: saldoFinal } });
+            console.log(actualizarSaldo);
+            res.status(200).send(saveAnt);
+        }
     }
     catch (err) {
         res.status(400).send(err);

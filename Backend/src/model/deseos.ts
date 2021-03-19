@@ -5,6 +5,7 @@ export interface IWhishes extends Document {
     descripcion: string,
     precio: number,
     autor: string,
+    comprable: boolean
 }
 
 const deseoSchema = new Schema({
@@ -23,6 +24,10 @@ const deseoSchema = new Schema({
     autor: {
         type: String,
         required: true
+    },
+    comprable: {
+        type: Boolean,
+        default: false
     }
 });
 

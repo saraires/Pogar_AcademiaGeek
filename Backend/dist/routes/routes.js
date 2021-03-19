@@ -31,6 +31,7 @@ router.get('/verdeseos', authFunction_1.tokenValidation, whishes_controller_1.ve
 router.post('/agregardeseo', authFunction_1.tokenValidation, whishes_controller_1.agregarDeseo);
 router.put('/editardeseo', authFunction_1.tokenValidation, whishes_controller_1.editarDeseo);
 router.delete('/eliminardeseo', authFunction_1.tokenValidation, whishes_controller_1.eliminarDeseo);
+// router.post('/deseos', tokenValidation, condicionDeseo);
 // Rutas de gastos hormiga
 router.get('/verant', authFunction_1.tokenValidation, ant_controllers_1.verAnt);
 router.post('/agregarant', authFunction_1.tokenValidation, ant_controllers_1.agregarAnt);

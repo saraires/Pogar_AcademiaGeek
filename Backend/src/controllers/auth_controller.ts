@@ -2,10 +2,7 @@ import { Request, Response } from 'express';
 import Usuario from '../model/usuario';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { config as dotenv } from 'dotenv';
 import { validacionRegistro, validacionLogin } from './validationJoi';
-
-dotenv();
 
 const claveToken = 'itsSomeRandomToTheSecretKey';
 
@@ -76,7 +73,7 @@ export const editarSaldo = async (req: Request, res: Response) => {
     const { id, saldo } = req.body;
     try {
         console.log(saldo)
-        const actualizarSaldo = await Usuario.findByIdAndUpdate(id, { $set: {'saldo' : saldo} });
+        const actualizarSaldo = await Usuario.findByIdAndUpdate(id, { $inc: {'saldo' : saldo} });
         console.log(actualizarSaldo);
         res.send(actualizarSaldo);
     } catch (err) {

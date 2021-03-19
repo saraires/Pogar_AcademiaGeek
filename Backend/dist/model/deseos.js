@@ -17,6 +17,10 @@ const deseoSchema = new mongoose_1.Schema({
     autor: {
         type: String,
         required: true
+    },
+    comprable: {
+        type: Boolean,
+        default: false
     }
 });
 exports.default = mongoose_1.model('Deseos', deseoSchema);

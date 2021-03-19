@@ -1241,6 +1241,12 @@ body{
   text-align: center;
 }
 
+.btn-modal:hover{
+  background: rgb(34, 34, 34);
+  cursor: pointer;
+  transform: scale(0.9);
+}
+
 
 
 

@@ -1,11 +1,11 @@
 import React from 'react';
-import NavBarModal from '../components/NavBarModal';
+import NavBar from '../components/NavGastos';
 
 const Gastos = () => {
     return (
-        <div className="conta">   
+        <div className="conta">
+            <NavBar/>
             <div className="containerG">
-                <NavBarModal prop="Gastos"/>
                 <div className="card">
                     <div className="box">
                         <div className="contentG">

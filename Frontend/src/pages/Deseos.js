@@ -1,11 +1,10 @@
 import React from 'react';
-import NavBarModal from '../components/NavBarModal';
-
+import NavBar from '../components/NavDeseos';
 const Deseos = () => {
     return (
-        <div className="conta">   
+        <div className="conta">  
+            <NavBar/> 
             <div className="containerG">
-                <NavBarModal prop="Deseos"/>
                 <div className="card">
                     <div className="box">
                         <div className="contentG">

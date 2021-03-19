@@ -1,5 +1,5 @@
 import React from 'react';
-import PerfilFoto from '../images/perfil.jpg';
+import PerfilFoto from '../images/perfil.svg';
 
 const ImgPerfil = () => {
     return (

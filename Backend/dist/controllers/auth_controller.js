@@ -75,8 +75,8 @@ const singUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.singUp = singUp;
 // Consultar perfil
 const perfil = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { _id } = req.body;
-    const perfil = yield usuario_1.default.find({ _id: _id }); // ¿Los organizo?
+    const { id } = req.body;
+    const perfil = yield usuario_1.default.find({ _id: id }); // ¿Los organizo?
     res.send(perfil);
 });
 exports.perfil = perfil;
@@ -96,6 +96,7 @@ exports.editarSaldo = editarSaldo;
 // Pagar gastos / gastos hormiga
 const pagar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { _id, precio } = req.body;
+    // el id, el autor, el saldo, total de deuda, precio de la cosa a pagar
     // try {
     //     const actualizarSaldo = await Usuario.findByIdAndUpdate(_id, { $set: {'saldo' : saldo} });
     //     console.log(actualizarSaldo)

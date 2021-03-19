@@ -11,8 +11,8 @@ import { verAnt, agregarAnt, editarAnt, comprasAnt } from '../controllers/ant_co
 // Rutas de Usuario
 router.post('/', signIn);
 router.post('/signup', singUp);
-router.get('/perfil', tokenValidation, perfil); // Ruta privada
-router.put('/editarsaldo', tokenValidation, editarSaldo);
+router.post('/perfil', tokenValidation, perfil); // Ruta privada
+router.post('/editarsaldo', tokenValidation, editarSaldo);
 // router.post('/upload', images);
 
 // Rutas de gastos

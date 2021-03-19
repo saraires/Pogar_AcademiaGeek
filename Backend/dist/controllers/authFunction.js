@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.tokenValidation = void 0;
 const jwt = require('jsonwebtoken');
 const tokenValidation = (req, res, next) => {
-    const token = req.header('auth-token');
+    const { token } = req.body;
     if (!token)
         return res.status(401).json('No puedes ingresar');
     try {

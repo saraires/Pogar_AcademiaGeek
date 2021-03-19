@@ -3,10 +3,39 @@ import { useSpring, animated } from 'react-spring';
 import Img from '../../../images/modal.jpg';
 import { Background, ModalContent, ModalImg, ModalWrapper, CloseModalButton } from '../modalStyles/stylesModals';
 import { useForm } from "react-hook-form";
+import { getFromLocal } from '../../../functions/localstorage';
+import swal from 'sweetalert2';
+import axios from '../../../axios/axios';
 
 const ModalPerfil = ({ showModal, setShowModal }) => {
   const { register, handleSubmit } = useForm();
-  const onSubmit=()=>{
+  const id = getFromLocal('id');
+  const token = getFromLocal('authToken');
+  const onSubmit = data => {
+    if (data.saldo.length < 5) {
+      swal.fire({
+        title: "Error al actualizar el saldo",
+        text: "¡Si quiere cambiar el saldo, el valor a ingresar debe ser mínimo de 10.000$!",
+        footer: "Intente de nuevo",
+        icon: "error",
+        confirmButtonText: "¡Entendido!",
+        confirmButtonColor: "#f4f800",
+      });
+    } else {
+      axios.post('/editarsaldo', {"id":id, saldo:data.saldo, "token":token}).then((res)=>{
+        if(res.status===200){
+          window.location.reload();
+        }
+      }).catch(()=>{
+        swal.fire({
+          title: "Error al actualizar el saldo",
+          footer: "Intente de nuevo",
+          icon: "error",
+          confirmButtonText: "¡Entendido!",
+          confirmButtonColor: "#f4f800",
+        });
+      })
+    }
 
   }
   const modalRef = useRef();

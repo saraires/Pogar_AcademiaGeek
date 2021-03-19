@@ -14,12 +14,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.condicionDeseo = exports.eliminarDeseo = exports.editarDeseo = exports.agregarDeseo = exports.verDeseo = void 0;
 const deseos_1 = __importDefault(require("../model/deseos"));
+// Consultar deseos
 const verDeseo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { _id } = req.body;
     const deseos = yield deseos_1.default.find({ autor: _id }); // ¿Los organizo?
     res.send(deseos);
 });
 exports.verDeseo = verDeseo;
+// Agregar deseos
 const agregarDeseo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { titulo, descripcion, precio, autor } = req.body;
     const agregarDeseo = new deseos_1.default({
@@ -37,6 +39,7 @@ const agregarDeseo = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 exports.agregarDeseo = agregarDeseo;
+// Editar deseos
 const editarDeseo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { _id } = req.body;
     try {
@@ -48,12 +51,14 @@ const editarDeseo = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.editarDeseo = editarDeseo;
+// Eliminar deseos
 const eliminarDeseo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { _id } = req.body;
     const deseoEliminado = yield deseos_1.default.findByIdAndDelete({ _id: _id });
     res.json({ message: 'Deseo Eliminado' });
 });
 exports.eliminarDeseo = eliminarDeseo;
+// Deseos comprables
 const condicionDeseo = (req, res) => {
 };
 exports.condicionDeseo = condicionDeseo;

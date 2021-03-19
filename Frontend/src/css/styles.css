@@ -800,7 +800,7 @@ body{
   
   .contenedor{
     width: 100%;
-    min-height: 460px;
+    height: 527px;
     margin: auto;
     -webkit-box-shadow: 0px 8px 60px -10px rgba(13, 28, 39, 0.6);
             box-shadow: 0px 8px 60px -10px rgba(13, 28, 39, 0.6);

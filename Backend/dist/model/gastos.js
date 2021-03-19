@@ -21,7 +21,8 @@ const gastoSchema = new mongoose_1.Schema({
     },
     pagado: {
         type: Boolean,
-        required: false,
+        required: true,
+        default: false,
     },
     fijo: {
         type: Boolean,

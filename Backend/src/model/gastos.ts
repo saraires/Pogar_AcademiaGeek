@@ -26,16 +26,15 @@ const gastoSchema = new Schema({
     },
     fecha_pago: {
         type: String,
-        required: false,
-        min: 8,
+        required: false
     },
     pagado: {
         type: Boolean,
-        required: false,
+        default: false,
     },
     fijo: {
         type: Boolean,
-        required: true,
+        default: false,
     },
     contribucion: [
         {

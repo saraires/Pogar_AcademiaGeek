@@ -19,10 +19,10 @@ router.get('/vergasto', authFunction_1.tokenValidation, expenses_controller_1.ve
 router.post('/agregargasto', authFunction_1.tokenValidation, expenses_controller_1.agregarGastos);
 router.put('/editargasto', authFunction_1.tokenValidation, expenses_controller_1.editarGastos);
 // ---- Pagos fijos y no fijos ---- //
-router.get('/pagosfijos', authFunction_1.tokenValidation, expenses_controller_1.pagosFijo);
-router.get('/pagosnofijos', authFunction_1.tokenValidation, expenses_controller_1.pagosNoFijo);
-router.get('/nopagosfijos', authFunction_1.tokenValidation, expenses_controller_1.noPagosFijo);
-router.get('/nopagosnofijos', authFunction_1.tokenValidation, expenses_controller_1.noPagosNoFijo);
+// router.get('/pagosfijos', tokenValidation, pagosFijo)
+// router.get('/pagosnofijos', tokenValidation, pagosNoFijo);
+// router.get('/nopagosfijos', tokenValidation, noPagosFijo);
+// router.get('/nopagosnofijos', tokenValidation, noPagosNoFijo);
 // Rutas de deseos
 router.get('/verdeseos', authFunction_1.tokenValidation, whishes_controller_1.verDeseo);
 router.post('/agregardeseo', authFunction_1.tokenValidation, whishes_controller_1.agregarDeseo);

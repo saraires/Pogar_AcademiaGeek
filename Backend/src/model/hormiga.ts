@@ -1,12 +1,12 @@
 import { Schema, model, Document } from 'mongoose';
 
-// export interface IAnt extends Document {
-//     titulo: string,
-//     descripcion: string,
-//     costo: number,
-//     fecha: string,
-//     autor: string,
-// }
+export interface IAnt extends Document {
+    titulo: string,
+    descripcion: string,
+    costo: number,
+    fecha: string,
+    autor: string,
+}
 
 const hormigaSchema = new Schema({
     titulo: {
@@ -17,7 +17,7 @@ const hormigaSchema = new Schema({
         type: String,
         required: true,
     },
-    costo: {
+    precio: {
         type: Number,
         required: true,
     },

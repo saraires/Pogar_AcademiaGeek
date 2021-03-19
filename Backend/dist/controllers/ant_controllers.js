@@ -12,12 +12,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.editarAnt = exports.agregarAnt = exports.verAnt = void 0;
+exports.comprasAnt = exports.editarAnt = exports.agregarAnt = exports.verAnt = void 0;
 const hormiga_1 = __importDefault(require("../model/hormiga"));
 // Consultar gasto hormiga (Ant)
 const verAnt = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { _id } = req.body;
     const Ant = yield hormiga_1.default.find({ autor: _id });
+    console.log(Ant);
     res.send(Ant);
 });
 exports.verAnt = verAnt;
@@ -43,24 +44,21 @@ exports.agregarAnt = agregarAnt;
 const editarAnt = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { _id } = req.body;
     try {
-        const actualizarAnt = yield hormiga_1.default.findByIdAndUpdate(_id, { $set: req.body });
-        res.send(actualizarAnt);
+        const editarAnt = yield hormiga_1.default.findByIdAndUpdate(_id, { $set: req.body });
+        console.log(editarAnt);
+        res.send(editarAnt);
     }
     catch (err) {
         console.log(err);
     }
-});
+}); // Error
 exports.editarAnt = editarAnt;
 // Total de dinero empleado en gastos hormiga
-// export const comprasAnt = async(req: Request, res: Response) => {
-//     const { _id } = req.body;
-//     const Ant = await Hormiga.find(
-//         { $and: [{ autor: _id }, ] }
-//         // {$and{
-//         //     { $match: { autor : _id } },
-//         //     { $group: { 
-//         //         compras-ant: { $sum: "$votes" } 
-//         //     }}}};
-//     res.send(Ant);
-// }
+const comprasAnt = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { _id } = req.body;
+    const Ant = yield hormiga_1.default.aggregate([{ $group: { _id: _id, "Saldo": { $sum: "$precio" } } }]);
+    const saldo = (Ant[0]["Saldo"]);
+    res.send(saldo);
+});
+exports.comprasAnt = comprasAnt;
 //# sourceMappingURL=ant_controllers.js.map

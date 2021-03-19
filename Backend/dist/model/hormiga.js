@@ -1,13 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
-// export interface IAnt extends Document {
-//     titulo: string,
-//     descripcion: string,
-//     costo: number,
-//     fecha: string,
-//     autor: string,
-// }
 const hormigaSchema = new mongoose_1.Schema({
     titulo: {
         type: String,
@@ -17,7 +10,7 @@ const hormigaSchema = new mongoose_1.Schema({
         type: String,
         required: true,
     },
-    costo: {
+    precio: {
         type: Number,
         required: true,
     },
@@ -28,6 +21,10 @@ const hormigaSchema = new mongoose_1.Schema({
     autor: {
         type: String,
         required: true
+    },
+    compras: {
+        type: Number,
+        required: false
     }
 });
 exports.default = mongoose_1.model('Hormiga', hormigaSchema);

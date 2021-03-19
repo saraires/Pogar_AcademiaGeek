@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.noPagosNoFijo = exports.noPagosFijo = exports.pagosNoFijo = exports.pagosFijo = exports.editarGastos = exports.agregarGastos = exports.verGastos = void 0;
+exports.editarGastos = exports.agregarGastos = exports.verGastos = void 0;
 const gastos_1 = __importDefault(require("../model/gastos"));
 // Consultar gastos
 const verGastos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -56,33 +56,29 @@ const editarGastos = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 });
 exports.editarGastos = editarGastos;
 // -----------------------  GASTOS PAGOS  ----------------------- //
-// Fijos
-const pagosFijo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { _id } = req.body;
-    const pagosfijo = yield gastos_1.default.find({ $and: [{ pagado: true }, { fijo: true }, { autor: _id }] }); // ¿Los organizo?
-    res.send(pagosfijo);
-});
-exports.pagosFijo = pagosFijo;
-// No Fijos
-const pagosNoFijo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { _id } = req.body;
-    const pagosnofijo = yield gastos_1.default.find({ $and: [{ pagado: true }, { fijo: false }, { autor: _id }] }); // ¿Los organizo?
-    res.send(pagosnofijo);
-});
-exports.pagosNoFijo = pagosNoFijo;
+// // Fijos
+// export const pagosFijo = async (req: Request, res: Response) => {
+//     const { _id } = req.body;
+//     const pagosfijo = await Gastos.find({ $and: [{ pagado: true }, { fijo: true}, { autor: _id }] }) // ¿Los organizo?
+//     res.send(pagosfijo);
+// }
+// // No Fijos
+// export const pagosNoFijo = async (req: Request, res: Response) => {
+//     const { _id } = req.body;
+//     const pagosnofijo = await Gastos.find({ $and: [{ pagado: true }, { fijo: false}, { autor: _id }] }) // ¿Los organizo?
+//     res.send(pagosnofijo);
+// }
 // ---------------------  GASTOS NO PAGOS  --------------------- //
 // Fijos
-const noPagosFijo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { _id } = req.body;
-    const pagosfijo = yield gastos_1.default.find({ $and: [{ pagado: false }, { fijo: true }, { autor: _id }] }); // ¿Los organizo?
-    res.send(pagosfijo);
-});
-exports.noPagosFijo = noPagosFijo;
-// No Fijos
-const noPagosNoFijo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { _id } = req.body;
-    const pagosnofijo = yield gastos_1.default.find({ $and: [{ pagado: false }, { fijo: false }, { autor: _id }] }); // ¿Los organizo?
-    res.send(pagosnofijo);
-});
-exports.noPagosNoFijo = noPagosNoFijo;
+// export const noPagosFijo = async (req: Request, res: Response) => {
+//     const { _id } = req.body;
+//     const pagosfijo = await Gastos.find({ $and: [{ pagado: false }, { fijo: true}, { autor: _id }] }) // ¿Los organizo?
+//     res.send(pagosfijo);
+// }
+// // No Fijos
+// export const noPagosNoFijo = async (req: Request, res: Response) => {
+//     const { _id } = req.body;
+//     const pagosnofijo = await Gastos.find({ $and: [{ pagado: false }, { fijo: false}, { autor: _id }] }) // ¿Los organizo?
+//     res.send(pagosnofijo);
+// }
 //# sourceMappingURL=expenses_controller.js.map

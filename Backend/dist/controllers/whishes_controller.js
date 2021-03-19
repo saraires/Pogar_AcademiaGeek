@@ -27,11 +27,10 @@ const verDeseo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // Modelo de gastos -- Sacamos el total de los gastos
     const gastos = yield gastos_1.default.aggregate([{ $group: { _id: id, "Gastos": { $sum: "$precio" } } }]);
     const gastototal = (gastos[0]["Gastos"]);
-    const sobrante = (saldo - gastototal) / 2;
+    const sobrante = (saldo - gastototal);
     preciodeseo.forEach((jacobo) => __awaiter(void 0, void 0, void 0, function* () {
-        console.log(jacobo["_id"]);
         if (jacobo["precio"] < sobrante) {
-            const actualizarDeseo = yield deseos_1.default.findByIdAndUpdate({ autor: id }, { $set: { "comprable": true } });
+            const actualizarDeseo = yield deseos_1.default.findByIdAndUpdate(jacobo["_id"], { $set: { "comprable": true } });
         }
         ;
     }));
@@ -75,5 +74,4 @@ const eliminarDeseo = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     res.json({ message: 'Deseo Eliminado' });
 });
 exports.eliminarDeseo = eliminarDeseo;
-// Deseos que ya se pueden comprar
 //# sourceMappingURL=whishes_controller.js.map

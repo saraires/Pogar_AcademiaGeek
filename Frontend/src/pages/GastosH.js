@@ -1,22 +1,47 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import NavBar from '../components/NavGastosH';
-
+import axios from '../axios/axios';
+import { getFromLocal } from '../functions/localstorage';
 
 const GastosH = () => {
+    const [gastos, setGastos] = useState([]);
+    const token = getFromLocal('authToken');
+    const autor = getFromLocal('id');
+
+    const getGastos = () => {
+        axios.post('/verant', { "id": autor, "token": token })
+            .then((res) => {
+                setGastos(res.data)
+            });
+    }
+
+    const transformer = (data) => {
+        const fecha = data.split("T");
+        return fecha[0];
+      }
+    useEffect(() => {
+        getGastos();
+        // eslint-disable-next-line
+    }, []);
+
     return (
-        <div className="conta">  
-            <NavBar/> 
+        <div className="conta">
+            <NavBar />
             <div className="containerG">
-                <div className="card">
-                    <div className="box">
-                        <div className="contentG">
-                            <h2>01</h2>
-                            <h3>Card One</h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae hic fugiat ipsa aut! Aliquid odit exercitationem, doloremque possimus dicta consequatur.</p>
-                            <a href="/" className="btn-editar">Read More</a>
+                {gastos.map((iterator) => (
+                    <div key={iterator._id} className="card">
+                        <div className="box">
+                            <div className="contentG">
+                                <h2><i className="fas fa-bug"></i></h2>
+                                <h3>{iterator.titulo}</h3>
+                                <p>{iterator.descripcion}</p>
+                                <p>{iterator.precio}</p>
+                                <p>{transformer(iterator.fecha)}</p>
+                                <a href="/" className="btn-editar">Read More</a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                ))}
             </div>
         </div>
     );

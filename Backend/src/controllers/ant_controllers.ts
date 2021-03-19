@@ -5,8 +5,7 @@ import Usuario from '../model/usuario';
 // Consultar gasto hormiga (Ant)
 export const verAnt = async (req: Request, res: Response) => {
     const { id } = req.body;
-    const Ant = await Hormiga.find({ autor: id })
-    console.log(Ant);
+    const Ant = await Hormiga.find({ autor: id });
     res.send(Ant);
 }
 

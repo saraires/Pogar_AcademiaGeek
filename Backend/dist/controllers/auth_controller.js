@@ -83,7 +83,7 @@ const editarSaldo = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     const { id, saldo } = req.body;
     try {
         console.log(saldo);
-        const actualizarSaldo = yield usuario_1.default.findByIdAndUpdate(id, { $set: { 'saldo': saldo } });
+        const actualizarSaldo = yield usuario_1.default.findByIdAndUpdate(id, { $inc: { 'saldo': saldo } });
         console.log(actualizarSaldo);
         res.send(actualizarSaldo);
     }

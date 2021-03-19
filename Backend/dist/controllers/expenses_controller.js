@@ -126,4 +126,10 @@ const pagar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.pagar = pagar;
+// Informacion de gastos y contribucion
+// export const infoAporte = async (req: Request, res: Response) => {
+//     const { id } = req.body;
+//     const gastos = await Gastos.find({ autor: id })
+//     res.send(gastos);
+// }
 //# sourceMappingURL=expenses_controller.js.map

@@ -15,7 +15,7 @@ router.post('/perfil', authFunction_1.tokenValidation, auth_controller_1.perfil)
 router.post('/editarsaldo', authFunction_1.tokenValidation, auth_controller_1.editarSaldo);
 // router.post('/upload', images);
 // Rutas de gastos
-router.get('/vergasto', authFunction_1.tokenValidation, expenses_controller_1.verGastos);
+router.post('/vergasto', authFunction_1.tokenValidation, expenses_controller_1.verGastos);
 router.post('/agregargasto', authFunction_1.tokenValidation, expenses_controller_1.agregarGastos);
 router.put('/editargasto', authFunction_1.tokenValidation, expenses_controller_1.editarGastos);
 router.get('/gastospagos', authFunction_1.tokenValidation, expenses_controller_1.gastosPagos);
@@ -33,10 +33,9 @@ router.put('/editardeseo', authFunction_1.tokenValidation, whishes_controller_1.
 router.delete('/eliminardeseo', authFunction_1.tokenValidation, whishes_controller_1.eliminarDeseo);
 // router.post('/deseos', tokenValidation, condicionDeseo);
 // Rutas de gastos hormiga
-router.get('/verant', authFunction_1.tokenValidation, ant_controllers_1.verAnt);
+router.post('/verant', authFunction_1.tokenValidation, ant_controllers_1.verAnt);
 router.post('/agregarant', authFunction_1.tokenValidation, ant_controllers_1.agregarAnt);
 router.put('/editarant', authFunction_1.tokenValidation, ant_controllers_1.editarAnt);
-router.get('/comprasant', authFunction_1.tokenValidation, ant_controllers_1.comprasAnt);
-// router.post('/pagarh', tokenValidation, pagarH);
+router.post('/comprasant', authFunction_1.tokenValidation, ant_controllers_1.comprasAnt);
 exports.default = router;
 //# sourceMappingURL=routes.js.map

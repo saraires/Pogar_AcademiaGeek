@@ -16,7 +16,7 @@ router.post('/editarsaldo', tokenValidation, editarSaldo);
 // router.post('/upload', images);
 
 // Rutas de gastos
-router.get('/vergasto', tokenValidation, verGastos);
+router.post('/vergasto', tokenValidation, verGastos);
 router.post('/agregargasto', tokenValidation, agregarGastos);
 router.put('/editargasto', tokenValidation, editarGastos);
 router.get('/gastospagos', tokenValidation, gastosPagos);
@@ -37,11 +37,10 @@ router.delete('/eliminardeseo', tokenValidation, eliminarDeseo);
 // router.post('/deseos', tokenValidation, condicionDeseo);
 
 // Rutas de gastos hormiga
-router.get('/verant', tokenValidation, verAnt);
+router.post('/verant', tokenValidation, verAnt);
 router.post('/agregarant', tokenValidation, agregarAnt);
 router.put('/editarant', tokenValidation, editarAnt);
-router.get('/comprasant', tokenValidation, comprasAnt);
-// router.post('/pagarh', tokenValidation, pagarH);
+router.post('/comprasant', tokenValidation, comprasAnt);
 
 
 export default router;

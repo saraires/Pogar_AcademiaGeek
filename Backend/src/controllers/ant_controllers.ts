@@ -68,7 +68,14 @@ export const editarAnt = async (req: Request, res: Response) => {
 // Total de dinero empleado en gastos hormiga
 export const comprasAnt = async (req: Request, res: Response) => {
     const { id } = req.body;
-    const Ant = await Hormiga.aggregate([{ $match : { author : id } }, { $group: { _id: id, "Saldo": { $sum: "$precio" } } }])
-    const saldo = (Ant[0]["Saldo"]);
-    res.send({ saldo });
+    const comprobacion = await Hormiga.find({ autor: id });
+    console.log(comprobacion);
+    if (comprobacion[0] != undefined) {
+        const Ant = await Hormiga.aggregate([{ $match: { autor: id } }, { $group: { _id: id, "Saldo": { $sum: "$precio" } } }])
+        const saldo = (Ant[0]["Saldo"]);
+        res.send({ saldo });
+    }
+
+    res.send({"saldo": 0});
+    
 }

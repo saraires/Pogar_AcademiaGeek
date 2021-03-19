@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import Gastos from '../model/gastos';
+import Usuario from '../model/usuario';
 
 // Consultar gastos
 export const verGastos = async (req: Request, res: Response) => {
@@ -89,13 +90,32 @@ export const noPagosNoFijo = async (req: Request, res: Response) => {
 
 // Pagar gastos
 export const pagar = async (req: Request, res: Response) => {
-    const { id } = req.body;
+    const { id, autor } = req.body; // id es de la tarjeta y autor es el id del usuario
     try {
+
+        // Modelo de Gastos
         const card = await Gastos.findById(id);
-        if (!card) { return ("Fallo"); }
-        const aporte = (card.contribucion[card.contribucion.length - 1]["pago"]);
-        res.send(aporte)
+        if (!card) { return ("Fallo"); } // Control de error
+        const aporte = (card.contribucion[card.contribucion.length - 1]["pago"]); // Lo que el usuario esta pagando
+        const cuesta = (card.precio) // Cuanto es lo que debe al gasto, precio total del gasto, deuda en si.
+
+        // Modelo de Usuario
+        const usuario = await Usuario.find({ _id: autor }, { "saldo": 1 }); // se trae el saldo del usuario con un id
+        const saldo = (usuario[usuario.length - 1]["saldo"]); // Del array devuelve solo el saldo
+
+        const saldoFinal = saldo - aporte; // Restar... Esto me da el saldo
+        const cuestaFinal = cuesta - aporte; // Restar... Esto me da en cuanto queda la deuda
+
+        // Actualizar Saldo del usuario
+        const actualizarSaldo = await Usuario.findByIdAndUpdate(autor, { $set: {saldo : saldoFinal} });
+        console.log(actualizarSaldo);
+        
+        // Actualizar cantidad de la deuda
+        const actualizarGasto = await Gastos.findByIdAndUpdate(id, { $set: {precio : cuestaFinal} });
+        console.log(actualizarGasto);
+
+        res.status(200).send("Ok");
     } catch (err) {
-        console.log(err);
-    }
+    console.log(err);
+}
 };

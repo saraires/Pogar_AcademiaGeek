@@ -75,8 +75,9 @@ export const perfil = async (req: Request, res: Response) => {
 export const editarSaldo = async (req: Request, res: Response) => {
     const { id, saldo } = req.body;
     try {
+        console.log(saldo)
         const actualizarSaldo = await Usuario.findByIdAndUpdate(id, { $set: {'saldo' : saldo} });
-        console.log(actualizarSaldo)
+        console.log(actualizarSaldo);
         res.send(actualizarSaldo);
     } catch (err) {
         console.log(err);

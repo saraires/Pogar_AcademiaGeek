@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.pagar = exports.gastosNoPagos = exports.gastosPagos = exports.editarGastos = exports.agregarGastos = exports.verGastos = void 0;
 const gastos_1 = __importDefault(require("../model/gastos"));
+const usuario_1 = __importDefault(require("../model/usuario"));
 // Consultar gastos
 const verGastos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.body;
@@ -98,12 +99,27 @@ export const noPagosNoFijo = async (req: Request, res: Response) => {
 }*/
 // Pagar gastos
 const pagar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.body;
+    const { id, autor } = req.body; // id es de la tarjeta y autor es el id del usuario
     try {
-        const card = (yield gastos_1.default.findById(id)) || 0;
-        const aporte = (card.contribucion["pago"]);
-        console.log(card);
-        res.send(aporte);
+        // Modelo de Gastos
+        const card = yield gastos_1.default.findById(id);
+        if (!card) {
+            return ("Fallo");
+        } // Control de error
+        const aporte = (card.contribucion[card.contribucion.length - 1]["pago"]); // Lo que el usuario esta pagando
+        const cuesta = (card.precio); // Cuanto es lo que debe al gasto, precio total del gasto, deuda en si.
+        // Modelo de Usuario
+        const usuario = yield usuario_1.default.find({ _id: autor }, { "saldo": 1 }); // se trae el saldo del usuario con un id
+        const saldo = (usuario[usuario.length - 1]["saldo"]); // Del array devuelve solo el saldo
+        const saldoFinal = saldo - aporte; // Restar... Esto me da el saldo
+        const cuestaFinal = cuesta - aporte; // Restar... Esto me da en cuanto queda la deuda
+        console.log(saldoFinal);
+        console.log(cuestaFinal);
+        // Actualizar Saldo del usuario
+        const actualizarSaldo = yield usuario_1.default.findByIdAndUpdate({ _id: id }, { $set: { saldo: saldoFinal } });
+        console.log(actualizarSaldo);
+        // Actualizar cantidad de la deuda
+        res.send("ok");
     }
     catch (err) {
         console.log(err);

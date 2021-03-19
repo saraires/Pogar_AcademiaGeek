@@ -12,10 +12,10 @@ const ant_controllers_1 = require("../controllers/ant_controllers");
 router.post('/', auth_controller_1.signIn);
 router.post('/signup', auth_controller_1.singUp);
 router.post('/perfil', authFunction_1.tokenValidation, auth_controller_1.perfil); // Ruta privada
-router.put('/editarsaldo', authFunction_1.tokenValidation, auth_controller_1.editarSaldo);
+router.post('/editarsaldo', authFunction_1.tokenValidation, auth_controller_1.editarSaldo);
 // router.post('/upload', images);
 // Rutas de gastos
-router.get('/vergasto', authFunction_1.tokenValidation, expenses_controller_1.verGastos);
+router.post('/vergasto', authFunction_1.tokenValidation, expenses_controller_1.verGastos);
 router.post('/agregargasto', authFunction_1.tokenValidation, expenses_controller_1.agregarGastos);
 router.put('/editargasto', authFunction_1.tokenValidation, expenses_controller_1.editarGastos);
 router.get('/gastospagos', authFunction_1.tokenValidation, expenses_controller_1.gastosPagos);

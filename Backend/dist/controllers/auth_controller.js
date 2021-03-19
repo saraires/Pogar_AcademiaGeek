@@ -82,9 +82,9 @@ const perfil = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.perfil = perfil;
 // Editar o agregar saldo
 const editarSaldo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { _id, saldo } = req.body;
+    const { id, saldo } = req.body;
     try {
-        const actualizarSaldo = yield usuario_1.default.findByIdAndUpdate(_id, { $set: { 'saldo': saldo } });
+        const actualizarSaldo = yield usuario_1.default.findByIdAndUpdate(id, { $set: { 'saldo': saldo } });
         console.log(actualizarSaldo);
         res.send(actualizarSaldo);
     }

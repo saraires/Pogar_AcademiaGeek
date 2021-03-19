@@ -21,7 +21,6 @@ const Perfil = () => {
         getPerfil()
         // eslint-disable-next-line
     }, [])
-    console.log(perfil)
     return (
         <div className="wrapper">
             <NavBar />
@@ -30,7 +29,7 @@ const Perfil = () => {
                 <div className="perfil">
                     <div className="nombre">{perfil['nombre'] ? perfil['nombre'] : null}</div>
                     <div className="txt">
-                        Apasionado por la buena gestión de su dinero y excelente usuario de <strong>Pogar</strong>
+                        Apasionad@ por la buena gestión de su dinero y excelente usuario de <strong>Pogar</strong>
                     </div>
                     <div className="lacation">
                         <span className="lacation_icon">

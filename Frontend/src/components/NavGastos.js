@@ -9,7 +9,8 @@ const NavBarGastos = () => {
         setShowModal(prev=>!prev);
     }
     return (
-        <div className="navbar">
+        <div>
+            <div className="navbar">
             <div className="menu">
                 <Link to="/menu" style={{ textDecoration: "none", color: "white" }}><h3 className="logo">PoGar</h3></Link>
                 <Container>
@@ -17,6 +18,7 @@ const NavBarGastos = () => {
                 </Container>
                 <ModalGastos showModal={showModal} setShowModal={setShowModal}  />
             </div>
+        </div>
             <h3 className="tittleGastos">Gastos</h3>
         </div>
     );

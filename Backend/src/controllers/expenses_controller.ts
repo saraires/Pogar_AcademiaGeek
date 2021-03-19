@@ -3,8 +3,8 @@ import Gastos from '../model/gastos';
 
 // Consultar gastos
 export const verGastos = async (req: Request, res: Response) => {
-    const { _id } = req.body;
-    const gastos = await Gastos.find({ autor: _id })
+    const { id } = req.body;
+    const gastos = await Gastos.find({ autor: id })
     res.send(gastos);
 }
 

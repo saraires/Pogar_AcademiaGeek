@@ -3,11 +3,41 @@ import { useSpring, animated } from 'react-spring';
 import Img from '../../../images/modal.jpg';
 import { Background, ModalContent, ModalImg, ModalWrapper, CloseModalButton } from '../modalStyles/stylesModals';
 import { useForm } from "react-hook-form";
+import axios from '../../../axios/axios';
+import {getFromLocal} from '../../../functions/localstorage';
+import swal from 'sweetalert2';
 
 const ModalHGastos = ({ showModal, setShowModal }) => {
   const { register, handleSubmit } = useForm();
-  const onSubmit=()=>{
-
+  const id=getFromLocal('id');
+  const token=getFromLocal('authToken')
+  const onSubmit=data=>{
+    console.log(data)
+    axios.post('/agregarant', {
+      "titulo":data.titulo,
+      "descripcion":data.descripcion,
+      "precio": data.precio,
+      "fecha":data.fecha,
+      "autor":id,
+      "token":token
+    }).then((res)=>{
+      if(res.status===200) window.location.reload();
+      else swal.fire({
+        title: "Error al ingresar el gasto hormiga",
+        footer: "Intente de nuevo",
+        icon: "error",
+        confirmButtonText: "¡Entendido!",
+        confirmButtonColor: "#f4f800",
+      });
+    }).catch(()=>{
+      swal.fire({
+        title: "Error al ingresar el gasto hormiga",
+        footer: "Intente de nuevo",
+        icon: "error",
+        confirmButtonText: "¡Entendido!",
+        confirmButtonColor: "#f4f800",
+      });
+    });
   }
   const modalRef = useRef();
 

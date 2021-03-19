@@ -16,8 +16,8 @@ exports.gastosNoPagos = exports.gastosPagos = exports.editarGastos = exports.agr
 const gastos_1 = __importDefault(require("../model/gastos"));
 // Consultar gastos
 const verGastos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { _id } = req.body;
-    const gastos = yield gastos_1.default.find({ autor: _id });
+    const { id } = req.body;
+    const gastos = yield gastos_1.default.find({ autor: id });
     res.send(gastos);
 });
 exports.verGastos = verGastos;

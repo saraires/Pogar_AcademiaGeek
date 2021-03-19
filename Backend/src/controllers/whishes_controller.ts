@@ -3,8 +3,8 @@ import Deseos from '../model/deseos';
 
 // Consultar deseos
 export const verDeseo = async(req: Request, res: Response) => {
-    const { _id } = req.body;
-    const deseos = await Deseos.find({ autor: _id }) // ¿Los organizo?
+    const { id } = req.body;
+    const deseos = await Deseos.find({ autor: id }) // ¿Los organizo?
     res.send(deseos);
 }
 
@@ -27,9 +27,9 @@ export const agregarDeseo = async(req: Request, res: Response) => {
 
 // Editar deseos
 export const editarDeseo = async (req: Request, res: Response) => {
-    const { _id } = req.body;
+    const { id } = req.body;
     try {
-        const actualizarDeseo = await Deseos.findByIdAndUpdate(_id, { $set: req.body });
+        const actualizarDeseo = await Deseos.findByIdAndUpdate(id, { $set: req.body });
         res.send(actualizarDeseo);
     } catch (err) {
         console.log(err);
@@ -38,8 +38,8 @@ export const editarDeseo = async (req: Request, res: Response) => {
 
 // Eliminar deseos
 export const eliminarDeseo = async (req: Request, res: Response) => {
-    const { _id } = req.body
-    const deseoEliminado = await Deseos.findByIdAndDelete({ _id: _id });
+    const { id } = req.body
+    const deseoEliminado = await Deseos.findByIdAndDelete({ _id: id });
     res.json({ message: 'Deseo Eliminado' })
 }
 

@@ -7,7 +7,7 @@ export interface IExpenses extends Document {
     fecha_pago: string,
     pagado: boolean,
     fijo: boolean,
-    contribucion: number,
+    contribucion: any,
     autor: string,
 }
 

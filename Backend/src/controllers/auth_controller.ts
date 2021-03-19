@@ -4,7 +4,6 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { config as dotenv } from 'dotenv';
 import { validacionRegistro, validacionLogin } from './validationJoi';
-import Gastos from '../model/gastos';
 
 dotenv();
 
@@ -68,7 +67,7 @@ export const singUp = async (req: Request, res: Response) => {
 // Consultar perfil
 export const perfil = async (req: Request, res: Response) => {
     const { id } = req.body;
-    const perfil = await Usuario.find({ _id: id }) // ¿Los organizo?
+    const perfil = await Usuario.find({ _id: id })
     res.send(perfil);
 };
 
@@ -77,18 +76,6 @@ export const editarSaldo = async (req: Request, res: Response) => {
     const { id, saldo } = req.body;
     try {
         const actualizarSaldo = await Usuario.findByIdAndUpdate(id, { $set: {'saldo' : saldo} });
-        console.log(actualizarSaldo)
-        res.send(actualizarSaldo);
-    } catch (err) {
-        console.log(err);
-    }
-};
-
-// Pagar gastos / gastos hormiga
-export const pagar = async (req: Request, res: Response) => {
-    const { id, autor, precio, saldo, contribucion } = req.body;
-    try {
-        const aporte = await Gastos.find({ $and: [{ pagado: false }, { autor: _id }] });
         console.log(actualizarSaldo)
         res.send(actualizarSaldo);
     } catch (err) {

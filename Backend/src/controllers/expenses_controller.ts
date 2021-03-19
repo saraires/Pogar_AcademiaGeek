@@ -3,8 +3,8 @@ import Gastos from '../model/gastos';
 
 // Consultar gastos
 export const verGastos = async (req: Request, res: Response) => {
-    const { _id } = req.body;
-    const gastos = await Gastos.find({ autor: _id })
+    const { id } = req.body;
+    const gastos = await Gastos.find({ autor: id })
     res.send(gastos);
 }
 
@@ -31,21 +31,21 @@ export const agregarGastos = async (req: Request, res: Response) => {
 
 // Editar gastos
 export const editarGastos = async (req: Request, res: Response) => {
-    const { _id } = req.body;
+    const { id } = req.body;
     try {
-        const actualizarGasto = await Gastos.findByIdAndUpdate(_id, { $set: req.body });
+        const actualizarGasto = await Gastos.findByIdAndUpdate(id, { $set: req.body });
         res.send(actualizarGasto);
     } catch (err) {
         console.log(err);
     }
-    
+
 }
 
 // -----------------------  GASTOS PAGOS  ----------------------- //
 
 export const gastosPagos = async (req: Request, res: Response) => {
-    const { _id } = req.body;
-    const pagos = await Gastos.find({ $and: [{ pagado: true }, { autor: _id }] })
+    const { id } = req.body;
+    const pagos = await Gastos.find({ $and: [{ pagado: true }, { autor: id }] })
     res.send(pagos);
 }
 
@@ -67,12 +67,13 @@ export const pagosNoFijo = async (req: Request, res: Response) => {
 // ---------------------  GASTOS NO PAGOS  --------------------- //
 
 export const gastosNoPagos = async (req: Request, res: Response) => {
-    const { _id } = req.body;
-    const nopagos = await Gastos.find({ $and: [{ pagado: false }, { autor: _id }] })
+    const { id } = req.body;
+    const nopagos = await Gastos.find({ $and: [{ pagado: false }, { autor: id }] })
     res.send(nopagos);
 }
 
 /*// Fijos
+
 export const noPagosFijo = async (req: Request, res: Response) => {
     const { _id } = req.body;
     const pagosfijo = await Gastos.find({ $and: [{ pagado: false }, { fijo: true}, { autor: _id }] })
@@ -85,3 +86,16 @@ export const noPagosNoFijo = async (req: Request, res: Response) => {
     const pagosnofijo = await Gastos.find({ $and: [{ pagado: false }, { fijo: false}, { autor: _id }] })
     res.send(pagosnofijo);
 }*/
+
+// Pagar gastos
+export const pagar = async (req: Request, res: Response) => {
+    const { id } = req.body;
+    try {
+        const card = await Gastos.findById(id);
+        if (!card) { return ("Fallo"); }
+        const aporte = (card.contribucion[card.contribucion.length - 1]["pago"]);
+        res.send(aporte)
+    } catch (err) {
+        console.log(err);
+    }
+};

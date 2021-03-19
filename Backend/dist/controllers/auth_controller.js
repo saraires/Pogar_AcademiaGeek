@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.pagar = exports.editarSaldo = exports.perfil = exports.singUp = exports.signIn = void 0;
+exports.editarSaldo = exports.perfil = exports.singUp = exports.signIn = void 0;
 const usuario_1 = __importDefault(require("../model/usuario"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
@@ -76,15 +76,15 @@ exports.singUp = singUp;
 // Consultar perfil
 const perfil = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.body;
-    const perfil = yield usuario_1.default.find({ _id: id }); // ¿Los organizo?
+    const perfil = yield usuario_1.default.find({ _id: id });
     res.send(perfil);
 });
 exports.perfil = perfil;
 // Editar o agregar saldo
 const editarSaldo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { _id, saldo } = req.body;
+    const { id, saldo } = req.body;
     try {
-        const actualizarSaldo = yield usuario_1.default.findByIdAndUpdate(_id, { $set: { 'saldo': saldo } });
+        const actualizarSaldo = yield usuario_1.default.findByIdAndUpdate(id, { $set: { 'saldo': saldo } });
         console.log(actualizarSaldo);
         res.send(actualizarSaldo);
     }
@@ -93,17 +93,4 @@ const editarSaldo = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.editarSaldo = editarSaldo;
-// Pagar gastos / gastos hormiga
-const pagar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { _id, precio } = req.body;
-    // el id, el autor, el saldo, total de deuda, precio de la cosa a pagar
-    // try {
-    //     const actualizarSaldo = await Usuario.findByIdAndUpdate(_id, { $set: {'saldo' : saldo} });
-    //     console.log(actualizarSaldo)
-    //     res.send(actualizarSaldo);
-    // } catch (err) {
-    //     console.log(err);
-    // }
-});
-exports.pagar = pagar;
 //# sourceMappingURL=auth_controller.js.map

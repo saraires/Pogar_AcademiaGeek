@@ -16,8 +16,8 @@ exports.condicionDeseo = exports.eliminarDeseo = exports.editarDeseo = exports.a
 const deseos_1 = __importDefault(require("../model/deseos"));
 // Consultar deseos
 const verDeseo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { _id } = req.body;
-    const deseos = yield deseos_1.default.find({ autor: _id }); // ¿Los organizo?
+    const { id } = req.body;
+    const deseos = yield deseos_1.default.find({ autor: id }); // ¿Los organizo?
     res.send(deseos);
 });
 exports.verDeseo = verDeseo;
@@ -41,9 +41,9 @@ const agregarDeseo = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 exports.agregarDeseo = agregarDeseo;
 // Editar deseos
 const editarDeseo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { _id } = req.body;
+    const { id } = req.body;
     try {
-        const actualizarDeseo = yield deseos_1.default.findByIdAndUpdate(_id, { $set: req.body });
+        const actualizarDeseo = yield deseos_1.default.findByIdAndUpdate(id, { $set: req.body });
         res.send(actualizarDeseo);
     }
     catch (err) {
@@ -53,8 +53,8 @@ const editarDeseo = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.editarDeseo = editarDeseo;
 // Eliminar deseos
 const eliminarDeseo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { _id } = req.body;
-    const deseoEliminado = yield deseos_1.default.findByIdAndDelete({ _id: _id });
+    const { id } = req.body;
+    const deseoEliminado = yield deseos_1.default.findByIdAndDelete({ _id: id });
     res.json({ message: 'Deseo Eliminado' });
 });
 exports.eliminarDeseo = eliminarDeseo;

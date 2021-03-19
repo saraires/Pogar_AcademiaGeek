@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 import { Request, Response, NextFunction } from 'express';
 
 export const tokenValidation = (req: Request, res: Response, next: NextFunction) => {
-    const {token} = req.body;
+    const { token } = req.body;
     if (!token) return res.status(401).json('No puedes ingresar');
 
     try {

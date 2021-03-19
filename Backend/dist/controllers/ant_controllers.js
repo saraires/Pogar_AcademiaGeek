@@ -16,8 +16,8 @@ exports.comprasAnt = exports.editarAnt = exports.agregarAnt = exports.verAnt = v
 const hormiga_1 = __importDefault(require("../model/hormiga"));
 // Consultar gasto hormiga (Ant)
 const verAnt = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { _id } = req.body;
-    const Ant = yield hormiga_1.default.find({ autor: _id });
+    const { id } = req.body;
+    const Ant = yield hormiga_1.default.find({ autor: id });
     console.log(Ant);
     res.send(Ant);
 });
@@ -42,9 +42,9 @@ const agregarAnt = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 exports.agregarAnt = agregarAnt;
 // editar gasto hormiga (Ant)
 const editarAnt = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { _id } = req.body;
+    const { id } = req.body;
     try {
-        const editarAnt = yield hormiga_1.default.findByIdAndUpdate(_id, { $set: req.body });
+        const editarAnt = yield hormiga_1.default.findByIdAndUpdate(id, { $set: req.body });
         console.log(editarAnt);
         res.send(editarAnt);
     }
@@ -55,8 +55,8 @@ const editarAnt = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.editarAnt = editarAnt;
 // Total de dinero empleado en gastos hormiga
 const comprasAnt = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { _id } = req.body;
-    const Ant = yield hormiga_1.default.aggregate([{ $group: { _id: _id, "Saldo": { $sum: "$precio" } } }]);
+    const { id } = req.body;
+    const Ant = yield hormiga_1.default.aggregate([{ $group: { _id: id, "Saldo": { $sum: "$precio" } } }]);
     const saldo = (Ant[0]["Saldo"]);
     res.send({ saldo });
 });

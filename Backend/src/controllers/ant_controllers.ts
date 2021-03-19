@@ -3,8 +3,8 @@ import Hormiga from '../model/hormiga';
 
 // Consultar gasto hormiga (Ant)
 export const verAnt = async (req: Request, res: Response) => {
-    const { _id } = req.body;
-    const Ant = await Hormiga.find({ autor: _id })
+    const { id } = req.body;
+    const Ant = await Hormiga.find({ autor: id })
     console.log(Ant);
     res.send(Ant);
 }
@@ -28,9 +28,9 @@ export const agregarAnt = async (req: Request, res: Response) => {
 
 // editar gasto hormiga (Ant)
 export const editarAnt = async (req: Request, res: Response) => {
-    const { _id } = req.body;
+    const { id } = req.body;
     try {
-        const editarAnt = await Hormiga.findByIdAndUpdate(_id, { $set: req.body });
+        const editarAnt = await Hormiga.findByIdAndUpdate(id, { $set: req.body });
         console.log(editarAnt);
         res.send(editarAnt);
     } catch (err) {
@@ -40,8 +40,8 @@ export const editarAnt = async (req: Request, res: Response) => {
 
 // Total de dinero empleado en gastos hormiga
 export const comprasAnt = async (req: Request, res: Response) => {
-    const { _id } = req.body;
-    const Ant = await Hormiga.aggregate([{ $group: { _id: _id, "Saldo": { $sum: "$precio" } } }])
+    const { id } = req.body;
+    const Ant = await Hormiga.aggregate([{ $group: { _id: id, "Saldo": { $sum: "$precio" } } }])
     const saldo = (Ant[0]["Saldo"]);
-    res.send({saldo});
+    res.send({ saldo });
 }

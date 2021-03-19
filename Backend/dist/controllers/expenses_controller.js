@@ -12,12 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.gastosNoPagos = exports.gastosPagos = exports.editarGastos = exports.agregarGastos = exports.verGastos = void 0;
+exports.pagar = exports.gastosNoPagos = exports.gastosPagos = exports.editarGastos = exports.agregarGastos = exports.verGastos = void 0;
 const gastos_1 = __importDefault(require("../model/gastos"));
 // Consultar gastos
 const verGastos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { _id } = req.body;
-    const gastos = yield gastos_1.default.find({ autor: _id });
+    const { id } = req.body;
+    const gastos = yield gastos_1.default.find({ autor: id });
     res.send(gastos);
 });
 exports.verGastos = verGastos;
@@ -45,9 +45,9 @@ const agregarGastos = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 exports.agregarGastos = agregarGastos;
 // Editar gastos
 const editarGastos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { _id } = req.body;
+    const { id } = req.body;
     try {
-        const actualizarGasto = yield gastos_1.default.findByIdAndUpdate(_id, { $set: req.body });
+        const actualizarGasto = yield gastos_1.default.findByIdAndUpdate(id, { $set: req.body });
         res.send(actualizarGasto);
     }
     catch (err) {
@@ -57,8 +57,8 @@ const editarGastos = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 exports.editarGastos = editarGastos;
 // -----------------------  GASTOS PAGOS  ----------------------- //
 const gastosPagos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { _id } = req.body;
-    const pagos = yield gastos_1.default.find({ $and: [{ pagado: true }, { autor: _id }] });
+    const { id } = req.body;
+    const pagos = yield gastos_1.default.find({ $and: [{ pagado: true }, { autor: id }] });
     res.send(pagos);
 });
 exports.gastosPagos = gastosPagos;
@@ -77,12 +77,13 @@ export const pagosNoFijo = async (req: Request, res: Response) => {
 }*/
 // ---------------------  GASTOS NO PAGOS  --------------------- //
 const gastosNoPagos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { _id } = req.body;
-    const nopagos = yield gastos_1.default.find({ $and: [{ pagado: false }, { autor: _id }] });
+    const { id } = req.body;
+    const nopagos = yield gastos_1.default.find({ $and: [{ pagado: false }, { autor: id }] });
     res.send(nopagos);
 });
 exports.gastosNoPagos = gastosNoPagos;
 /*// Fijos
+
 export const noPagosFijo = async (req: Request, res: Response) => {
     const { _id } = req.body;
     const pagosfijo = await Gastos.find({ $and: [{ pagado: false }, { fijo: true}, { autor: _id }] })
@@ -94,5 +95,19 @@ export const noPagosNoFijo = async (req: Request, res: Response) => {
     const { _id } = req.body;
     const pagosnofijo = await Gastos.find({ $and: [{ pagado: false }, { fijo: false}, { autor: _id }] })
     res.send(pagosnofijo);
-}*/ 
+}*/
+// Pagar gastos
+const pagar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.body;
+    try {
+        const card = (yield gastos_1.default.findById(id)) || 0;
+        const aporte = (card.contribucion["pago"]);
+        console.log(card);
+        res.send(aporte);
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
+exports.pagar = pagar;
 //# sourceMappingURL=expenses_controller.js.map

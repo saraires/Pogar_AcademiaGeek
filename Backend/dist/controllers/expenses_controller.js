@@ -12,12 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.editarGastos = exports.agregarGastos = exports.verGastos = void 0;
+exports.gastosNoPagos = exports.gastosPagos = exports.editarGastos = exports.agregarGastos = exports.verGastos = void 0;
 const gastos_1 = __importDefault(require("../model/gastos"));
 // Consultar gastos
 const verGastos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { _id } = req.body;
-    const gastos = yield gastos_1.default.find({ autor: _id }); // ¿Los organizo?
+    const gastos = yield gastos_1.default.find({ autor: _id });
     res.send(gastos);
 });
 exports.verGastos = verGastos;
@@ -56,29 +56,43 @@ const editarGastos = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 });
 exports.editarGastos = editarGastos;
 // -----------------------  GASTOS PAGOS  ----------------------- //
-// // Fijos
-// export const pagosFijo = async (req: Request, res: Response) => {
-//     const { _id } = req.body;
-//     const pagosfijo = await Gastos.find({ $and: [{ pagado: true }, { fijo: true}, { autor: _id }] }) // ¿Los organizo?
-//     res.send(pagosfijo);
-// }
-// // No Fijos
-// export const pagosNoFijo = async (req: Request, res: Response) => {
-//     const { _id } = req.body;
-//     const pagosnofijo = await Gastos.find({ $and: [{ pagado: true }, { fijo: false}, { autor: _id }] }) // ¿Los organizo?
-//     res.send(pagosnofijo);
-// }
+const gastosPagos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { _id } = req.body;
+    const pagos = yield gastos_1.default.find({ $and: [{ pagado: true }, { autor: _id }] });
+    res.send(pagos);
+});
+exports.gastosPagos = gastosPagos;
+/*//Fijos
+export const pagosFijo = async (req: Request, res: Response) => {
+    const { _id } = req.body;
+    const pagosfijo = await Gastos.find({ $and: [{ pagado: true }, { fijo: true}, { autor: _id }] })
+    res.send(pagosfijo);
+}
+
+// No Fijos
+export const pagosNoFijo = async (req: Request, res: Response) => {
+    const { _id } = req.body;
+    const pagosnofijo = await Gastos.find({ $and: [{ pagado: true }, { fijo: false}, { autor: _id }] })
+    res.send(pagosnofijo);
+}*/
 // ---------------------  GASTOS NO PAGOS  --------------------- //
-// Fijos
-// export const noPagosFijo = async (req: Request, res: Response) => {
-//     const { _id } = req.body;
-//     const pagosfijo = await Gastos.find({ $and: [{ pagado: false }, { fijo: true}, { autor: _id }] }) // ¿Los organizo?
-//     res.send(pagosfijo);
-// }
-// // No Fijos
-// export const noPagosNoFijo = async (req: Request, res: Response) => {
-//     const { _id } = req.body;
-//     const pagosnofijo = await Gastos.find({ $and: [{ pagado: false }, { fijo: false}, { autor: _id }] }) // ¿Los organizo?
-//     res.send(pagosnofijo);
-// }
+const gastosNoPagos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { _id } = req.body;
+    const nopagos = yield gastos_1.default.find({ $and: [{ pagado: false }, { autor: _id }] });
+    res.send(nopagos);
+});
+exports.gastosNoPagos = gastosNoPagos;
+/*// Fijos
+export const noPagosFijo = async (req: Request, res: Response) => {
+    const { _id } = req.body;
+    const pagosfijo = await Gastos.find({ $and: [{ pagado: false }, { fijo: true}, { autor: _id }] })
+    res.send(pagosfijo);
+}
+
+// No Fijos
+export const noPagosNoFijo = async (req: Request, res: Response) => {
+    const { _id } = req.body;
+    const pagosnofijo = await Gastos.find({ $and: [{ pagado: false }, { fijo: false}, { autor: _id }] })
+    res.send(pagosnofijo);
+}*/ 
 //# sourceMappingURL=expenses_controller.js.map

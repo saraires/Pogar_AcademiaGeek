@@ -21,10 +21,6 @@ const hormigaSchema = new mongoose_1.Schema({
     autor: {
         type: String,
         required: true
-    },
-    compras: {
-        type: Number,
-        required: false
     }
 });
 exports.default = mongoose_1.model('Hormiga', hormigaSchema);

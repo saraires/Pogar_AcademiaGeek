@@ -16,17 +16,15 @@ const gastoSchema = new mongoose_1.Schema({
     },
     fecha_pago: {
         type: String,
-        required: false,
-        min: 8,
+        required: false
     },
     pagado: {
         type: Boolean,
-        required: true,
         default: false,
     },
     fijo: {
         type: Boolean,
-        required: true,
+        default: false,
     },
     contribucion: [
         {

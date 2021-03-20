@@ -9,7 +9,8 @@ const NavDeseos = () => {
         setShowModal(prev=>!prev);
     }
     return (
-        <div className="navbar">
+       <div>
+            <div className="navbar">
             <div className="menu">
                 <Link to="/menu" style={{ textDecoration: "none", color: "white" }}><h3 className="logo">PoGar</h3></Link>
                 <Container>
@@ -17,8 +18,9 @@ const NavDeseos = () => {
                 </Container>
                 <ModalDeseo showModal={showModal} setShowModal={setShowModal}  />
             </div>
-            <h3 className="tittleGastos">Deseos</h3>
         </div>
+            <h3 className="tittleGastos">Deseos</h3>
+       </div>
     );
 }
 export default NavDeseos;

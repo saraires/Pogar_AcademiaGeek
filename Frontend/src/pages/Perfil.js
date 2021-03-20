@@ -35,7 +35,7 @@ const Perfil = () => {
                         <span className="lacation_icon">
                             <div className="icon"><i className="fas fa-money-check-alt"></i> </div>
                         </span>
-                        <span>{perfil['saldo']? perfil['saldo']: "0000"}</span>
+                        <span>{perfil['saldo']? perfil['saldo']: <span>Primero especifica un saldo</span>}</span>
                     </div>
                     <SocialPerfil />
                     <div className="txt">{perfil['correo'] ? perfil['correo'] : null}</div>

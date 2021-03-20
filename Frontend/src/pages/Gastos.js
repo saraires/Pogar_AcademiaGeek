@@ -7,10 +7,7 @@ const Gastos = () => {
     const [gastos, setGastos] = useState([]);
     const token = getFromLocal('authToken');
     const autor = getFromLocal('id');
-    const aportes = (array) => {
-        console.log(array)
-        return null
-    }
+
     const getGastos = () => {
         axios.post('/vergasto', { "id": autor, "token": token })
             .then((res) => {
@@ -35,9 +32,7 @@ const Gastos = () => {
                                 <br />
                                 <p>{iterator.descripcion}</p>
                                 <br />
-                                <p>{aportes(iterator.contribucion)}</p>
-                                <br />
-                                <p>{iterator.precio}</p>
+                                <p><i className="fas fa-money-bill-wave"></i> {iterator.precio}</p>
                                 <br />
                                 <p>{iterator.fecha_pago}</p>
                                 <a href="/" className="btn-editar">Editar</a>

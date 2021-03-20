@@ -13,31 +13,42 @@ const ModalHGastos = ({ showModal, setShowModal }) => {
   const token=getFromLocal('authToken')
   const onSubmit=data=>{
     console.log(data)
-    axios.post('/agregarant', {
-      "titulo":data.titulo,
-      "descripcion":data.descripcion,
-      "precio": data.precio,
-      "fecha":data.fecha,
-      "autor":id,
-      "token":token
-    }).then((res)=>{
-      if(res.status===200) window.location.reload();
-      else swal.fire({
-        title: "Error al ingresar el gasto hormiga",
-        footer: "Intente de nuevo",
-        icon: "error",
-        confirmButtonText: "¡Entendido!",
-        confirmButtonColor: "#f4f800",
-      });
-    }).catch(()=>{
+    if(parseInt(data.precio)>100000){
       swal.fire({
         title: "Error al ingresar el gasto hormiga",
+        text: "Si el gasto que desea ingresar sobrepasa los 100.000$, este debe ser registrado en la sección de gastos",
         footer: "Intente de nuevo",
         icon: "error",
         confirmButtonText: "¡Entendido!",
         confirmButtonColor: "#f4f800",
       });
-    });
+    }else{
+      axios.post('/agregarant', {
+        "titulo":data.titulo,
+        "descripcion":data.descripcion,
+        "precio": data.precio,
+        "fecha":data.fecha,
+        "autor":id,
+        "token":token
+      }).then((res)=>{
+        if(res.status===200) window.location.reload();
+        else swal.fire({
+          title: "Error al ingresar el gasto hormiga",
+          footer: "Intente de nuevo",
+          icon: "error",
+          confirmButtonText: "¡Entendido!",
+          confirmButtonColor: "#f4f800",
+        });
+      }).catch(()=>{
+        swal.fire({
+          title: "Error al ingresar el gasto hormiga",
+          footer: "Intente de nuevo",
+          icon: "error",
+          confirmButtonText: "¡Entendido!",
+          confirmButtonColor: "#f4f800",
+        });
+      }); 
+    }
   }
   const modalRef = useRef();
 

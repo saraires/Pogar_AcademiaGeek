@@ -38,7 +38,8 @@ const NavGastosH = () => {
                 </div>
             </div>
             <h3 className="tittleGastos">Gastos hormiga</h3>
-            <h3 className="tittHormiga">Total consumido en gastos hormiga: {compras!==0? <strong className="compraH">{compras}$</strong>:null}</h3>
+            <br/>
+            {compras!==0?<h3 className="tittHormiga">Total consumido en gastos hormiga:<strong className="compraH">{compras}$</strong></h3>:<h3 className="tittHormiga">No tienes gastos hormiga</h3>}
         </div>
     );
 }

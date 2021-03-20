@@ -35,7 +35,7 @@ const GastosH = () => {
                                 <h2><i className="fas fa-bug"></i></h2>
                                 <h3>{iterator.titulo}</h3>
                                 <p>{iterator.descripcion}</p>
-                                <p>{iterator.precio}</p>
+                                <p><i className="fas fa-money-bill-wave"></i> {iterator.precio}</p>
                                 <p>{transformer(iterator.fecha)}</p>
                                 <a href="/" className="btn-editar">Read More</a>
                             </div>

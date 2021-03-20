@@ -7,21 +7,23 @@ import Usuario from '../model/usuario';
 export const verDeseo = async (req: Request, res: Response) => {
     const { id } = req.body;
     const deseos = await Deseos.find({ autor: id });
-    const preciodeseo = await Deseos.find({ autor: id }, {"precio": 1});
+    const preciodeseo = await Deseos.find({ autor: id }, { "precio": 1 });
 
     // Modelo de usuarios -- Sacamos el saldo
     const usuario = await Usuario.find({ _id: id }, { "saldo": 1 });
     const saldo = (usuario[usuario.length - 1]["saldo"]);
 
     // Modelo de gastos -- Sacamos el total de los gastos
-    const gastos = await Gastos.aggregate([{ $group: { _id: id, "Gastos": { $sum: "$precio" } } }]);
+    const gastos = await Gastos.aggregate([{ $match: { autor: id } }, { $group: { _id: id, "Gastos": { $sum: "$precio" } } }]);
     const gastototal = (gastos[0]["Gastos"]);
 
-    const sobrante = (saldo - gastototal)
+    const sobrante = (saldo - gastototal);
 
-    preciodeseo.forEach(async(jacobo) => {
-        if(jacobo["precio"] < sobrante){
-            const actualizarDeseo = await Deseos.findByIdAndUpdate( jacobo["_id"] , { $set: {"comprable": true} });
+    preciodeseo.forEach(async (jacobo) => {
+        if (jacobo["precio"] < sobrante) {
+            const actualizarDeseo = await Deseos.findByIdAndUpdate(jacobo["_id"], { $set: { "comprable": true } });
+        } else {
+            const deseonocomprable = await Deseos.findByIdAndUpdate(jacobo["_id"], { $set: { "comprable": false } });
         };
     });
 

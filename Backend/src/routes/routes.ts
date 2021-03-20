@@ -18,28 +18,29 @@ router.post('/editarsaldo', tokenValidation, editarSaldo);
 // Rutas de gastos
 router.post('/vergasto', tokenValidation, verGastos);
 router.post('/agregargasto', tokenValidation, agregarGastos);
-router.put('/editargasto', tokenValidation, editarGastos);
-router.get('/gastospagos', tokenValidation, gastosPagos);
-router.get('/gastosnopagos', tokenValidation, gastosNoPagos);
+router.post('/editargasto', tokenValidation, editarGastos);
+router.post('/gastospagos', tokenValidation, gastosPagos);
+router.post('/gastosnopagos', tokenValidation, gastosNoPagos);
 router.post('/pagar', tokenValidation, pagar);
+// router.post('/info', tokenValidation, infoAporte);
 
 // ---- Pagos fijos y no fijos ---- //
-// router.get('/pagosfijos', tokenValidation, pagosFijo)
-// router.get('/pagosnofijos', tokenValidation, pagosNoFijo);
-// router.get('/nopagosfijos', tokenValidation, noPagosFijo);
-// router.get('/nopagosnofijos', tokenValidation, noPagosNoFijo);
+// router.post('/pagosfijos', tokenValidation, pagosFijo)
+// router.post('/pagosnofijos', tokenValidation, pagosNoFijo);
+// router.post('/nopagosfijos', tokenValidation, noPagosFijo);
+// router.post('/nopagosnofijos', tokenValidation, noPagosNoFijo);
 
 // Rutas de deseos
-router.get('/verdeseos', tokenValidation, verDeseo)
+router.post('/verdeseos', tokenValidation, verDeseo)
 router.post('/agregardeseo', tokenValidation, agregarDeseo);
-router.put('/editardeseo', tokenValidation, editarDeseo);
-router.delete('/eliminardeseo', tokenValidation, eliminarDeseo);
+router.post('/editardeseo', tokenValidation, editarDeseo);
+router.post('/eliminardeseo', tokenValidation, eliminarDeseo);
 // router.post('/deseos', tokenValidation, condicionDeseo);
 
 // Rutas de gastos hormiga
 router.post('/verant', tokenValidation, verAnt);
 router.post('/agregarant', tokenValidation, agregarAnt);
-router.put('/editarant', tokenValidation, editarAnt);
+router.post('/editarant', tokenValidation, editarAnt);
 router.post('/comprasant', tokenValidation, comprasAnt);
 
 

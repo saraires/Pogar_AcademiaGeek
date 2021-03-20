@@ -76,9 +76,14 @@ exports.editarAnt = editarAnt;
 // Total de dinero empleado en gastos hormiga
 const comprasAnt = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.body;
-    const Ant = yield hormiga_1.default.aggregate([{ $match: { author: id } }, { $group: { _id: id, "Saldo": { $sum: "$precio" } } }]);
-    const saldo = (Ant[0]["Saldo"]);
-    res.send({ saldo });
+    const comprobacion = yield hormiga_1.default.find({ autor: id });
+    console.log(comprobacion);
+    if (comprobacion[0] != undefined) {
+        const Ant = yield hormiga_1.default.aggregate([{ $match: { autor: id } }, { $group: { _id: id, "Saldo": { $sum: "$precio" } } }]);
+        const saldo = (Ant[0]["Saldo"]);
+        res.send({ saldo });
+    }
+    res.send({ "saldo": 0 });
 });
 exports.comprasAnt = comprasAnt;
 //# sourceMappingURL=ant_controllers.js.map

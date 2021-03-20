@@ -17,25 +17,26 @@ router.post('/editarsaldo', authFunction_1.tokenValidation, auth_controller_1.ed
 // Rutas de gastos
 router.post('/vergasto', authFunction_1.tokenValidation, expenses_controller_1.verGastos);
 router.post('/agregargasto', authFunction_1.tokenValidation, expenses_controller_1.agregarGastos);
-router.put('/editargasto', authFunction_1.tokenValidation, expenses_controller_1.editarGastos);
-router.get('/gastospagos', authFunction_1.tokenValidation, expenses_controller_1.gastosPagos);
-router.get('/gastosnopagos', authFunction_1.tokenValidation, expenses_controller_1.gastosNoPagos);
+router.post('/editargasto', authFunction_1.tokenValidation, expenses_controller_1.editarGastos);
+router.post('/gastospagos', authFunction_1.tokenValidation, expenses_controller_1.gastosPagos);
+router.post('/gastosnopagos', authFunction_1.tokenValidation, expenses_controller_1.gastosNoPagos);
 router.post('/pagar', authFunction_1.tokenValidation, expenses_controller_1.pagar);
+router.post('/info', authFunction_1.tokenValidation, expenses_controller_1.infoAporte);
 // ---- Pagos fijos y no fijos ---- //
-// router.get('/pagosfijos', tokenValidation, pagosFijo)
-// router.get('/pagosnofijos', tokenValidation, pagosNoFijo);
-// router.get('/nopagosfijos', tokenValidation, noPagosFijo);
-// router.get('/nopagosnofijos', tokenValidation, noPagosNoFijo);
+// router.post('/pagosfijos', tokenValidation, pagosFijo)
+// router.post('/pagosnofijos', tokenValidation, pagosNoFijo);
+// router.post('/nopagosfijos', tokenValidation, noPagosFijo);
+// router.post('/nopagosnofijos', tokenValidation, noPagosNoFijo);
 // Rutas de deseos
-router.get('/verdeseos', authFunction_1.tokenValidation, whishes_controller_1.verDeseo);
+router.post('/verdeseos', authFunction_1.tokenValidation, whishes_controller_1.verDeseo);
 router.post('/agregardeseo', authFunction_1.tokenValidation, whishes_controller_1.agregarDeseo);
-router.put('/editardeseo', authFunction_1.tokenValidation, whishes_controller_1.editarDeseo);
-router.delete('/eliminardeseo', authFunction_1.tokenValidation, whishes_controller_1.eliminarDeseo);
+router.post('/editardeseo', authFunction_1.tokenValidation, whishes_controller_1.editarDeseo);
+router.post('/eliminardeseo', authFunction_1.tokenValidation, whishes_controller_1.eliminarDeseo);
 // router.post('/deseos', tokenValidation, condicionDeseo);
 // Rutas de gastos hormiga
 router.post('/verant', authFunction_1.tokenValidation, ant_controllers_1.verAnt);
 router.post('/agregarant', authFunction_1.tokenValidation, ant_controllers_1.agregarAnt);
-router.put('/editarant', authFunction_1.tokenValidation, ant_controllers_1.editarAnt);
+router.post('/editarant', authFunction_1.tokenValidation, ant_controllers_1.editarAnt);
 router.post('/comprasant', authFunction_1.tokenValidation, ant_controllers_1.comprasAnt);
 exports.default = router;
 //# sourceMappingURL=routes.js.map

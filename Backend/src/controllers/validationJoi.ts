@@ -10,7 +10,6 @@ export const validacionRegistro = Joi.object({
     saldo: Joi.number()
 }).label('registro');
 
-
 // Validacion de login
 export const validacionLogin = Joi.object({
     correo: Joi.string().min(6).required().email(),

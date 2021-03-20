@@ -22,6 +22,19 @@ const verGastos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.send(gastos);
 });
 exports.verGastos = verGastos;
+// Informacion de gastos y contribucion
+// export const infoAporte = async (req: Request, res: Response) => {
+//     const { id, autor } = req.body;
+//     try {
+//         const info = await Gastos.find({ $and: [{ _id: id }, { autor: autor }] }, { "titulo": 1, "descripcion": 1, "precio": 1, "fecha_pago": 1, "pagado": 1, "fijo": 1, "autor": 1 });
+//         console.log(info);
+//     res.send({"usuarioValido":usuarioValido, "authToken":token});
+//         res.send(info);
+//     }
+//     catch (err) {
+//         console.log(err);
+//     }
+// }
 // Agregar gastos
 const agregarGastos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { titulo, descripcion, precio, fecha_pago, pagado, fijo, contribucion, autor } = req.body;
@@ -126,10 +139,4 @@ const pagar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.pagar = pagar;
-// Informacion de gastos y contribucion
-// export const infoAporte = async (req: Request, res: Response) => {
-//     const { id } = req.body;
-//     const gastos = await Gastos.find({ autor: id })
-//     res.send(gastos);
-// }
 //# sourceMappingURL=expenses_controller.js.map

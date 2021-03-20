@@ -9,6 +9,21 @@ export const verGastos = async (req: Request, res: Response) => {
     res.send(gastos);
 }
 
+// Informacion de gastos y contribucion
+// export const infoAporte = async (req: Request, res: Response) => {
+//     const { id, autor } = req.body;
+//     try {
+//         const info = await Gastos.find({ $and: [{ _id: id }, { autor: autor }] }, { "titulo": 1, "descripcion": 1, "precio": 1, "fecha_pago": 1, "pagado": 1, "fijo": 1, "autor": 1 });
+//         console.log(info);
+//     res.send({"usuarioValido":usuarioValido, "authToken":token});
+
+//         res.send(info);
+//     }
+//     catch (err) {
+//         console.log(err);
+//     }
+// }
+
 // Agregar gastos
 export const agregarGastos = async (req: Request, res: Response) => {
     const { titulo, descripcion, precio, fecha_pago, pagado, fijo, contribucion, autor } = req.body
@@ -107,23 +122,15 @@ export const pagar = async (req: Request, res: Response) => {
         const cuestaFinal = cuesta - aporte; // Restar... Esto me da en cuanto queda la deuda
 
         // Actualizar Saldo del usuario
-        const actualizarSaldo = await Usuario.findByIdAndUpdate(autor, { $set: {saldo : saldoFinal} });
+        const actualizarSaldo = await Usuario.findByIdAndUpdate(autor, { $set: { saldo: saldoFinal } });
         console.log(actualizarSaldo);
-        
+
         // Actualizar cantidad de la deuda
-        const actualizarGasto = await Gastos.findByIdAndUpdate(id, { $set: {precio : cuestaFinal} });
+        const actualizarGasto = await Gastos.findByIdAndUpdate(id, { $set: { precio: cuestaFinal } });
         console.log(actualizarGasto);
 
         res.status(200).send("Ok");
     } catch (err) {
-    console.log(err);
-}
+        console.log(err);
+    }
 };
-
-// Informacion de gastos y contribucion
-
-// export const infoAporte = async (req: Request, res: Response) => {
-//     const { id } = req.body;
-//     const gastos = await Gastos.find({ autor: id })
-//     res.send(gastos);
-// }

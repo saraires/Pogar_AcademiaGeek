@@ -18,7 +18,8 @@ const GastosH = () => {
     const transformer = (data) => {
         const fecha = data.split("T");
         return fecha[0];
-      }
+    }
+
     useEffect(() => {
         getGastos();
         // eslint-disable-next-line

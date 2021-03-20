@@ -1,8 +1,37 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
+import swal from 'sweetalert2';
+import {removeFromLocal} from '../functions/localstorage';
 
 const LinksMenu = () => {
-    return (
+  const history= useHistory();
+
+  const alertPro=()=>{
+    swal.fire({
+      title: '¿Segur@ que deseas salir?',
+      text: "¡No tardes mucho, desde Pogar te apreciamos!",
+      width: 600,
+      padding: '3em',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Salir',
+      backdrop: `
+        rgba(0,0,123,0.4)
+        left top
+        no-repeat
+      `
+    }).then((result) => {
+      if (result.isConfirmed) {
+        history.push('/');
+        removeFromLocal('id');
+        removeFromLocal('authToken')
+      }
+    })
+  }
+  return (
         <div className="links">
         <ul>
           <li>
@@ -18,7 +47,7 @@ const LinksMenu = () => {
             <Link to="/deseos" >Deseos</Link>
           </li>
           <li>
-            <Link to="/" >Cerrar sesión</Link>
+            <Link onClick={alertPro}>Cerrar sesión</Link>
           </li>
         </ul>
       </div>

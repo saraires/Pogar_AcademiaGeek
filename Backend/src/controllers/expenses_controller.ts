@@ -18,7 +18,7 @@ export const infoAporte = async (req: Request, res: Response) => {
         
         // Traer solo la contribucion 
         const aporte = await Gastos.find({ $and: [{ _id: id }, { autor: autor }] }, { "contribucion": 1});
-
+        
         // Envio en un Json por separado ambas constantes
         res.send({"info": info, "aporte": aporte});
     }

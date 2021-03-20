@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.pagar = exports.gastosNoPagos = exports.gastosPagos = exports.editarGastos = exports.agregarGastos = exports.verGastos = void 0;
+exports.pagar = exports.gastosNoPagos = exports.gastosPagos = exports.editarGastos = exports.agregarGastos = exports.infoAporte = exports.verGastos = void 0;
 const gastos_1 = __importDefault(require("../model/gastos"));
 const usuario_1 = __importDefault(require("../model/usuario"));
 // Consultar gastos
@@ -23,18 +23,21 @@ const verGastos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.verGastos = verGastos;
 // Informacion de gastos y contribucion
-// export const infoAporte = async (req: Request, res: Response) => {
-//     const { id, autor } = req.body;
-//     try {
-//         const info = await Gastos.find({ $and: [{ _id: id }, { autor: autor }] }, { "titulo": 1, "descripcion": 1, "precio": 1, "fecha_pago": 1, "pagado": 1, "fijo": 1, "autor": 1 });
-//         console.log(info);
-//     res.send({"usuarioValido":usuarioValido, "authToken":token});
-//         res.send(info);
-//     }
-//     catch (err) {
-//         console.log(err);
-//     }
-// }
+const infoAporte = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id, autor } = req.body;
+    try {
+        // Traer solo los datos de info 
+        const info = yield gastos_1.default.find({ $and: [{ _id: id }, { autor: autor }] }, { "titulo": 1, "descripcion": 1, "precio": 1, "fecha_pago": 1, "pagado": 1, "fijo": 1, "autor": 1 });
+        // Traer solo la contribucion 
+        const aporte = yield gastos_1.default.find({ $and: [{ _id: id }, { autor: autor }] }, { "contribucion": 1 });
+        // Envio en un Json por separado ambas constantes
+        res.send({ "info": info, "aporte": aporte });
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
+exports.infoAporte = infoAporte;
 // Agregar gastos
 const agregarGastos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { titulo, descripcion, precio, fecha_pago, pagado, fijo, contribucion, autor } = req.body;

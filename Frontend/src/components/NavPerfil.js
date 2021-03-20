@@ -13,7 +13,7 @@ const NavBarPerfil = () => {
             <div className="menu">
                 <Link to="/menu" style={{ textDecoration: "none", color: "white" }}><h3 className="logo">PoGar</h3></Link>
                 <Container>
-                    <Button className="btn-modal"onClick={openModal}>Cambiar saldo</Button>
+                    <Button className="btn-modal"onClick={openModal}>Aumentar saldo</Button>
                 </Container>
                 <ModalPerfil showModal={showModal} setShowModal={setShowModal}  />
             </div>

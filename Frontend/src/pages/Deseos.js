@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import NavBar from '../components/NavDeseos';
 import axios from '../axios/axios';
 import { getFromLocal } from '../functions/localstorage';
+import swal from 'sweetalert2';
 
 const Deseos = () => {
     const [deseos, setDeseos] = useState([]);
@@ -34,7 +35,23 @@ const Deseos = () => {
                                 <br/>
                                 <p><i className="fas fa-money-bill-wave"></i> {iterator.precio}</p>
                                 <br/>
-                                <a href="/" className="btn-editar">Read More</a>
+                                <a href="/" className="btn-editar">Editar</a>
+                                <a className="btn-editar" onClick={()=>{      
+                                    //TODO: hacer confirmación para elimar el deseo                          
+                                    axios.post('/eliminardeseo', {"id": iterator._id, "token":token}).then((res)=>{
+                                        if(res.data['message']==="Deseo Eliminado"){
+                                            window.location.reload();
+                                        }
+                                    }).catch(()=>{
+                                        swal.fire({
+                                            title: "No se pudo eliminar el deseo",
+                                            footer: "Intente de nuevo", 
+                                            icon: "error",
+                                            confirmButtonText: "¡Entendido!",
+                                            confirmButtonColor: "#f4f800",
+                                          });
+                                    })
+                                }}>Eliminar</a>
                                 <br/>
                                 <br/>
                                 <p>{iterator.comprable? <span>Date el gusto</span>: <span>No te des el gusto</span>}</p>

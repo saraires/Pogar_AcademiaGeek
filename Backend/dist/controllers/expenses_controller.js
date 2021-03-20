@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.pagar = exports.gastosNoPagos = exports.gastosPagos = exports.editarGastos = exports.agregarGastos = exports.infoAporte = exports.verGastos = void 0;
+exports.infoAporte = exports.pagar = exports.gastosNoPagos = exports.gastosPagos = exports.editarGastos = exports.agregarGastos = exports.verGastos = void 0;
 const gastos_1 = __importDefault(require("../model/gastos"));
 const usuario_1 = __importDefault(require("../model/usuario"));
 // Consultar gastos
@@ -22,22 +22,6 @@ const verGastos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.send(gastos);
 });
 exports.verGastos = verGastos;
-// Informacion de gastos y contribucion
-const infoAporte = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id, autor } = req.body;
-    try {
-        // Traer solo los datos de info 
-        const info = yield gastos_1.default.find({ $and: [{ _id: id }, { autor: autor }] }, { "titulo": 1, "descripcion": 1, "precio": 1, "fecha_pago": 1, "pagado": 1, "fijo": 1, "autor": 1 });
-        // Traer solo la contribucion 
-        const aporte = yield gastos_1.default.find({ $and: [{ _id: id }, { autor: autor }] }, { "contribucion": 1 });
-        // Envio en un Json por separado ambas constantes
-        res.send({ "info": info, "aporte": aporte });
-    }
-    catch (err) {
-        console.log(err);
-    }
-});
-exports.infoAporte = infoAporte;
 // Agregar gastos
 const agregarGastos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { titulo, descripcion, precio, fecha_pago, pagado, fijo, contribucion, autor } = req.body;
@@ -124,6 +108,7 @@ const pagar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         } // Control de error
         const aporte = (card.contribucion[card.contribucion.length - 1]["pago"]); // Lo que el usuario esta pagando
         const cuesta = (card.precio); // Cuanto es lo que debe al gasto, precio total del gasto, deuda en si.
+        console.log(cuesta);
         // Modelo de Usuario
         const usuario = yield usuario_1.default.find({ _id: autor }, { "saldo": 1 }); // se trae el saldo del usuario con un id
         const saldo = (usuario[usuario.length - 1]["saldo"]); // Del array devuelve solo el saldo
@@ -131,10 +116,12 @@ const pagar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const cuestaFinal = cuesta - aporte; // Restar... Esto me da en cuanto queda la deuda
         // Actualizar Saldo del usuario
         const actualizarSaldo = yield usuario_1.default.findByIdAndUpdate(autor, { $set: { saldo: saldoFinal } });
-        console.log(actualizarSaldo);
         // Actualizar cantidad de la deuda
         const actualizarGasto = yield gastos_1.default.findByIdAndUpdate(id, { $set: { precio: cuestaFinal } });
-        console.log(actualizarGasto);
+        if (cuesta <= 0) {
+            const pagado = yield gastos_1.default.findByIdAndUpdate(id, { $set: { pagado: true } }); // no funciona
+            console.log(pagado);
+        }
         res.status(200).send("Ok");
     }
     catch (err) {
@@ -142,4 +129,20 @@ const pagar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.pagar = pagar;
+// Informacion de gastos y contribucion
+const infoAporte = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id, autor } = req.body;
+    try {
+        // Traer solo los datos de info 
+        const info = yield gastos_1.default.find({ $and: [{ _id: id }, { autor: autor }] }, { "titulo": 1, "descripcion": 1, "precio": 1, "fecha_pago": 1, "pagado": 1, "fijo": 1, "autor": 1 });
+        // Traer solo la contribucion 
+        const aporte = yield gastos_1.default.find({ $and: [{ _id: id }, { autor: autor }] }, { "contribucion": 1 });
+        // Envio en un Json por separado ambas constantes
+        res.send({ "info": info, "aporte": aporte });
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
+exports.infoAporte = infoAporte;
 //# sourceMappingURL=expenses_controller.js.map

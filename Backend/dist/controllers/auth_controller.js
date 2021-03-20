@@ -18,7 +18,7 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const validationJoi_1 = require("./validationJoi");
 const claveToken = 'itsSomeRandomToTheSecretKey';
-// LogIn
+// Login
 const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // Validacion con Joi
     const { error } = validationJoi_1.validacionLogin.validate(req.body);

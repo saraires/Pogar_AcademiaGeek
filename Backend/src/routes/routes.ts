@@ -3,7 +3,7 @@ import { tokenValidation } from '../controllers/authFunction';
 const router: Router = Router();
 
 import { signIn, singUp, editarSaldo, perfil } from '../controllers/auth_controller';
-import { verGastos, agregarGastos, editarGastos, gastosPagos, gastosNoPagos, pagar } from '../controllers/expenses_controller';
+import { verGastos, agregarGastos, editarGastos, gastosPagos, gastosNoPagos, pagar, infoAporte } from '../controllers/expenses_controller';
 import { verDeseo, agregarDeseo, editarDeseo, eliminarDeseo } from '../controllers/whishes_controller';
 import { verAnt, agregarAnt, editarAnt, comprasAnt} from '../controllers/ant_controllers';
 // import { images } from '../controllers/images_controller';
@@ -22,7 +22,7 @@ router.post('/editargasto', tokenValidation, editarGastos);
 router.post('/gastospagos', tokenValidation, gastosPagos);
 router.post('/gastosnopagos', tokenValidation, gastosNoPagos);
 router.post('/pagar', tokenValidation, pagar);
-// router.post('/info', tokenValidation, infoAporte);
+router.post('/info', tokenValidation, infoAporte);
 
 // ---- Pagos fijos y no fijos ---- //
 // router.post('/pagosfijos', tokenValidation, pagosFijo)

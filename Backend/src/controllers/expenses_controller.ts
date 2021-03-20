@@ -10,19 +10,22 @@ export const verGastos = async (req: Request, res: Response) => {
 }
 
 // Informacion de gastos y contribucion
-// export const infoAporte = async (req: Request, res: Response) => {
-//     const { id, autor } = req.body;
-//     try {
-//         const info = await Gastos.find({ $and: [{ _id: id }, { autor: autor }] }, { "titulo": 1, "descripcion": 1, "precio": 1, "fecha_pago": 1, "pagado": 1, "fijo": 1, "autor": 1 });
-//         console.log(info);
-//     res.send({"usuarioValido":usuarioValido, "authToken":token});
+export const infoAporte = async (req: Request, res: Response) => {
+    const { id, autor } = req.body;
+    try {
+        // Traer solo los datos de info 
+        const info = await Gastos.find({ $and: [{ _id: id }, { autor: autor }] }, { "titulo": 1, "descripcion": 1, "precio": 1, "fecha_pago": 1, "pagado": 1, "fijo": 1, "autor": 1 });
+        
+        // Traer solo la contribucion 
+        const aporte = await Gastos.find({ $and: [{ _id: id }, { autor: autor }] }, { "contribucion": 1});
 
-//         res.send(info);
-//     }
-//     catch (err) {
-//         console.log(err);
-//     }
-// }
+        // Envio en un Json por separado ambas constantes
+        res.send({"info": info, "aporte": aporte});
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
 
 // Agregar gastos
 export const agregarGastos = async (req: Request, res: Response) => {

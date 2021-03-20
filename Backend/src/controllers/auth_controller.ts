@@ -6,7 +6,7 @@ import { validacionRegistro, validacionLogin } from './validationJoi';
 
 const claveToken = 'itsSomeRandomToTheSecretKey';
 
-// LogIn
+// Login
 export const signIn = async (req: Request, res: Response) => {
 
     // Validacion con Joi

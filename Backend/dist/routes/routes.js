@@ -21,7 +21,7 @@ router.post('/editargasto', authFunction_1.tokenValidation, expenses_controller_
 router.post('/gastospagos', authFunction_1.tokenValidation, expenses_controller_1.gastosPagos);
 router.post('/gastosnopagos', authFunction_1.tokenValidation, expenses_controller_1.gastosNoPagos);
 router.post('/pagar', authFunction_1.tokenValidation, expenses_controller_1.pagar);
-// router.post('/info', tokenValidation, infoAporte);
+router.post('/info', authFunction_1.tokenValidation, expenses_controller_1.infoAporte);
 // ---- Pagos fijos y no fijos ---- //
 // router.post('/pagosfijos', tokenValidation, pagosFijo)
 // router.post('/pagosnofijos', tokenValidation, pagosNoFijo);

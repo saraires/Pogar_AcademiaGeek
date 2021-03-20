@@ -9,24 +9,6 @@ export const verGastos = async (req: Request, res: Response) => {
     res.send(gastos);
 }
 
-// Informacion de gastos y contribucion
-export const infoAporte = async (req: Request, res: Response) => {
-    const { id, autor } = req.body;
-    try {
-        // Traer solo los datos de info 
-        const info = await Gastos.find({ $and: [{ _id: id }, { autor: autor }] }, { "titulo": 1, "descripcion": 1, "precio": 1, "fecha_pago": 1, "pagado": 1, "fijo": 1, "autor": 1 });
-        
-        // Traer solo la contribucion 
-        const aporte = await Gastos.find({ $and: [{ _id: id }, { autor: autor }] }, { "contribucion": 1});
-
-        // Envio en un Json por separado ambas constantes
-        res.send({"info": info, "aporte": aporte});
-    }
-    catch (err) {
-        console.log(err);
-    }
-}
-
 // Agregar gastos
 export const agregarGastos = async (req: Request, res: Response) => {
     const { titulo, descripcion, precio, fecha_pago, pagado, fijo, contribucion, autor } = req.body
@@ -116,6 +98,7 @@ export const pagar = async (req: Request, res: Response) => {
         if (!card) { return ("Fallo"); } // Control de error
         const aporte = (card.contribucion[card.contribucion.length - 1]["pago"]); // Lo que el usuario esta pagando
         const cuesta = (card.precio) // Cuanto es lo que debe al gasto, precio total del gasto, deuda en si.
+        console.log(cuesta);
 
         // Modelo de Usuario
         const usuario = await Usuario.find({ _id: autor }, { "saldo": 1 }); // se trae el saldo del usuario con un id
@@ -126,14 +109,35 @@ export const pagar = async (req: Request, res: Response) => {
 
         // Actualizar Saldo del usuario
         const actualizarSaldo = await Usuario.findByIdAndUpdate(autor, { $set: { saldo: saldoFinal } });
-        console.log(actualizarSaldo);
 
         // Actualizar cantidad de la deuda
         const actualizarGasto = await Gastos.findByIdAndUpdate(id, { $set: { precio: cuestaFinal } });
-        console.log(actualizarGasto);
+
+        if (cuesta <= 0) {
+            const pagado = await Gastos.findByIdAndUpdate(id, { $set: { pagado: true } }); // no funciona
+            console.log(pagado);
+        }
 
         res.status(200).send("Ok");
     } catch (err) {
         console.log(err);
     }
 };
+
+// Informacion de gastos y contribucion
+export const infoAporte = async (req: Request, res: Response) => {
+    const { id, autor } = req.body;
+    try {
+        // Traer solo los datos de info 
+        const info = await Gastos.find({ $and: [{ _id: id }, { autor: autor }] }, { "titulo": 1, "descripcion": 1, "precio": 1, "fecha_pago": 1, "pagado": 1, "fijo": 1, "autor": 1 });
+
+        // Traer solo la contribucion 
+        const aporte = await Gastos.find({ $and: [{ _id: id }, { autor: autor }] }, { "contribucion": 1 });
+
+        // Envio en un Json por separado ambas constantes
+        res.send({ "info": info, "aporte": aporte });
+    }
+    catch (err) {
+        console.log(err);
+    }
+}

@@ -104,21 +104,27 @@ export const pagar = async (req: Request, res: Response) => {
         const usuario = await Usuario.find({ _id: autor }, { "saldo": 1 }); // se trae el saldo del usuario con un id
         const saldo = (usuario[usuario.length - 1]["saldo"]); // Del array devuelve solo el saldo
 
-        const saldoFinal = saldo - aporte; // Restar... Esto me da el saldo
-        const cuestaFinal = cuesta - aporte; // Restar... Esto me da en cuanto queda la deuda
+        if (saldo >= cuesta) { // verificamos que si haya dinero sificiente para realizar la transacción
 
-        // Actualizar Saldo del usuario
-        const actualizarSaldo = await Usuario.findByIdAndUpdate(autor, { $set: { saldo: saldoFinal } });
+            const saldoFinal = saldo - aporte; // Restar... Esto me da el saldo
+            const cuestaFinal = cuesta - aporte; // Restar... Esto me da en cuanto queda la deuda
 
-        // Actualizar cantidad de la deuda
-        const actualizarGasto = await Gastos.findByIdAndUpdate(id, { $set: { precio: cuestaFinal } });
+            // Actualizar Saldo del usuario
+            const actualizarSaldo = await Usuario.findByIdAndUpdate(autor, { $set: { saldo: saldoFinal } });
 
-        if (cuesta <= 0) {
-            const pagado = await Gastos.findByIdAndUpdate(id, { $set: { pagado: true } }); // no funciona
-            console.log(pagado);
+            // Actualizar cantidad de la deuda
+            const actualizarGasto = await Gastos.findByIdAndUpdate(id, { $set: { precio: cuestaFinal } });
+
+            if (cuesta <= 0) {
+                const pagado = await Gastos.findByIdAndUpdate(id, { $set: { pagado: true } });
+                console.log(pagado);
+            }
+
+            res.status(200).send("Ok");
+            
+        } else {
+            return("No se puede hacer la transacción");
         }
-
-        res.status(200).send("Ok");
     } catch (err) {
         console.log(err);
     }

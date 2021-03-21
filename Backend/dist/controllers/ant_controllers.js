@@ -39,8 +39,6 @@ const agregarAnt = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         else {
             const id = (saveAnt._id); // id de la card
             const autor = (saveAnt.autor); // id del autor
-            console.log(id);
-            console.log(autor);
             // Modelo de Gastos -- Sacamos el gasto del usuario
             const card = yield hormiga_1.default.find({ _id: id }, { "precio": 1 });
             const precio = (card[card.length - 1]["precio"]);

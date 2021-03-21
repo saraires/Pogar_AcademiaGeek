@@ -108,6 +108,7 @@ const pagar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         } // Control de error
         const aporte = (card.contribucion[card.contribucion.length - 1]["pago"]); // Lo que el usuario esta pagando
         const cuesta = (card.precio); // Cuanto es lo que debe al gasto, precio total del gasto, deuda en si.
+        console.log(cuesta);
         // Modelo de Usuario
         const usuario = yield usuario_1.default.find({ _id: autor }, { "saldo": 1 }); // se trae el saldo del usuario con un id
         const saldo = (usuario[usuario.length - 1]["saldo"]); // Del array devuelve solo el saldo
@@ -115,12 +116,11 @@ const pagar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const cuestaFinal = cuesta - aporte; // Restar... Esto me da en cuanto queda la deuda
         // Actualizar Saldo del usuario
         const actualizarSaldo = yield usuario_1.default.findByIdAndUpdate(autor, { $set: { saldo: saldoFinal } });
-        console.log(actualizarSaldo);
         // Actualizar cantidad de la deuda
         const actualizarGasto = yield gastos_1.default.findByIdAndUpdate(id, { $set: { precio: cuestaFinal } });
-        console.log(actualizarGasto);
         if (cuesta <= 0) {
-            const pagado = yield gastos_1.default.findByIdAndUpdate(id, { $set: { pagado: true } });
+            const pagado = yield gastos_1.default.findByIdAndUpdate(id, { $set: { pagado: true } }); // no funciona
+            console.log(pagado);
         }
         res.status(200).send("Ok");
     }

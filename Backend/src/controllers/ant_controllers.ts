@@ -28,9 +28,6 @@ export const agregarAnt = async (req: Request, res: Response) => {
             const id = (saveAnt._id); // id de la card
             const autor = (saveAnt.autor); // id del autor
 
-            console.log(id);
-            console.log(autor);
-
             // Modelo de Gastos -- Sacamos el gasto del usuario
             const card = await Hormiga.find({ _id: id }, { "precio": 1 });
             const precio = (card[card.length - 1]["precio"]);

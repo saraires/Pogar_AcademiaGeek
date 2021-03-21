@@ -18,7 +18,8 @@ const GastosH = () => {
     const transformer = (data) => {
         const fecha = data.split("T");
         return fecha[0];
-      }
+    }
+
     useEffect(() => {
         getGastos();
         // eslint-disable-next-line
@@ -34,10 +35,14 @@ const GastosH = () => {
                             <div className="contentG">
                                 <h2><i className="fas fa-bug"></i></h2>
                                 <h3>{iterator.titulo}</h3>
+                                <br/>
                                 <p>{iterator.descripcion}</p>
+                                <br/>
                                 <p><i className="fas fa-money-bill-wave"></i> {iterator.precio}</p>
+                                <br/>
                                 <p>{transformer(iterator.fecha)}</p>
-                                <a href="/" className="btn-editar">Read More</a>
+                                <br/>
+                                <a href="/" className="btn-editar">Editar</a>
                             </div>
                         </div>
                     </div>

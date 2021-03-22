@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import NavBar from '../components/NavDeseos';
 import axios from '../axios/axios';
-import { getFromLocal } from '../functions/localstorage';
+import { getFromLocal, saveToLocal } from '../functions/localstorage';
 import swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 const Deseos = () => {
-
     const [deseos, setDeseos] = useState([]);
     const token = getFromLocal('authToken');
     const autor = getFromLocal('id');
@@ -38,7 +38,9 @@ const Deseos = () => {
                                 <br />
                                 <p><i className="fas fa-money-bill-wave"></i> {iterator.precio}</p>
                                 <br />
-                                <span className="btn-editar">Editar</span>
+                                <Link style={{ textDecoration: 'none' }} to="/editar-deseo" onClick={() => {
+                                    saveToLocal('id_deseo', iterator._id)
+                                }}><span className="btn-editar">Editar</span></Link>
                                 <span className="btn-editar" onClick={() => {
                                     swal.fire({
                                         title: '¿Seguro que deseas eliminar el deseo?',

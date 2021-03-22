@@ -8,6 +8,7 @@ import Deseos from '../pages/Deseos';
 import GastosH from '../pages/GastosH';
 import InfoGastosPage from '../pages/InfoGastosPage';
 import Imagenes from '../pages/Imagenes';
+import EditarDeseo from '../pages/EditarDeseo';
 import '../css/styles.css';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
@@ -24,6 +25,7 @@ function App() {
         <Route path='/gastos-hormiga' component={GastosH}/>
         <Route path='/info-gasto' component={InfoGastosPage}/>
         <Route path='/elegir-imagen' component={Imagenes}/>
+        <Route path='/editar-deseo' component={EditarDeseo}/>
       </Switch>
     </BrowserRouter>
   );

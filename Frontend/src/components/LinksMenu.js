@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import swal from 'sweetalert2';
-import {removeFromLocal} from '../functions/localstorage';
+import {removeFromLocal, saveToLocal} from '../functions/localstorage';
 
 const LinksMenu = () => {
   const history= useHistory();
@@ -27,10 +27,12 @@ const LinksMenu = () => {
       if (result.isConfirmed) {
         history.push('/');
         removeFromLocal('id');
-        removeFromLocal('authToken')
+        removeFromLocal('authToken');
+        saveToLocal('alert', true);
       }
     })
   }
+  
   return (
         <div className="links">
         <ul>

@@ -5,7 +5,7 @@ import { getFromLocal } from '../functions/localstorage';
 import swal from 'sweetalert2';
 
 const Deseos = () => {
-    const [editar, setEditar] = useState(false);
+
     const [deseos, setDeseos] = useState([]);
     const token = getFromLocal('authToken');
     const autor = getFromLocal('id');
@@ -15,15 +15,6 @@ const Deseos = () => {
             .then((res) => {
                 setDeseos(res.data);
             }).catch(() => { });
-    }
-
-    const validarEdicion = () => {
-        console.log(editar);
-        if (editar === false) {
-            setEditar(true);
-        } else {
-            setEditar(false);
-        }
     }
 
     useEffect(() => {
@@ -41,17 +32,13 @@ const Deseos = () => {
                         <div className="box">
                             <div className="contentG">
                                 <h2>{iterator.comprable ? <i className="fas fa-coins"></i> : <i className="fas fa-exclamation-triangle"></i>}</h2>
-                                {editar ? <input placeholder="Hola"/> : 
-                                <div>
-                                    <h3>{iterator.titulo}</h3>
-                                    <br />
-                                    <p>{iterator.descripcion}</p>
-                                    <br />
-                                    <p><i className="fas fa-money-bill-wave"></i> {iterator.precio}</p>
-                                </div>
-                                }
+                                <h3>{iterator.titulo}</h3>
                                 <br />
-                                <span onClick={validarEdicion} className="btn-editar">Editar</span>
+                                <p>{iterator.descripcion}</p>
+                                <br />
+                                <p><i className="fas fa-money-bill-wave"></i> {iterator.precio}</p>
+                                <br />
+                                <span className="btn-editar">Editar</span>
                                 <span className="btn-editar" onClick={() => {
                                     swal.fire({
                                         title: '¿Seguro que deseas eliminar el deseo?',

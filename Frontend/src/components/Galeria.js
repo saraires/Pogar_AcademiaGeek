@@ -31,7 +31,7 @@ function Galeria() {
                                 if (res.status === 200) {
                                     swal.fire({
                                         title: "Actualizado con exito",
-                                        confirmButtonText: 'Elegir',
+                                        confirmButtonText: '¡Entendido!',
                                         confirmButtonColor: '#F8BF00',
                                     }).then(sarai => {
                                         if (sarai.isConfirmed) {
@@ -65,7 +65,7 @@ function Galeria() {
                                 if (res.status === 200) {
                                     swal.fire({
                                         title: "Actualizado con exito",
-                                        confirmButtonText: 'Elegir',
+                                        confirmButtonText: '¡Entendido!',
                                         confirmButtonColor: '#F8BF00',
                                     }).then(sarai => {
                                         if (sarai.isConfirmed) {
@@ -99,7 +99,7 @@ function Galeria() {
                                 if (res.status === 200) {
                                     swal.fire({
                                         title: "Actualizado con exito",
-                                        confirmButtonText: 'Elegir',
+                                        confirmButtonText: '¡Entendido!',
                                         confirmButtonColor: '#F8BF00',
                                     }).then(sarai => {
                                         if (sarai.isConfirmed) {
@@ -133,7 +133,7 @@ function Galeria() {
                                 if (res.status === 200) {
                                     swal.fire({
                                         title: "Actualizado con exito",
-                                        confirmButtonText: 'Elegir',
+                                        confirmButtonText: '¡Entendido!',
                                         confirmButtonColor: '#F8BF00',
                                     }).then(sarai => {
                                         if (sarai.isConfirmed) {
@@ -167,7 +167,7 @@ function Galeria() {
                                 if (res.status === 200) {
                                     swal.fire({
                                         title: "Actualizado con exito",
-                                        confirmButtonText: 'Elegir',
+                                        confirmButtonText: '¡Entendido!',
                                         confirmButtonColor: '#F8BF00',
                                     }).then(sarai => {
                                         if (sarai.isConfirmed) {
@@ -201,7 +201,7 @@ function Galeria() {
                                 if (res.status === 200) {
                                     swal.fire({
                                         title: "Actualizado con exito",
-                                        confirmButtonText: 'Elegir',
+                                        confirmButtonText: '¡Entendido!',
                                         confirmButtonColor: '#F8BF00',
                                     }).then(sarai => {
                                         if (sarai.isConfirmed) {

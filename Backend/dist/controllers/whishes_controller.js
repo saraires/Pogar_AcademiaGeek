@@ -25,18 +25,21 @@ const verDeseo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const usuario = yield usuario_1.default.find({ _id: id }, { "saldo": 1 });
     const saldo = (usuario[usuario.length - 1]["saldo"]);
     // Modelo de gastos -- Sacamos el total de los gastos
+    const hayGastos = yield gastos_1.default.find({ autor: id });
     const gastos = yield gastos_1.default.aggregate([{ $match: { autor: id } }, { $group: { _id: id, "Gastos": { $sum: "$precio" } } }]);
     const gastototal = (gastos[0]["Gastos"]);
-    const sobrante = (saldo - gastototal);
-    preciodeseo.forEach((jacobo) => __awaiter(void 0, void 0, void 0, function* () {
-        if (jacobo["precio"] < sobrante) {
-            const actualizarDeseo = yield deseos_1.default.findByIdAndUpdate(jacobo["_id"], { $set: { "comprable": true } });
-        }
-        else {
-            const deseonocomprable = yield deseos_1.default.findByIdAndUpdate(jacobo["_id"], { $set: { "comprable": false } });
-        }
-        ;
-    }));
+    if (hayGastos) {
+        const sobrante = (saldo - gastototal);
+        preciodeseo.forEach((jacobo) => __awaiter(void 0, void 0, void 0, function* () {
+            if (jacobo["precio"] < sobrante) {
+                const actualizarDeseo = yield deseos_1.default.findByIdAndUpdate(jacobo["_id"], { $set: { "comprable": true } });
+            }
+            else {
+                const deseonocomprable = yield deseos_1.default.findByIdAndUpdate(jacobo["_id"], { $set: { "comprable": false } });
+            }
+            ;
+        }));
+    }
     res.send(deseos);
 });
 exports.verDeseo = verDeseo;

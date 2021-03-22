@@ -122,7 +122,7 @@ export const pagar = async (req: Request, res: Response) => {
             const saveContribucion = await Gastos.findByIdAndUpdate(id, { $set: { contribucion: contribucion } });
             console.log(saveContribucion);
 
-            if (cuesta <= 0) {
+            if (cuestaFinal <= 0) {
                 const pagado = await Gastos.findByIdAndUpdate(id, { $set: { pagado: true } });
             }
 

@@ -1,10 +1,8 @@
 import { Request, Response } from 'express';
 import Usuario from '../model/usuario';
 import { validacionRegistro, validacionLogin } from './validationJoi';
-
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import {Storage} from '@google-cloud/storage';
 
 
 const claveToken = 'itsSomeRandomToTheSecretKey';
@@ -29,7 +27,7 @@ export const signIn = async (req: Request, res: Response) => {
 
     // JWT
     const token: string = jwt.sign({ _id: usuarioValido._id }, claveToken);
-    res.send({"usuarioValido":usuarioValido, "authToken":token});
+    res.send({ "usuarioValido": usuarioValido, "authToken": token });
 };
 
 // Sing Up
@@ -58,7 +56,7 @@ export const singUp = async (req: Request, res: Response) => {
         const savedUser = await usuario.save();
         // JWT
         const token: string = jwt.sign({ _id: savedUser._id }, claveToken);
-        res.send({"usuarioValido":savedUser, "authToken":token});
+        res.send({ "usuarioValido": savedUser, "authToken": token });
     } catch (err) {
         res.status(400).send(err);
     };
@@ -67,17 +65,19 @@ export const singUp = async (req: Request, res: Response) => {
 // Consultar perfil
 export const perfil = async (req: Request, res: Response) => {
     const { id } = req.body;
-    const perfil = await Usuario.find({ _id: id })
-    res.send(perfil);
+    try {
+        const perfil = await Usuario.find({ _id: id });
+        res.send(perfil);
+    } catch (err) {
+        console.log(err);
+    }
 };
 
 // Editar o agregar saldo
 export const editarSaldo = async (req: Request, res: Response) => {
     const { id, saldo } = req.body;
     try {
-        console.log(saldo)
-        const actualizarSaldo = await Usuario.findByIdAndUpdate(id, { $inc: {'saldo' : saldo} });
-        console.log(actualizarSaldo);
+        const actualizarSaldo = await Usuario.findByIdAndUpdate(id, { $inc: { 'saldo': saldo } });
         res.send(actualizarSaldo);
     } catch (err) {
         console.log(err);
@@ -86,5 +86,12 @@ export const editarSaldo = async (req: Request, res: Response) => {
 
 // Agregar una imagen al usuario
 export const editarImagen = async (req: Request, res: Response) => {
-
+    const { id, imagen } = req.body;
+    try {
+        const actualizarImagen = await Usuario.findByIdAndUpdate(id, { $set: { 'imagen': imagen } });
+        console.log(actualizarImagen);
+        res.send(actualizarImagen);
+    } catch (err) {
+        console.log(err);
+    }
 }

@@ -35,7 +35,7 @@ const Deseos = () => {
                                 <br/>
                                 <p><i className="fas fa-money-bill-wave"></i> {iterator.precio}</p>
                                 <br/>
-                                <a href="/" className="btn-editar">Editar</a>
+                                <a className="btn-editar">Editar</a>
                                 <a className="btn-editar" onClick={()=>{
                                     swal.fire({
                                         title: '¿Seguro que deseas eliminar el deseo?',

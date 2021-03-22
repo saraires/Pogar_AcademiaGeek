@@ -13,7 +13,7 @@ router.post('/', auth_controller_1.signIn);
 router.post('/signup', auth_controller_1.singUp);
 router.post('/perfil', authFunction_1.tokenValidation, auth_controller_1.perfil); // Ruta privada
 router.post('/editarsaldo', authFunction_1.tokenValidation, auth_controller_1.editarSaldo);
-// router.post('/upload', images);
+router.post('/imagen', auth_controller_1.editarImagen);
 // Rutas de gastos
 router.post('/vergasto', authFunction_1.tokenValidation, expenses_controller_1.verGastos);
 router.post('/agregargasto', authFunction_1.tokenValidation, expenses_controller_1.agregarGastos);

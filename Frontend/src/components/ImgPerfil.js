@@ -1,10 +1,14 @@
 import React from 'react';
-import PerfilFoto from '../images/perfil.svg';
+import { getFromLocal } from '../functions/localstorage';
+import { Link } from 'react-router-dom';
 
 const ImgPerfil = () => {
+
+    const imagen = getFromLocal('img');
+
     return (
         <div className="perfil_img">
-            <img src={PerfilFoto} alt="" />{/*Aquí va la imagen del usuario*/}
+            <Link to="/elegir-imagen"><img src={imagen} alt="" /></Link>
         </div>
     );
 }

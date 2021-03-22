@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { tokenValidation } from '../controllers/authFunction';
 const router: Router = Router();
 
-import { signIn, singUp, editarSaldo, perfil } from '../controllers/auth_controller';
+import { signIn, singUp, editarSaldo, perfil, editarImagen } from '../controllers/auth_controller';
 import { verGastos, agregarGastos, editarGastos, gastosPagos, gastosNoPagos, pagar, infoAporte } from '../controllers/expenses_controller';
 import { verDeseo, agregarDeseo, editarDeseo, eliminarDeseo } from '../controllers/whishes_controller';
 import { verAnt, agregarAnt, editarAnt, comprasAnt} from '../controllers/ant_controllers';
@@ -13,7 +13,7 @@ router.post('/', signIn);
 router.post('/signup', singUp);
 router.post('/perfil', tokenValidation, perfil); // Ruta privada
 router.post('/editarsaldo', tokenValidation, editarSaldo);
-// router.post('/upload', images);
+router.post('/imagen', editarImagen);
 
 // Rutas de gastos
 router.post('/vergasto', tokenValidation, verGastos);

@@ -124,13 +124,13 @@ const pagar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             contribucion.push(agregarContribucion);
             const saveContribucion = yield gastos_1.default.findByIdAndUpdate(id, { $set: { contribucion: contribucion } });
             console.log(saveContribucion);
-            if (cuesta <= 0) {
+            if (cuestaFinal <= 0) {
                 const pagado = yield gastos_1.default.findByIdAndUpdate(id, { $set: { pagado: true } });
             }
             res.status(200).send("Ok");
         }
         else {
-            return ("No se puede hacer la transacción");
+            res.send("sin saldo");
         }
     }
     catch (err) {

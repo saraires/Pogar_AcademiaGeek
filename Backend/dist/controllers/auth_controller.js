@@ -74,17 +74,22 @@ exports.singUp = singUp;
 // Consultar perfil
 const perfil = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.body;
-    const perfil = yield usuario_1.default.find({ _id: id });
-    res.send(perfil);
+    console.log(id);
+    try {
+        const perfil = yield usuario_1.default.findById(id);
+        console.log(perfil);
+        res.send(perfil);
+    }
+    catch (err) {
+        console.log(err);
+    }
 });
 exports.perfil = perfil;
 // Editar o agregar saldo
 const editarSaldo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id, saldo } = req.body;
     try {
-        console.log(saldo);
         const actualizarSaldo = yield usuario_1.default.findByIdAndUpdate(id, { $inc: { 'saldo': saldo } });
-        console.log(actualizarSaldo);
         res.send(actualizarSaldo);
     }
     catch (err) {
@@ -94,6 +99,15 @@ const editarSaldo = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.editarSaldo = editarSaldo;
 // Agregar una imagen al usuario
 const editarImagen = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id, imagen } = req.body;
+    try {
+        const actualizarImagen = yield usuario_1.default.findByIdAndUpdate(id, { $set: { 'imagen': imagen } });
+        console.log(actualizarImagen);
+        res.send(actualizarImagen);
+    }
+    catch (err) {
+        console.log(err);
+    }
 });
 exports.editarImagen = editarImagen;
 //# sourceMappingURL=auth_controller.js.map

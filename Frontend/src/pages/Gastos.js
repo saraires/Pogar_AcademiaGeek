@@ -3,6 +3,7 @@ import NavBar from '../components/NavGastos';
 import axios from '../axios/axios';
 import { getFromLocal, saveToLocal } from '../functions/localstorage';
 import { Link } from 'react-router-dom';
+import swal from 'sweetalert2';
 
 const Gastos = () => {
     const [gastos, setGastos] = useState([]);
@@ -24,6 +25,7 @@ const Gastos = () => {
         getGastos();
         // eslint-disable-next-line
     }, []);
+
     return (
         <div className="conta">
             <NavBar />
@@ -42,8 +44,50 @@ const Gastos = () => {
                                     <br />
                                     <p>{iterator.fecha_pago}</p>
                                 </Link>
-                                <a href="/" className="btn-editar">Editar</a>
-                                <a href="/" className="btn-editar">Pagar</a>
+                                <a className="btn-editar">Editar</a>
+                                <a onClick={() => {
+                                    swal.fire({
+                                        title: 'Ingrese la cantidad dispuesta para aportar al gasto',
+                                        input: 'number',
+                                        inputPlaceholder: 'Pago',
+                                        inputAttributes: {
+                                            autocapitalize: 'off'
+                                        },
+                                        showCancelButton: true,
+                                        cancelButtonText: 'Cancelar',
+                                        confirmButtonText: 'Aportar',
+                                        showLoaderOnConfirm: true,
+                                        confirmButtonColor: '#f4f800',
+                                        preConfirm: pago => {
+                                            if (pago === "" || pago === "0") {
+                                                swal.fire({
+                                                    title: 'Su pago no puede ir vacío'
+                                                })
+                                            } else {
+                                                console.log({ id: iterator.id, token: token, autor: autor, pago: pago })
+                                                return axios.post('/pagar', { id: iterator._id, token: token, autor: autor, pago: pago })
+                                                    .then(res => {
+                                                        if (res.status === 200) {
+                                                            swal.fire({
+                                                                title: '¡Aporte realizado!',
+                                                                confirmButtonText: '¡Entendido!',
+                                                                confirmButtonColor: '#f4f800'
+                                                            }).then(sarai => {
+                                                                if (sarai.isConfirmed) {
+                                                                    window.location.reload();
+                                                                }
+                                                            });
+                                                        }
+                                                    }).catch(err => {
+                                                        swal.showValidationMessage(
+                                                            'Request filed' + err
+                                                        );
+                                                    });
+                                            }
+                                        },
+                                        allowOutsideClick: () => !swal.isLoading()
+                                    });
+                                }} className="btn-editar">Pagar</a>
                             </div>
                         </div>
                     </div>

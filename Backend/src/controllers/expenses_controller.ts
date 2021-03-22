@@ -90,21 +90,21 @@ export const noPagosNoFijo = async (req: Request, res: Response) => {
 
 // Pagar gastos
 export const pagar = async (req: Request, res: Response) => {
-    const { id, autor } = req.body; // id es de la tarjeta y autor es el id del usuario
+    const { id, autor, pago } = req.body; // id es de la tarjeta y autor es el id del usuario
     try {
 
         // Modelo de Gastos
         const card = await Gastos.findById(id);
         if (!card) { return ("Fallo"); } // Control de error
-        const aporte = (card.contribucion[card.contribucion.length - 1]["pago"]); // Lo que el usuario esta pagando
         const cuesta = (card.precio) // Cuanto es lo que debe al gasto, precio total del gasto, deuda en si.
-        console.log(cuesta);
+        const aporte = pago // Lo que el usuario esta pagando
+        let contribucion = card.contribucion
 
         // Modelo de Usuario
         const usuario = await Usuario.find({ _id: autor }, { "saldo": 1 }); // se trae el saldo del usuario con un id
         const saldo = (usuario[usuario.length - 1]["saldo"]); // Del array devuelve solo el saldo
 
-        if (saldo >= cuesta) { // verificamos que si haya dinero sificiente para realizar la transacción
+        if (saldo >= aporte) { // verificamos que si haya dinero sificiente para realizar la transacción
 
             const saldoFinal = saldo - aporte; // Restar... Esto me da el saldo
             const cuestaFinal = cuesta - aporte; // Restar... Esto me da en cuanto queda la deuda
@@ -115,15 +115,21 @@ export const pagar = async (req: Request, res: Response) => {
             // Actualizar cantidad de la deuda
             const actualizarGasto = await Gastos.findByIdAndUpdate(id, { $set: { precio: cuestaFinal } });
 
+            // Agregar contribucion al historial
+            const agregarContribucion = { "pago": aporte }
+            contribucion.push(agregarContribucion);
+
+            const saveContribucion = await Gastos.findByIdAndUpdate(id, { $set: { contribucion: contribucion } });
+            console.log(saveContribucion);
+
             if (cuesta <= 0) {
                 const pagado = await Gastos.findByIdAndUpdate(id, { $set: { pagado: true } });
-                console.log(pagado);
             }
 
             res.status(200).send("Ok");
-            
+
         } else {
-            return("No se puede hacer la transacción");
+            res.send("sin saldo");
         }
     } catch (err) {
         console.log(err);

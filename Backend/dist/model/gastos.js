@@ -30,12 +30,10 @@ const gastoSchema = new mongoose_1.Schema({
         {
             pago: {
                 type: Number,
-                required: false,
                 default: 0
             },
             fecha: {
                 type: Date,
-                required: false,
                 default: Date.now
             }
         }

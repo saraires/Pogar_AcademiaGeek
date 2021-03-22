@@ -12,11 +12,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.editarSaldo = exports.perfil = exports.singUp = exports.signIn = void 0;
+exports.editarImagen = exports.editarSaldo = exports.perfil = exports.singUp = exports.signIn = void 0;
 const usuario_1 = __importDefault(require("../model/usuario"));
+const validationJoi_1 = require("./validationJoi");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const validationJoi_1 = require("./validationJoi");
 const claveToken = 'itsSomeRandomToTheSecretKey';
 // Login
 const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -92,4 +92,8 @@ const editarSaldo = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.editarSaldo = editarSaldo;
+// Agregar una imagen al usuario
+const editarImagen = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+});
+exports.editarImagen = editarImagen;
 //# sourceMappingURL=auth_controller.js.map

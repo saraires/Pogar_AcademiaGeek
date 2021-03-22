@@ -7,14 +7,14 @@ import {getFromLocal, saveToLocal} from '../functions/localstorage';
 
 const Menu = () => {
     const alert=getFromLocal('alert');
-    if(alert){
+    if(alert === '1'){
         swal.fire({
             title: '¡Recuerda!',
             text: 'Debes registrar tus gastos hormiga a diario. Esto complementará la gestión de tu dinero.',
             confirmButtonText: "¡Entendido!",
             confirmButtonColor: "#f4f800"
         });
-        saveToLocal('alert', false);
+        saveToLocal('alert', '2');
     }
 
     return (

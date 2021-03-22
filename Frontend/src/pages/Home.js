@@ -4,7 +4,7 @@ import OptionsHome from '../components/OptionsHome';
 import {saveToLocal} from '../functions/localstorage';
 
 const Home=()=>{
-    saveToLocal('alert', true);
+    saveToLocal('alert', '1');
     return(
         <div className="containerHome">
             <Tittle prop="Pogar"/>

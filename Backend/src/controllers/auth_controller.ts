@@ -1,8 +1,11 @@
 import { Request, Response } from 'express';
 import Usuario from '../model/usuario';
+import { validacionRegistro, validacionLogin } from './validationJoi';
+
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { validacionRegistro, validacionLogin } from './validationJoi';
+import {Storage} from '@google-cloud/storage';
+
 
 const claveToken = 'itsSomeRandomToTheSecretKey';
 
@@ -80,3 +83,8 @@ export const editarSaldo = async (req: Request, res: Response) => {
         console.log(err);
     }
 };
+
+// Agregar una imagen al usuario
+export const editarImagen = async (req: Request, res: Response) => {
+
+}

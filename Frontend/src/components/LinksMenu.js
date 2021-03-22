@@ -28,7 +28,7 @@ const LinksMenu = () => {
         history.push('/');
         removeFromLocal('id');
         removeFromLocal('authToken');
-        saveToLocal('alert', true);
+        saveToLocal('alert', '1');
       }
     })
   }

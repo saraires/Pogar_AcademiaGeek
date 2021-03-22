@@ -36,12 +36,12 @@ const Deseos = () => {
                                 <p><i className="fas fa-money-bill-wave"></i> {iterator.precio}</p>
                                 <br/>
                                 <a href="/" className="btn-editar">Editar</a>
-                                <a href="/" className="btn-editar" onClick={()=>{
+                                <a className="btn-editar" onClick={()=>{
                                     swal.fire({
                                         title: '¿Seguro que deseas eliminar el deseo?',
                                         showCancelButton: true,
                                         cancelButtonText: 'Cancelar',
-                                        confirmButtonText: 'Aportar',
+                                        confirmButtonText: 'Eliminar',
                                         confirmButtonColor: '#f4f800',
                                     }).then(result=>{
                                         if(result.isConfirmed){

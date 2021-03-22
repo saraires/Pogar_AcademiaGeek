@@ -36,20 +36,29 @@ const Deseos = () => {
                                 <p><i className="fas fa-money-bill-wave"></i> {iterator.precio}</p>
                                 <br/>
                                 <a href="/" className="btn-editar">Editar</a>
-                                <a className="btn-editar" onClick={()=>{      
-                                    //TODO: hacer confirmación para elimar el deseo                          
-                                    axios.post('/eliminardeseo', {"id": iterator._id, "token":token}).then((res)=>{
-                                        if(res.data['message']==="Deseo Eliminado"){
-                                            window.location.reload();
+                                <a href="/" className="btn-editar" onClick={()=>{
+                                    swal.fire({
+                                        title: '¿Seguro que deseas eliminar el deseo?',
+                                        showCancelButton: true,
+                                        cancelButtonText: 'Cancelar',
+                                        confirmButtonText: 'Aportar',
+                                        confirmButtonColor: '#f4f800',
+                                    }).then(result=>{
+                                        if(result.isConfirmed){
+                                            axios.post('/eliminardeseo', {"id": iterator._id, "token":token}).then((res)=>{
+                                                if(res.data['message']==="Deseo Eliminado"){
+                                                    window.location.reload();
+                                                }
+                                            }).catch(()=>{
+                                                swal.fire({
+                                                    title: "No se pudo eliminar el deseo",
+                                                    footer: "Intente de nuevo", 
+                                                    icon: "error",
+                                                    confirmButtonText: "¡Entendido!",
+                                                    confirmButtonColor: "#f4f800",
+                                                  });
+                                            })
                                         }
-                                    }).catch(()=>{
-                                        swal.fire({
-                                            title: "No se pudo eliminar el deseo",
-                                            footer: "Intente de nuevo", 
-                                            icon: "error",
-                                            confirmButtonText: "¡Entendido!",
-                                            confirmButtonColor: "#f4f800",
-                                          });
                                     })
                                 }}>Eliminar</a>
                                 <br/>

@@ -58,14 +58,12 @@ const Gastos = () => {
                                         confirmButtonText: 'Aportar',
                                         showLoaderOnConfirm: true,
                                         confirmButtonColor: '#f4f800',
-
                                         preConfirm: pago => {
                                             if (pago === "" || pago === "0") {
                                                 swal.fire({
                                                     title: 'Su pago no puede ir vacío'
-                                                })
+                                                });
                                             } else {
-                                                console.log({ id: iterator.id, token: token, autor: autor, pago: pago })
                                                 return axios.post('/pagar', { id: iterator._id, token: token, autor: autor, pago: pago })
                                                     .then(res => {
                                                         if (res.data === "sin saldo") {
@@ -85,9 +83,12 @@ const Gastos = () => {
                                                                 }
                                                             })
                                                         }
-                                                    },
-                                                allowOutsideClick: () => !swal.isLoading()
-                                        });
+                                                    }
+                                                    )
+                                            }
+                                        },
+                                        allowOutsideClick: () => !swal.isLoading()
+                                    });
                                 }} className="btn-editar">Pagar</span>
                             </div>
                         </div>

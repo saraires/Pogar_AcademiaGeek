@@ -14,7 +14,7 @@ export const verDeseo = async (req: Request, res: Response) => {
     const saldo = (usuario[usuario.length - 1]["saldo"]);
 
     // Modelo de gastos -- Sacamos el total de los gastos
-    const hayGastos = await Gastos.find({ autor: id});
+    const hayGastos = await Gastos.find({ autor: id });
     const gastos = await Gastos.aggregate([{ $match: { autor: id } }, { $group: { _id: id, "Gastos": { $sum: "$precio" } } }]);
     const gastototal = (gastos[0]["Gastos"]);
 
@@ -31,6 +31,13 @@ export const verDeseo = async (req: Request, res: Response) => {
     }
 
     res.send(deseos);
+}
+
+// Ver solo un deseo
+export const verSolounDeseo = async (req: Request, res: Response) => {
+    const { id } = req.body;
+    const deseo = await Deseos.find({ _id: id});
+    res.send(deseo);
 }
 
 // Agregar deseos

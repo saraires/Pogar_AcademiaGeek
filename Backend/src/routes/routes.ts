@@ -4,9 +4,8 @@ const router: Router = Router();
 
 import { signIn, singUp, editarSaldo, perfil, editarImagen } from '../controllers/auth_controller';
 import { verGastos, agregarGastos, editarGastos, gastosPagos, gastosNoPagos, pagar, infoAporte } from '../controllers/expenses_controller';
-import { verDeseo, agregarDeseo, editarDeseo, eliminarDeseo } from '../controllers/whishes_controller';
+import { verDeseo, agregarDeseo, editarDeseo, eliminarDeseo, verSolounDeseo } from '../controllers/whishes_controller';
 import { verAnt, agregarAnt, editarAnt, comprasAnt} from '../controllers/ant_controllers';
-// import { images } from '../controllers/images_controller';
 
 // Rutas de Usuario
 router.post('/', signIn);
@@ -35,7 +34,7 @@ router.post('/verdeseos', tokenValidation, verDeseo)
 router.post('/agregardeseo', tokenValidation, agregarDeseo);
 router.post('/editardeseo', tokenValidation, editarDeseo);
 router.post('/eliminardeseo', tokenValidation, eliminarDeseo);
-// router.post('/deseos', tokenValidation, condicionDeseo);
+router.post('/verundeseo', tokenValidation, verSolounDeseo);
 
 // Rutas de gastos hormiga
 router.post('/verant', tokenValidation, verAnt);

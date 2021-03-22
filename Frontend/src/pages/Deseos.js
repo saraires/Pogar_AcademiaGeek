@@ -5,8 +5,7 @@ import { getFromLocal } from '../functions/localstorage';
 import swal from 'sweetalert2';
 
 const Deseos = () => {
-
-    let editar = false;
+    const [editar, setEditar] = useState(false);
     const [deseos, setDeseos] = useState([]);
     const token = getFromLocal('authToken');
     const autor = getFromLocal('id');
@@ -21,9 +20,9 @@ const Deseos = () => {
     const validarEdicion = () => {
         console.log(editar);
         if (editar === false) {
-            editar = true
+            setEditar(true);
         } else {
-            editar = false
+            setEditar(false);
         }
     }
 
@@ -42,11 +41,15 @@ const Deseos = () => {
                         <div className="box">
                             <div className="contentG">
                                 <h2>{iterator.comprable ? <i className="fas fa-coins"></i> : <i className="fas fa-exclamation-triangle"></i>}</h2>
-                                {editar ? <h3>hola</h3> : <div><h3>{iterator.titulo}</h3>
-                                <br/>
-                                <p>{iterator.descripcion}</p>
-                                <br/>
-                                <p><i className="fas fa-money-bill-wave"></i> {iterator.precio}</p></div>}
+                                {editar ? <input placeholder="Hola"/> : 
+                                <div>
+                                    <h3>{iterator.titulo}</h3>
+                                    <br />
+                                    <p>{iterator.descripcion}</p>
+                                    <br />
+                                    <p><i className="fas fa-money-bill-wave"></i> {iterator.precio}</p>
+                                </div>
+                                }
                                 <br />
                                 <span onClick={validarEdicion} className="btn-editar">Editar</span>
                                 <span className="btn-editar" onClick={() => {

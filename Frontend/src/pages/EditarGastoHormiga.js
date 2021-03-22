@@ -5,18 +5,18 @@ import { getFromLocal } from '../functions/localstorage';
 import { useForm } from "react-hook-form";
 import swal from 'sweetalert2';
 
-const EditarDeseo = () => {
-    const [deseo, setDeseo] = useState({});
+const EditarGastoHormiga = () => {
+    const [gastoHormiga, setGastoHormig] = useState({});
     const { register, handleSubmit } = useForm();
     const token = getFromLocal('authToken');
-    const id_deseo = getFromLocal('id_deseo');
+    const id_gasto = getFromLocal('id_gasto_hormiga');
     const onSubmit = data => {
-        if (deseo.titulo !== data.titulo || deseo.descripcion !== data.descripcion || deseo.precio !== parseInt(data.precio)) {
-            axios.post('/editardeseo', {
+        if (gastoHormiga.titulo !== data.titulo || gastoHormiga.descripcion !== data.descripcion || gastoHormiga.precio !== parseInt(data.precio)) {
+            axios.post('/editarant', {
                 "titulo": data.titulo,
                 "descripcion": data.descripcion,
                 "precio": data.precio,
-                "id": id_deseo,
+                "id": id_gasto,
                 "token": token
             }).then(res => {
                 swal.fire({
@@ -25,7 +25,7 @@ const EditarDeseo = () => {
                     confirmButtonColor: '#F8BF00',
                 }).then(result => {
                     if (result.isConfirmed) {
-                        window.location.href = "/deseos"
+                        window.location.href = "/gastos"
                     }
                 });
             })
@@ -40,14 +40,14 @@ const EditarDeseo = () => {
         }
     }
 
-    const getDeseo = () => {
-        axios.post('/verundeseo', { "id": id_deseo, "token": token })
+    const getGastoHormig = () => {
+        axios.post('/verunhormiga', { "id": id_gasto, "token": token })
             .then(res => {
-                setDeseo(res.data[0])
+                setGastoHormig(res.data[0])
             })
     }
     useEffect(() => {
-        getDeseo();
+        getGastoHormig();
         // eslint-disable-next-line
     }, [])
 
@@ -56,21 +56,23 @@ const EditarDeseo = () => {
             <NavBar />
             <div className="containerG">
                 <form className="sign-in-form" onSubmit={handleSubmit(onSubmit)}>
-                    <br />
-                    <br />
-                    <h2 className="title">Editar deseo</h2>
+                    <h2 className="title">Editar gasto</h2>
                     <br />
                     <div className="input-field">
                         <i className="fas fa-file-alt"></i>
-                        <input type="text" defaultValue={deseo.titulo} required ref={register} name="titulo" />
+                        <input type="text" defaultValue={gastoHormiga.titulo} required ref={register} name="titulo" />
                     </div>
                     <div className="input-field">
                         <i className="fas fa-envelope-open-text"></i>
-                        <input type="text" defaultValue={deseo.descripcion} required ref={register} name="descripcion" />
+                        <input type="text" defaultValue={gastoHormiga.descripcion} required ref={register} name="descripcion" />
                     </div>
                     <div className="input-field">
                         <i className="fas fa-money-bill-wave"></i>
-                        <input type="number" defaultValue={deseo.precio} required ref={register} name="precio" />
+                        <input type="number" defaultValue={gastoHormiga.precio} required ref={register} name="precio" />
+                    </div>
+                    <div className="input-field">
+                        <i className="fas fa-calendar-alt"></i>
+                        <input type="text" defaultValue={gastoHormiga.fecha_pago} required ref={register} name="fecha_pago" />
                     </div>
                     <input type="submit" value="Editar" className="btn solid" />
                 </form>
@@ -78,4 +80,4 @@ const EditarDeseo = () => {
         </div>
     );
 }
-export default EditarDeseo;
+export default EditarGastoHormiga;

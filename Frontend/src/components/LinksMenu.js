@@ -28,6 +28,10 @@ const LinksMenu = () => {
         history.push('/');
         removeFromLocal('id');
         removeFromLocal('authToken');
+        removeFromLocal('id_card');
+        removeFromLocal('id_deseo');
+        removeFromLocal('id_gasto');
+        removeFromLocal('id_gasto_hormiga');
         saveToLocal('alert', '1');
       }
     })

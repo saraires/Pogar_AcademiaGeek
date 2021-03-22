@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import NavBar from '../components/NavGastosH';
 import axios from '../axios/axios';
-import { getFromLocal } from '../functions/localstorage';
+import { getFromLocal, saveToLocal } from '../functions/localstorage';
+import {Link} from 'react-router-dom';
 
 const GastosH = () => {
     const [gastos, setGastos] = useState([]);
@@ -42,7 +43,9 @@ const GastosH = () => {
                                 <br/>
                                 <p>{transformer(iterator.fecha)}</p>
                                 <br/>
-                                <a href="/" className="btn-editar">Editar</a>
+                                <Link style={{ textDecoration: 'none' }} to="/editar-gasto-hormiga" onClick={() => {
+                                    saveToLocal('id_gasto_hormiga', iterator._id)
+                                }}><span className="btn-editar">Editar</span></Link>
                             </div>
                         </div>
                     </div>

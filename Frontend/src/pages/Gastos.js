@@ -44,7 +44,9 @@ const Gastos = () => {
                                     <br />
                                     <p>{iterator.fecha_pago}</p>
                                 </Link>
-                                <span className="btn-editar">Editar</span>
+                                <Link style={{ textDecoration: 'none' }} to="/editar-gasto" onClick={() => {
+                                    saveToLocal('id_gasto', iterator._id)
+                                }}><span className="btn-editar">Editar</span></Link>
                                 <span onClick={() => {
                                     swal.fire({
                                         title: 'Ingrese la cantidad dispuesta para aportar al gasto',

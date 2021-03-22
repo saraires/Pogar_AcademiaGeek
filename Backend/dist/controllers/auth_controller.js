@@ -74,10 +74,8 @@ exports.singUp = singUp;
 // Consultar perfil
 const perfil = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.body;
-    console.log(id);
     try {
-        const perfil = yield usuario_1.default.findById(id);
-        console.log(perfil);
+        const perfil = yield usuario_1.default.find({ _id: id });
         res.send(perfil);
     }
     catch (err) {

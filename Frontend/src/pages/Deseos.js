@@ -63,7 +63,7 @@ const Deseos = () => {
                                 }}>Eliminar</a>
                                 <br/>
                                 <br/>
-                                <p>{iterator.comprable? <span>Date el gusto</span>: <span>No te des el gusto</span>}</p>
+                                <p>{iterator.comprable? <p>Date el gusto</p>: <p>No te des el gusto</p>}</p>
                             </div>
                         </div>
                     </div>

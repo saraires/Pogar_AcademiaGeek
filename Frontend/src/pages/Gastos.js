@@ -44,8 +44,8 @@ const Gastos = () => {
                                     <br />
                                     <p>{iterator.fecha_pago}</p>
                                 </Link>
-                                <a className="btn-editar">Editar</a>
-                                <a onClick={() => {
+                                <span className="btn-editar">Editar</span>
+                                <span onClick={() => {
                                     swal.fire({
                                         title: 'Ingrese la cantidad dispuesta para aportar al gasto',
                                         input: 'number',
@@ -58,6 +58,7 @@ const Gastos = () => {
                                         confirmButtonText: 'Aportar',
                                         showLoaderOnConfirm: true,
                                         confirmButtonColor: '#f4f800',
+
                                         preConfirm: pago => {
                                             if (pago === "" || pago === "0") {
                                                 swal.fire({
@@ -67,33 +68,33 @@ const Gastos = () => {
                                                 console.log({ id: iterator.id, token: token, autor: autor, pago: pago })
                                                 return axios.post('/pagar', { id: iterator._id, token: token, autor: autor, pago: pago })
                                                     .then(res => {
-                                                        if (res.status === 200) {
+                                                        if (res.data === "sin saldo") {
                                                             swal.fire({
-                                                                title: '¡Aporte realizado!',
+                                                                title: '¡No tienes saldo suficiente para hacer este aporte!',
+                                                                confirmButtonText: '¡Entendido!',
+                                                                confirmButtonColor: '#f4f800'
+                                                            })
+                                                        } else {
+                                                            swal.fire({
+                                                                title: '¡Aporte Realizado!',
                                                                 confirmButtonText: '¡Entendido!',
                                                                 confirmButtonColor: '#f4f800'
                                                             }).then(sarai => {
                                                                 if (sarai.isConfirmed) {
                                                                     window.location.reload();
                                                                 }
-                                                            });
+                                                            })
                                                         }
-                                                    }).catch(err => {
-                                                        swal.showValidationMessage(
-                                                            'Request filed' + err
-                                                        );
-                                                    });
-                                            }
-                                        },
-                                        allowOutsideClick: () => !swal.isLoading()
-                                    });
-                                }} className="btn-editar">Pagar</a>
+                                                    },
+                                                allowOutsideClick: () => !swal.isLoading()
+                                        });
+                                }} className="btn-editar">Pagar</span>
                             </div>
                         </div>
                     </div>
                 ))}
             </div>
-        </div>
+        </div >
     );
 }
 export default Gastos;

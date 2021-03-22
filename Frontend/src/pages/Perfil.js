@@ -7,7 +7,8 @@ import { getFromLocal, saveToLocal } from '../functions/localstorage';
 import axios from '../axios/axios';
 
 const Perfil = () => {
-    
+
+    let verificar = 0;
     const [perfil, setPerfil] = useState({});
     const token = getFromLocal('authToken');
     const id = getFromLocal('id');
@@ -16,11 +17,11 @@ const Perfil = () => {
             .post(`/perfil`, { "id": id, "token": token })
             .then((res) => {
                 setPerfil(res.data[0]);
-                saveToLocal( 'img', res.data[0]["imagen"]);
+                saveToLocal('img', res.data[0]["imagen"]);
             })
     }
     useEffect(() => {
-        getPerfil()
+        getPerfil();
         // eslint-disable-next-line
     }, [])
     return (

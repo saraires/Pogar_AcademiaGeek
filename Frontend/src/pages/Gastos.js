@@ -57,7 +57,7 @@ const Gastos = () => {
                                         cancelButtonText: 'Cancelar',
                                         confirmButtonText: 'Aportar',
                                         showLoaderOnConfirm: true,
-                                        confirmButtonColor: '#f4f800',
+                                        confirmButtonColor: '#F8BF00',
                                         preConfirm: pago => {
                                             if (pago === "" || pago === "0") {
                                                 swal.fire({
@@ -70,13 +70,13 @@ const Gastos = () => {
                                                             swal.fire({
                                                                 title: '¡No tienes saldo suficiente para hacer este aporte!',
                                                                 confirmButtonText: '¡Entendido!',
-                                                                confirmButtonColor: '#f4f800'
+                                                                confirmButtonColor: '#F8BF00'
                                                             })
                                                         } else {
                                                             swal.fire({
                                                                 title: '¡Aporte Realizado!',
                                                                 confirmButtonText: '¡Entendido!',
-                                                                confirmButtonColor: '#f4f800'
+                                                                confirmButtonColor: '#F8BF00'
                                                             }).then(sarai => {
                                                                 if (sarai.isConfirmed) {
                                                                     window.location.reload();

@@ -12,7 +12,7 @@ const Menu = () => {
             title: '¡Recuerda!',
             text: 'Debes registrar tus gastos hormiga a diario. Esto complementará la gestión de tu dinero.',
             confirmButtonText: "¡Entendido!",
-            confirmButtonColor: "#f4f800"
+            confirmButtonColor: "#F8BF00"
         });
         saveToLocal('alert', '2');
     }

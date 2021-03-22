@@ -42,7 +42,7 @@ const Deseos = () => {
                                         showCancelButton: true,
                                         cancelButtonText: 'Cancelar',
                                         confirmButtonText: 'Eliminar',
-                                        confirmButtonColor: '#f4f800',
+                                        confirmButtonColor: '#F8BF00',
                                     }).then(result=>{
                                         if(result.isConfirmed){
                                             axios.post('/eliminardeseo', {"id": iterator._id, "token":token}).then((res)=>{
@@ -55,7 +55,7 @@ const Deseos = () => {
                                                     footer: "Intente de nuevo", 
                                                     icon: "error",
                                                     confirmButtonText: "¡Entendido!",
-                                                    confirmButtonColor: "#f4f800",
+                                                    confirmButtonColor: "#F8BF00",
                                                   });
                                             })
                                         }

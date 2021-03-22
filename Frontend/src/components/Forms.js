@@ -33,7 +33,7 @@ const Forms = () => {
             footer: "Intente de nuevo", 
             icon: "error",
             confirmButtonText: "¡Entendido!",
-            confirmButtonColor: "#f4f800",
+            confirmButtonColor: "#F8BF00",
           });
         });
       }else{
@@ -42,7 +42,7 @@ const Forms = () => {
           text: "¡La contraseña debe tener más de 8 carácteres!", 
           icon: "error",
           confirmButtonText: "¡Entendido!",
-          confirmButtonColor: "#f4f800",
+          confirmButtonColor: "#F8BF00",
         });
       }
       
@@ -53,7 +53,8 @@ const Forms = () => {
         axios.post('/signup', {
           nombre: data.nombre,
           correo: data.correoR,
-          contraseña: data.contrasenaR
+          contraseña: data.contrasenaR,
+          imagen: 'https://user-images.githubusercontent.com/66284121/111956716-145aa600-8ab9-11eb-8220-959165d782a5.jpg'
         }).then((res) => {
           if(res.status===200){
             swal.fire({
@@ -61,7 +62,7 @@ const Forms = () => {
               text: "¡Ya puedes inciar sesión!",
               icon: "success",
               confirmButtonText: "¡Entendido!",
-              confirmButtonColor: "#f4f800",
+              confirmButtonColor: "#F8BF00",
             });
           }
         }).catch(()=>{
@@ -70,7 +71,7 @@ const Forms = () => {
             text: "¡Su correo es inválido!", 
             icon: "error",
             confirmButtonText: "¡Entendido!",
-            confirmButtonColor: "#f4f800",
+            confirmButtonColor: "#F8BF00",
           });
         })
       }else{
@@ -79,7 +80,7 @@ const Forms = () => {
           text: "¡La contraseña debe tener más de 8 carácteres!", 
           icon: "error",
           confirmButtonText: "¡Entendido!",
-          confirmButtonColor: "#f4f800",
+          confirmButtonColor: "#F8BF00",
         });
       }
       

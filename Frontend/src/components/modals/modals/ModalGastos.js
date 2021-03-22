@@ -29,7 +29,7 @@ const ModalGastos = ({ showModal, setShowModal }) => {
           footer: "Intente de nuevo",
           icon: "error",
           confirmButtonText: "¡Entendido!",
-          confirmButtonColor: "#f4f800",
+          confirmButtonColor: "#F8BF00",
         });
       }
     }).catch(()=>{
@@ -38,7 +38,7 @@ const ModalGastos = ({ showModal, setShowModal }) => {
         footer: "Intente de nuevo",
         icon: "error",
         confirmButtonText: "¡Entendido!",
-        confirmButtonColor: "#f4f800",
+        confirmButtonColor: "#F8BF00",
       });
     })
   }

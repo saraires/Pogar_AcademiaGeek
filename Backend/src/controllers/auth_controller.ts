@@ -46,11 +46,12 @@ export const singUp = async (req: Request, res: Response) => {
     const hashContraseña = await bcrypt.hash(req.body.contraseña, salt);
 
     // Creacion de usuarios
-    const { nombre, correo } = req.body
+    const { nombre, correo, imagen } = req.body
     const usuario = new Usuario({
         nombre,
         correo,
-        contraseña: hashContraseña
+        contraseña: hashContraseña,
+        imagen
     });
     try {
         const savedUser = await usuario.save();

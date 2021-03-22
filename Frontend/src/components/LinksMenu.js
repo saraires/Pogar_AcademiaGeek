@@ -14,7 +14,7 @@ const LinksMenu = () => {
       padding: '3em',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
+      confirmButtonColor: '#F8BF00',
       cancelButtonColor: '#d33',
       cancelButtonText: 'Cancelar',
       confirmButtonText: 'Salir',

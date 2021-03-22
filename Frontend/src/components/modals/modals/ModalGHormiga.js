@@ -20,7 +20,7 @@ const ModalHGastos = ({ showModal, setShowModal }) => {
         footer: "Intente de nuevo",
         icon: "error",
         confirmButtonText: "¡Entendido!",
-        confirmButtonColor: "#f4f800",
+        confirmButtonColor: "#F8BF00",
       });
     }else{
       axios.post('/agregarant', {
@@ -37,7 +37,7 @@ const ModalHGastos = ({ showModal, setShowModal }) => {
           footer: "Intente de nuevo",
           icon: "error",
           confirmButtonText: "¡Entendido!",
-          confirmButtonColor: "#f4f800",
+          confirmButtonColor: "#F8BF00",
         });
       }).catch(()=>{
         swal.fire({
@@ -45,7 +45,7 @@ const ModalHGastos = ({ showModal, setShowModal }) => {
           footer: "Intente de nuevo",
           icon: "error",
           confirmButtonText: "¡Entendido!",
-          confirmButtonColor: "#f4f800",
+          confirmButtonColor: "#F8BF00",
         });
       }); 
     }

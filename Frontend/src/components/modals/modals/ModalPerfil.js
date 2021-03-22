@@ -19,7 +19,7 @@ const ModalPerfil = ({ showModal, setShowModal }) => {
         footer: "Intente de nuevo",
         icon: "error",
         confirmButtonText: "¡Entendido!",
-        confirmButtonColor: "#f4f800",
+        confirmButtonColor: "#F8BF00",
       });
     } else {
       axios.post('/editarsaldo', {"id":id, saldo:data.saldo, "token":token}).then((res)=>{
@@ -32,7 +32,7 @@ const ModalPerfil = ({ showModal, setShowModal }) => {
           footer: "Intente de nuevo",
           icon: "error",
           confirmButtonText: "¡Entendido!",
-          confirmButtonColor: "#f4f800",
+          confirmButtonColor: "#F8BF00",
         });
       })
     }

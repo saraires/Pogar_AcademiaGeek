@@ -49,7 +49,7 @@ function Galeria() {
                         <p>Elegir esta imagen</p>
                     </div>
                 </div>
-                <img src={img1} />
+                <img src={img1} alt="..." />
             </div>
             <div className="img-profile" onClick={() => {
                 swal.fire({
@@ -83,7 +83,7 @@ function Galeria() {
                         <p>Elegir esta imagen</p>
                     </div>
                 </div>
-                <img src={img2} />
+                <img src={img2} alt="..." />
             </div>
             <div className="img-profile" onClick={() => {
                 swal.fire({
@@ -117,7 +117,7 @@ function Galeria() {
                         <p>Elegir esta imagen</p>
                     </div>
                 </div>
-                <img src={img3} />
+                <img src={img3} alt="..." />
             </div>
             <div className="img-profile" onClick={() => {
                 swal.fire({
@@ -151,7 +151,7 @@ function Galeria() {
                         <p>Elegir esta imagen</p>
                     </div>
                 </div>
-                <img src={img4} />
+                <img src={img4} alt="..." />
             </div>
             <div className="img-profile" onClick={() => {
                 swal.fire({
@@ -185,7 +185,7 @@ function Galeria() {
                         <p>Elegir esta imagen</p>
                     </div>
                 </div>
-                <img src={img5} />
+                <img src={img5} alt="..." />
             </div>
             <div className="img-profile" onClick={() => {
                 swal.fire({
@@ -219,7 +219,7 @@ function Galeria() {
                         <p>Elegir esta imagen</p>
                     </div>
                 </div>
-                <img src={img6} />
+                <img src={img6} alt="..." />
             </div>
         </div>
     );

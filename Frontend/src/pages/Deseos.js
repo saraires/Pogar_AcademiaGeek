@@ -5,6 +5,8 @@ import { getFromLocal } from '../functions/localstorage';
 import swal from 'sweetalert2';
 
 const Deseos = () => {
+
+    let editar = false;
     const [deseos, setDeseos] = useState([]);
     const token = getFromLocal('authToken');
     const autor = getFromLocal('id');
@@ -16,10 +18,21 @@ const Deseos = () => {
             }).catch(() => { });
     }
 
+    const validarEdicion = () => {
+        console.log(editar);
+        if (editar === false) {
+            editar = true
+        } else {
+            editar = false
+        }
+    }
+
     useEffect(() => {
         getDeseos();
         // eslint-disable-next-line
     }, [])
+
+
     return (
         <div className="conta">
             <NavBar />
@@ -28,42 +41,42 @@ const Deseos = () => {
                     <div key={iterator._id} className="card">
                         <div className="box">
                             <div className="contentG">
-                                <h2>{iterator.comprable? <i className="fas fa-coins"></i>: <i className="fas fa-exclamation-triangle"></i>}</h2>
-                                <h3>{iterator.titulo}</h3>
+                                <h2>{iterator.comprable ? <i className="fas fa-coins"></i> : <i className="fas fa-exclamation-triangle"></i>}</h2>
+                                {editar ? <h3>hola</h3> : <div><h3>{iterator.titulo}</h3>
                                 <br/>
                                 <p>{iterator.descripcion}</p>
                                 <br/>
-                                <p><i className="fas fa-money-bill-wave"></i> {iterator.precio}</p>
-                                <br/>
-                                <a className="btn-editar">Editar</a>
-                                <a className="btn-editar" onClick={()=>{
+                                <p><i className="fas fa-money-bill-wave"></i> {iterator.precio}</p></div>}
+                                <br />
+                                <span onClick={validarEdicion} className="btn-editar">Editar</span>
+                                <span className="btn-editar" onClick={() => {
                                     swal.fire({
                                         title: '¿Seguro que deseas eliminar el deseo?',
                                         showCancelButton: true,
                                         cancelButtonText: 'Cancelar',
                                         confirmButtonText: 'Eliminar',
                                         confirmButtonColor: '#F8BF00',
-                                    }).then(result=>{
-                                        if(result.isConfirmed){
-                                            axios.post('/eliminardeseo', {"id": iterator._id, "token":token}).then((res)=>{
-                                                if(res.data['message']==="Deseo Eliminado"){
+                                    }).then(result => {
+                                        if (result.isConfirmed) {
+                                            axios.post('/eliminardeseo', { "id": iterator._id, "token": token }).then((res) => {
+                                                if (res.data['message'] === "Deseo Eliminado") {
                                                     window.location.reload();
                                                 }
-                                            }).catch(()=>{
+                                            }).catch(() => {
                                                 swal.fire({
                                                     title: "No se pudo eliminar el deseo",
-                                                    footer: "Intente de nuevo", 
+                                                    footer: "Intente de nuevo",
                                                     icon: "error",
                                                     confirmButtonText: "¡Entendido!",
                                                     confirmButtonColor: "#F8BF00",
-                                                  });
+                                                });
                                             })
                                         }
                                     })
-                                }}>Eliminar</a>
-                                <br/>
-                                <br/>
-                                <p>{iterator.comprable? <p>Date el gusto</p>: <p>No te des el gusto</p>}</p>
+                                }}>Eliminar</span>
+                                <br />
+                                <br />
+                                <p>{iterator.comprable ? <p>Date el gusto</p> : <p>No te des el gusto</p>}</p>
                             </div>
                         </div>
                     </div>

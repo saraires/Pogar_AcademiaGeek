@@ -53,11 +53,12 @@ const singUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const salt = yield bcrypt_1.default.genSalt(10);
     const hashContraseña = yield bcrypt_1.default.hash(req.body.contraseña, salt);
     // Creacion de usuarios
-    const { nombre, correo } = req.body;
+    const { nombre, correo, imagen } = req.body;
     const usuario = new usuario_1.default({
         nombre,
         correo,
-        contraseña: hashContraseña
+        contraseña: hashContraseña,
+        imagen
     });
     try {
         const savedUser = yield usuario.save();

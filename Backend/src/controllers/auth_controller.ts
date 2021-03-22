@@ -4,7 +4,6 @@ import { validacionRegistro, validacionLogin } from './validationJoi';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-
 const claveToken = 'itsSomeRandomToTheSecretKey';
 
 // Login

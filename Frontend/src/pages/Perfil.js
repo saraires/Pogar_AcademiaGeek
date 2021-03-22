@@ -8,7 +8,6 @@ import axios from '../axios/axios';
 
 const Perfil = () => {
 
-    let verificar = 0;
     const [perfil, setPerfil] = useState({});
     const token = getFromLocal('authToken');
     const id = getFromLocal('id');

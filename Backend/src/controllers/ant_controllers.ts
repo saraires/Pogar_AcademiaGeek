@@ -9,7 +9,7 @@ export const verAnt = async (req: Request, res: Response) => {
         const Ant = await Hormiga.find({ autor: id });
         res.send(Ant);
     } catch (err) {
-        console.log(err);
+        res.status(400).send(err);
     }
 }
 
@@ -20,7 +20,7 @@ export const verSolounHormiga = async (req: Request, res: Response) => {
         const hormiga = await Hormiga.find({ _id: id });
         res.send(hormiga);
     } catch (err) {
-        console.log(err);
+        res.status(400).send(err);
     }
 }
 
@@ -56,12 +56,11 @@ export const agregarAnt = async (req: Request, res: Response) => {
 
             // Actualizamos el saldo del usuario
             const actualizarSaldo = await Usuario.findByIdAndUpdate(autor, { $set: { saldo: saldoFinal } });
-            console.log(actualizarSaldo);
 
-            res.status(200).send(saveAnt);
+            res.send(saveAnt);
         }
     } catch (err) {
-        res.status(400).send(err);
+        res.send(err).status(400);
     }
 }
 
@@ -73,21 +72,24 @@ export const editarAnt = async (req: Request, res: Response) => {
         console.log(editarAnt);
         res.send(editarAnt);
     } catch (err) {
-        console.log(err);
+        res.status(400).send(err);
     }
 }
 
 // Total de dinero empleado en gastos hormiga
 export const comprasAnt = async (req: Request, res: Response) => {
     const { id } = req.body;
-    const comprobacion = await Hormiga.find({ autor: id });
-    console.log(comprobacion);
-    if (comprobacion[0] != undefined) {
-        const Ant = await Hormiga.aggregate([{ $match: { autor: id } }, { $group: { _id: id, "Saldo": { $sum: "$precio" } } }])
-        const saldo = (Ant[0]["Saldo"]);
-        res.send({ saldo });
+    try {
+        const comprobacion = await Hormiga.find({ autor: id });
+        if (comprobacion[0] != undefined) {
+            const Ant = await Hormiga.aggregate([{ $match: { autor: id } }, { $group: { _id: id, "Saldo": { $sum: "$precio" } } }])
+            const saldo = (Ant[0]["Saldo"]);
+            res.send({ saldo });
+        }
+    }
+    catch (err) {
+        res.status(400).send(err);
     }
 
     res.send({ "saldo": 0 });
-
 }

@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.validacionLogin = exports.validacionRegistro = void 0;
-// Validaciones
 const joi_1 = __importDefault(require("joi"));
 // Validacion de registro
 exports.validacionRegistro = joi_1.default.object({

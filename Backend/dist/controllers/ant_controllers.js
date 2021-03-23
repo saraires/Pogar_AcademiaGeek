@@ -23,7 +23,7 @@ const verAnt = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.send(Ant);
     }
     catch (err) {
-        console.log(err);
+        res.status(400).send(err);
     }
 });
 exports.verAnt = verAnt;
@@ -35,7 +35,7 @@ const verSolounHormiga = (req, res) => __awaiter(void 0, void 0, void 0, functio
         res.send(hormiga);
     }
     catch (err) {
-        console.log(err);
+        res.status(400).send(err);
     }
 });
 exports.verSolounHormiga = verSolounHormiga;
@@ -66,12 +66,11 @@ const agregarAnt = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             const saldoFinal = saldo - precio;
             // Actualizamos el saldo del usuario
             const actualizarSaldo = yield usuario_1.default.findByIdAndUpdate(autor, { $set: { saldo: saldoFinal } });
-            console.log(actualizarSaldo);
-            res.status(200).send(saveAnt);
+            res.send(saveAnt).status(200);
         }
     }
     catch (err) {
-        res.status(400).send(err);
+        res.send(err).status(400);
     }
 });
 exports.agregarAnt = agregarAnt;
@@ -84,19 +83,23 @@ const editarAnt = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.send(editarAnt);
     }
     catch (err) {
-        console.log(err);
+        res.status(400).send(err);
     }
 });
 exports.editarAnt = editarAnt;
 // Total de dinero empleado en gastos hormiga
 const comprasAnt = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.body;
-    const comprobacion = yield hormiga_1.default.find({ autor: id });
-    console.log(comprobacion);
-    if (comprobacion[0] != undefined) {
-        const Ant = yield hormiga_1.default.aggregate([{ $match: { autor: id } }, { $group: { _id: id, "Saldo": { $sum: "$precio" } } }]);
-        const saldo = (Ant[0]["Saldo"]);
-        res.send({ saldo });
+    try {
+        const comprobacion = yield hormiga_1.default.find({ autor: id });
+        if (comprobacion[0] != undefined) {
+            const Ant = yield hormiga_1.default.aggregate([{ $match: { autor: id } }, { $group: { _id: id, "Saldo": { $sum: "$precio" } } }]);
+            const saldo = (Ant[0]["Saldo"]);
+            res.send({ saldo });
+        }
+    }
+    catch (err) {
+        res.status(400).send(err);
     }
     res.send({ "saldo": 0 });
 });

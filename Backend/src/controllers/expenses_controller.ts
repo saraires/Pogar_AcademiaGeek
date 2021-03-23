@@ -9,7 +9,7 @@ export const verGastos = async (req: Request, res: Response) => {
         const gastos = await Gastos.find({ autor: id })
         res.send(gastos);
     } catch (err) {
-        console.log(err);
+        res.status(400).send(err);
     }
 }
 
@@ -21,7 +21,7 @@ export const verSolounGasto = async (req: Request, res: Response) => {
         const gasto = await Gastos.findById(id);
         res.send(gasto);
     } catch (err) {
-        console.log(err);
+        res.status(400).send(err);
     }
 }
 
@@ -53,32 +53,37 @@ export const editarGastos = async (req: Request, res: Response) => {
         const actualizarGasto = await Gastos.findByIdAndUpdate(id, { $set: req.body });
         res.send(actualizarGasto);
     } catch (err) {
-        console.log(err);
+        res.status(400).send(err);
     }
 
 }
 
 // Consultar gastos pagos
-
 export const gastosPagos = async (req: Request, res: Response) => {
     const { id } = req.body;
-    const pagos = await Gastos.find({ $and: [{ pagado: true }, { autor: id }] })
-    res.send(pagos);
+    try {
+        const pagos = await Gastos.find({ $and: [{ pagado: true }, { autor: id }] })
+        res.send(pagos);
+    } catch (err) {
+        res.status(400).send(err);
+    }
 }
 
 // Consultar gastos no pagos
-
 export const gastosNoPagos = async (req: Request, res: Response) => {
     const { id } = req.body;
-    const nopagos = await Gastos.find({ $and: [{ pagado: false }, { autor: id }] })
-    res.send(nopagos);
+    try {
+        const nopagos = await Gastos.find({ $and: [{ pagado: false }, { autor: id }] })
+        res.send(nopagos);
+    } catch (err) {
+        res.status(400).send(err);
+    }
 }
 
 // Pagar gastos
 export const pagar = async (req: Request, res: Response) => {
     const { id, autor, pago } = req.body; // id es de la tarjeta y autor es el id del usuario
     try {
-
         // Modelo de Gastos
         const card = await Gastos.findById(id);
         if (!card) { return ("Fallo"); } // Control de error
@@ -118,7 +123,7 @@ export const pagar = async (req: Request, res: Response) => {
             res.send("sin saldo");
         }
     } catch (err) {
-        console.log(err);
+        res.status(400).send(err);
     }
 };
 
@@ -136,6 +141,6 @@ export const infoAporte = async (req: Request, res: Response) => {
         res.send({ "info": info, "aporte": aporte });
     }
     catch (err) {
-        console.log(err);
+        res.status(400).send(err);
     }
 }

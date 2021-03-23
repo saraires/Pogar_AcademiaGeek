@@ -24,7 +24,7 @@ export const verDeseo = async (req: Request, res: Response, next: NextFunction) 
             const gastototal = (gastos[0]["Gastos"]);
 
             const sobrante = (saldo - gastototal);
-            
+
             preciodeseo.forEach(async (jacobo) => {
                 if (jacobo["precio"] <= sobrante) {
                     const actualizarDeseo = await Deseos.findByIdAndUpdate(jacobo["_id"], { $set: { "comprable": true } });
@@ -37,7 +37,7 @@ export const verDeseo = async (req: Request, res: Response, next: NextFunction) 
         }
 
     } catch (err) {
-        console.log(err);
+        res.status(400).send(err);
     }
 
 }
@@ -45,8 +45,12 @@ export const verDeseo = async (req: Request, res: Response, next: NextFunction) 
 // Ver solo un deseo
 export const verSolounDeseo = async (req: Request, res: Response) => {
     const { id } = req.body;
-    const deseo = await Deseos.find({ _id: id });
-    res.send(deseo);
+    try {
+        const deseo = await Deseos.find({ _id: id });
+        res.send(deseo);
+    } catch (err) {
+        res.status(400).send(err);
+    }
 }
 
 // Agregar deseos
@@ -73,13 +77,17 @@ export const editarDeseo = async (req: Request, res: Response) => {
         const actualizarDeseo = await Deseos.findByIdAndUpdate(id, { $set: req.body });
         res.send(actualizarDeseo);
     } catch (err) {
-        console.log(err);
+        res.status(400).send(err);
     }
 }
 
 // Eliminar deseos
 export const eliminarDeseo = async (req: Request, res: Response) => {
     const { id } = req.body
-    const deseoEliminado = await Deseos.findByIdAndDelete({ _id: id });
-    res.json({ message: 'Deseo Eliminado' })
+    try {
+        const deseoEliminado = await Deseos.findByIdAndDelete({ _id: id });
+        res.json({ message: 'Deseo Eliminado' });
+    } catch (err) {
+        res.status(400).send(err);
+    }
 }

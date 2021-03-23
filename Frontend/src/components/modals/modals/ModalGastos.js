@@ -4,26 +4,45 @@ import Img from '../../../images/modal.jpg';
 import { Background, ModalContent, ModalImg, ModalWrapper, CloseModalButton } from '../modalStyles/stylesModals';
 import { useForm } from "react-hook-form";
 import axios from '../../../axios/axios';
-import {getFromLocal} from '../../../functions/localstorage';
+import { getFromLocal } from '../../../functions/localstorage';
 import swal from 'sweetalert2';
 
 const ModalGastos = ({ showModal, setShowModal }) => {
   const autor = getFromLocal('id');
   const token = getFromLocal('authToken');
   const { register, handleSubmit } = useForm();
-  const onSubmit=data=>{
-    axios.post('/agregargasto', {
-      "titulo": data.titulo,
-      "descripcion": data.descripcion,
-      "precio": data.precio, 
-      "fecha_pago": data.fecha, 
-      "autor":autor,
-      "contribucion":[{"pago": 0}],
-      "token":token
-    }).then((res)=>{
-      if(res.status===200){
-        window.location.reload();
-      }else{
+  const onSubmit = data => {
+    if (parseInt(data.precio) < 100000) {
+      swal.fire({
+        title: "Error al ingresar el gasto",
+        text: "Si el gasto que desea ingresar no sobrepasa los 100.000$, este debe ser registrado en la sección de gastos hormiga",
+        footer: "Intente de nuevo",
+        icon: "error",
+        confirmButtonText: "¡Entendido!",
+        confirmButtonColor: "#F8BF00",
+      });
+    } else {
+      axios.post('/agregargasto', {
+        "titulo": data.titulo,
+        "descripcion": data.descripcion,
+        "precio": data.precio,
+        "fecha_pago": data.fecha,
+        "autor": autor,
+        "contribucion": [{ "pago": 0 }],
+        "token": token
+      }).then((res) => {
+        if (res.status === 200) {
+          window.location.reload();
+        } else {
+          swal.fire({
+            title: "Error al ingresar el gasto",
+            footer: "Intente de nuevo",
+            icon: "error",
+            confirmButtonText: "¡Entendido!",
+            confirmButtonColor: "#F8BF00",
+          });
+        }
+      }).catch(() => {
         swal.fire({
           title: "Error al ingresar el gasto",
           footer: "Intente de nuevo",
@@ -31,16 +50,8 @@ const ModalGastos = ({ showModal, setShowModal }) => {
           confirmButtonText: "¡Entendido!",
           confirmButtonColor: "#F8BF00",
         });
-      }
-    }).catch(()=>{
-      swal.fire({
-        title: "Error al ingresar el gasto",
-        footer: "Intente de nuevo",
-        icon: "error",
-        confirmButtonText: "¡Entendido!",
-        confirmButtonColor: "#F8BF00",
-      });
-    })
+      })
+    }
   }
   const modalRef = useRef();
 
@@ -69,7 +80,7 @@ const ModalGastos = ({ showModal, setShowModal }) => {
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <h2 className="title">Añadir nuevo gasto</h2>
                   <h5>
-                    Falto de pago: <i class="fas fa-times"></i> <br/> Pagado: <i class="fas fa-check"></i> 
+                    Falto de pago: <i class="fas fa-times"></i> <br /> Pagado: <i class="fas fa-check"></i>
                   </h5>
                   <div className="input-field">
                     <i className="fas fa-file-alt"></i>

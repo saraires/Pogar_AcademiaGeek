@@ -23,7 +23,7 @@ const verGastos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.send(gastos);
     }
     catch (err) {
-        console.log(err);
+        res.status(400).send(err);
     }
 });
 exports.verGastos = verGastos;
@@ -36,7 +36,7 @@ const verSolounGasto = (req, res) => __awaiter(void 0, void 0, void 0, function*
         res.send(gasto);
     }
     catch (err) {
-        console.log(err);
+        res.status(400).send(err);
     }
 });
 exports.verSolounGasto = verSolounGasto;
@@ -70,22 +70,32 @@ const editarGastos = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         res.send(actualizarGasto);
     }
     catch (err) {
-        console.log(err);
+        res.status(400).send(err);
     }
 });
 exports.editarGastos = editarGastos;
 // Consultar gastos pagos
 const gastosPagos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.body;
-    const pagos = yield gastos_1.default.find({ $and: [{ pagado: true }, { autor: id }] });
-    res.send(pagos);
+    try {
+        const pagos = yield gastos_1.default.find({ $and: [{ pagado: true }, { autor: id }] });
+        res.send(pagos);
+    }
+    catch (err) {
+        res.status(400).send(err);
+    }
 });
 exports.gastosPagos = gastosPagos;
 // Consultar gastos no pagos
 const gastosNoPagos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.body;
-    const nopagos = yield gastos_1.default.find({ $and: [{ pagado: false }, { autor: id }] });
-    res.send(nopagos);
+    try {
+        const nopagos = yield gastos_1.default.find({ $and: [{ pagado: false }, { autor: id }] });
+        res.send(nopagos);
+    }
+    catch (err) {
+        res.status(400).send(err);
+    }
 });
 exports.gastosNoPagos = gastosNoPagos;
 // Pagar gastos
@@ -125,7 +135,7 @@ const pagar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
     }
     catch (err) {
-        console.log(err);
+        res.status(400).send(err);
     }
 });
 exports.pagar = pagar;
@@ -141,7 +151,7 @@ const infoAporte = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.send({ "info": info, "aporte": aporte });
     }
     catch (err) {
-        console.log(err);
+        res.status(400).send(err);
     }
 });
 exports.infoAporte = infoAporte;

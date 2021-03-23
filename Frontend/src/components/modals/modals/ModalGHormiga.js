@@ -4,16 +4,15 @@ import Img from '../../../images/modal.jpg';
 import { Background, ModalContent, ModalImg, ModalWrapper, CloseModalButton } from '../modalStyles/stylesModals';
 import { useForm } from "react-hook-form";
 import axios from '../../../axios/axios';
-import {getFromLocal} from '../../../functions/localstorage';
+import { getFromLocal } from '../../../functions/localstorage';
 import swal from 'sweetalert2';
 
 const ModalHGastos = ({ showModal, setShowModal }) => {
   const { register, handleSubmit } = useForm();
-  const id=getFromLocal('id');
-  const token=getFromLocal('authToken')
-  const onSubmit=data=>{
-    console.log(data)
-    if(parseInt(data.precio)>100000){
+  const id = getFromLocal('id');
+  const token = getFromLocal('authToken')
+  const onSubmit = data => {
+    if (parseInt(data.precio) > 100000) {
       swal.fire({
         title: "Error al ingresar el gasto hormiga",
         text: "Si el gasto que desea ingresar sobrepasa los 100.000$, este debe ser registrado en la sección de gastos",
@@ -22,24 +21,29 @@ const ModalHGastos = ({ showModal, setShowModal }) => {
         confirmButtonText: "¡Entendido!",
         confirmButtonColor: "#F8BF00",
       });
-    }else{
+    } else {
+      const precio = parseInt(data.precio);
       axios.post('/agregarant', {
-        "titulo":data.titulo,
-        "descripcion":data.descripcion,
-        "precio": data.precio,
-        "fecha":data.fecha,
-        "autor":id,
-        "token":token
-      }).then((res)=>{
-        if(res.status===200) window.location.reload();
-        else swal.fire({
-          title: "Error al ingresar el gasto hormiga",
-          footer: "Intente de nuevo",
-          icon: "error",
-          confirmButtonText: "¡Entendido!",
-          confirmButtonColor: "#F8BF00",
-        });
-      }).catch(()=>{
+        "titulo": data.titulo,
+        "descripcion": data.descripcion,
+        "precio": precio,
+        "fecha": data.fecha,
+        "autor": id,
+        "token": token
+      }).then((res) => {
+        console.log(res.status);
+        if (res.status === 200) {
+          window.location.reload();
+        } else {
+          swal.fire({
+            title: "Error al ingresar el gasto hormiga",
+            footer: "Intente de nuevo",
+            icon: "error",
+            confirmButtonText: "¡Entendido!",
+            confirmButtonColor: "#F8BF00",
+          });
+        }
+      }).catch(() => {
         swal.fire({
           title: "Error al ingresar el gasto hormiga",
           footer: "Intente de nuevo",
@@ -47,7 +51,7 @@ const ModalHGastos = ({ showModal, setShowModal }) => {
           confirmButtonText: "¡Entendido!",
           confirmButtonColor: "#F8BF00",
         });
-      }); 
+      });
     }
   }
   const modalRef = useRef();

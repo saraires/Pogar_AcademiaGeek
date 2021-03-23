@@ -26,17 +26,22 @@ const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         return res.status(400).send(error.details[0].message);
     // Traemos las variables del body
     const { correo, contraseña } = req.body;
-    // El correo existe?
-    const usuarioValido = yield usuario_1.default.findOne({ correo: correo });
-    if (!usuarioValido)
-        return res.status(400).send('El correo o la contraseña son incorrectos');
-    // La contraseña si es la correcta?
-    const contraseñaValida = yield bcrypt_1.default.compare(contraseña, usuarioValido.contraseña);
-    if (!contraseñaValida)
-        return res.status(400).send('El correo o la contraseña son incorrectos');
-    // JWT
-    const token = jsonwebtoken_1.default.sign({ _id: usuarioValido._id }, claveToken);
-    res.send({ "usuarioValido": usuarioValido, "authToken": token });
+    try {
+        // El correo existe?
+        const usuarioValido = yield usuario_1.default.findOne({ correo: correo });
+        if (!usuarioValido)
+            return res.status(400).send('El correo o la contraseña son incorrectos');
+        // La contraseña si es la correcta?
+        const contraseñaValida = yield bcrypt_1.default.compare(contraseña, usuarioValido.contraseña);
+        if (!contraseñaValida)
+            return res.status(400).send('El correo o la contraseña son incorrectos');
+        // JWT
+        const token = jsonwebtoken_1.default.sign({ _id: usuarioValido._id }, claveToken);
+        res.send({ "usuarioValido": usuarioValido, "authToken": token });
+    }
+    catch (err) {
+        res.status(400).send(err);
+    }
 });
 exports.signIn = signIn;
 // Sing Up
@@ -80,7 +85,7 @@ const perfil = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.send(perfil);
     }
     catch (err) {
-        console.log(err);
+        res.status(400).send(err);
     }
 });
 exports.perfil = perfil;
@@ -92,7 +97,7 @@ const editarSaldo = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         res.send(actualizarSaldo);
     }
     catch (err) {
-        console.log(err);
+        res.status(400).send(err);
     }
 });
 exports.editarSaldo = editarSaldo;
@@ -105,7 +110,7 @@ const editarImagen = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         res.send(actualizarImagen);
     }
     catch (err) {
-        console.log(err);
+        res.status(400).send(err);
     }
 });
 exports.editarImagen = editarImagen;

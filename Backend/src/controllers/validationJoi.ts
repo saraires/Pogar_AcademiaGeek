@@ -1,4 +1,3 @@
-// Validaciones
 import Joi from 'joi';
 
 // Validacion de registro

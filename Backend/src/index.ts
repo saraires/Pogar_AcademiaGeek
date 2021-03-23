@@ -1,21 +1,19 @@
 import express, { Application } from 'express';
 const app: Application = express();
 
-import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import morgan from 'morgan';
-import bodyParser from 'body-parser';
 
-import authRoute from './routes/routes' //Sale error porque el archivo "routes" esta vacio
+import authRoute from './routes/routes'
 
 // Configuracion
 app.use(cors());
 app.use(morgan('dev'));
-dotenv.config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+
+app.use('/', authRoute);
 
 // Conexión a la base de datos (cluster de Mongo)
 mongoose.connect(
@@ -28,7 +26,5 @@ mongoose.connect(
     },
     () => console.log('Estas conectado a la base de datos')
 );
-
-app.use('/', authRoute);
 
 app.listen(5001, () => console.log('Servidor corriendo en el puerto 5001'));

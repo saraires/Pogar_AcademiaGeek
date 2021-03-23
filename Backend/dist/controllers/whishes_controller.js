@@ -47,15 +47,20 @@ const verDeseo = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
         }
     }
     catch (err) {
-        console.log(err);
+        res.status(400).send(err);
     }
 });
 exports.verDeseo = verDeseo;
 // Ver solo un deseo
 const verSolounDeseo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.body;
-    const deseo = yield deseos_1.default.find({ _id: id });
-    res.send(deseo);
+    try {
+        const deseo = yield deseos_1.default.find({ _id: id });
+        res.send(deseo);
+    }
+    catch (err) {
+        res.status(400).send(err);
+    }
 });
 exports.verSolounDeseo = verSolounDeseo;
 // Agregar deseos
@@ -84,15 +89,20 @@ const editarDeseo = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         res.send(actualizarDeseo);
     }
     catch (err) {
-        console.log(err);
+        res.status(400).send(err);
     }
 });
 exports.editarDeseo = editarDeseo;
 // Eliminar deseos
 const eliminarDeseo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.body;
-    const deseoEliminado = yield deseos_1.default.findByIdAndDelete({ _id: id });
-    res.json({ message: 'Deseo Eliminado' });
+    try {
+        const deseoEliminado = yield deseos_1.default.findByIdAndDelete({ _id: id });
+        res.json({ message: 'Deseo Eliminado' });
+    }
+    catch (err) {
+        res.status(400).send(err);
+    }
 });
 exports.eliminarDeseo = eliminarDeseo;
 //# sourceMappingURL=whishes_controller.js.map

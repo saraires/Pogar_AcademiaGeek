@@ -16,17 +16,22 @@ export const signIn = async (req: Request, res: Response) => {
     // Traemos las variables del body
     const { correo, contraseña } = req.body;
 
-    // El correo existe?
-    const usuarioValido = await Usuario.findOne({ correo: correo });
-    if (!usuarioValido) return res.status(400).send('El correo o la contraseña son incorrectos');
+    try {
+        // El correo existe?
+        const usuarioValido = await Usuario.findOne({ correo: correo });
+        if (!usuarioValido) return res.status(400).send('El correo o la contraseña son incorrectos');
 
-    // La contraseña si es la correcta?
-    const contraseñaValida = await bcrypt.compare(contraseña, usuarioValido.contraseña);
-    if (!contraseñaValida) return res.status(400).send('El correo o la contraseña son incorrectos');
+        // La contraseña si es la correcta?
+        const contraseñaValida = await bcrypt.compare(contraseña, usuarioValido.contraseña);
+        if (!contraseñaValida) return res.status(400).send('El correo o la contraseña son incorrectos');
 
-    // JWT
-    const token: string = jwt.sign({ _id: usuarioValido._id }, claveToken);
-    res.send({ "usuarioValido": usuarioValido, "authToken": token });
+        // JWT
+        const token: string = jwt.sign({ _id: usuarioValido._id }, claveToken);
+        res.send({ "usuarioValido": usuarioValido, "authToken": token });
+
+    } catch (err) {
+        res.status(400).send(err);
+    }
 };
 
 // Sing Up
@@ -52,6 +57,7 @@ export const singUp = async (req: Request, res: Response) => {
         contraseña: hashContraseña,
         imagen
     });
+
     try {
         const savedUser = await usuario.save();
         // JWT
@@ -69,7 +75,7 @@ export const perfil = async (req: Request, res: Response) => {
         const perfil = await Usuario.find({ _id: id });
         res.send(perfil);
     } catch (err) {
-        console.log(err);
+        res.status(400).send(err);
     }
 };
 
@@ -80,7 +86,7 @@ export const editarSaldo = async (req: Request, res: Response) => {
         const actualizarSaldo = await Usuario.findByIdAndUpdate(id, { $inc: { 'saldo': saldo } });
         res.send(actualizarSaldo);
     } catch (err) {
-        console.log(err);
+        res.status(400).send(err);
     }
 };
 
@@ -92,6 +98,6 @@ export const editarImagen = async (req: Request, res: Response) => {
         console.log(actualizarImagen);
         res.send(actualizarImagen);
     } catch (err) {
-        console.log(err);
+        res.status(400).send(err);
     }
 }

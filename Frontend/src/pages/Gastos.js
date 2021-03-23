@@ -47,51 +47,56 @@ const Gastos = () => {
                                 <Link style={{ textDecoration: 'none' }} to="/editar-gasto" onClick={() => {
                                     saveToLocal('id_gasto', iterator._id)
                                 }}><span className="btn-editar">Editar</span></Link>
-                                <span onClick={() => {
-                                    swal.fire({
-                                        title: 'Ingrese la cantidad dispuesta para aportar al gasto',
-                                        input: 'number',
-                                        inputPlaceholder: 'Pago',
-                                        inputAttributes: {
-                                            autocapitalize: 'off'
-                                        },
-                                        showCancelButton: true,
-                                        cancelButtonText: 'Cancelar',
-                                        confirmButtonText: 'Aportar',
-                                        showLoaderOnConfirm: true,
-                                        confirmButtonColor: '#F8BF00',
-                                        preConfirm: pago => {
-                                            if (pago === "" || pago === "0") {
-                                                swal.fire({
-                                                    title: 'Su pago no puede ir vacío'
-                                                });
-                                            } else {
-                                                return axios.post('/pagar', { id: iterator._id, token: token, autor: autor, pago: pago })
-                                                    .then(res => {
-                                                        if (res.data === "sin saldo") {
-                                                            swal.fire({
-                                                                title: '¡No tienes saldo suficiente para hacer este aporte!',
-                                                                confirmButtonText: '¡Entendido!',
-                                                                confirmButtonColor: '#F8BF00'
-                                                            })
-                                                        } else {
-                                                            swal.fire({
-                                                                title: '¡Aporte Realizado!',
-                                                                confirmButtonText: '¡Entendido!',
-                                                                confirmButtonColor: '#F8BF00'
-                                                            }).then(sarai => {
-                                                                if (sarai.isConfirmed) {
-                                                                    window.location.reload();
+                                {
+                                    iterator.precio <= 0 ? <span className="btn-editar">¡Pagado!</span> :
+                                    (
+                                        <span onClick={() => {
+                                            swal.fire({
+                                                title: 'Ingrese la cantidad dispuesta para aportar al gasto',
+                                                input: 'number',
+                                                inputPlaceholder: 'Pago',
+                                                inputAttributes: {
+                                                    autocapitalize: 'off'
+                                                },
+                                                showCancelButton: true,
+                                                cancelButtonText: 'Cancelar',
+                                                confirmButtonText: 'Aportar',
+                                                showLoaderOnConfirm: true,
+                                                confirmButtonColor: '#F8BF00',
+                                                preConfirm: pago => {
+                                                    if (pago === "" || pago === "0") {
+                                                        swal.fire({
+                                                            title: 'Su pago no puede ir vacío'
+                                                        });
+                                                    } else {
+                                                        return axios.post('/pagar', { id: iterator._id, token: token, autor: autor, pago: pago })
+                                                            .then(res => {
+                                                                if (res.data === "sin saldo") {
+                                                                    swal.fire({
+                                                                        title: '¡No tienes saldo suficiente para hacer este aporte!',
+                                                                        confirmButtonText: '¡Entendido!',
+                                                                        confirmButtonColor: '#F8BF00'
+                                                                    })
+                                                                } else {
+                                                                    swal.fire({
+                                                                        title: '¡Aporte Realizado!',
+                                                                        confirmButtonText: '¡Entendido!',
+                                                                        confirmButtonColor: '#F8BF00'
+                                                                    }).then(sarai => {
+                                                                        if (sarai.isConfirmed) {
+                                                                            window.location.reload();
+                                                                        }
+                                                                    })
                                                                 }
-                                                            })
-                                                        }
+                                                            }
+                                                            )
                                                     }
-                                                    )
-                                            }
-                                        },
-                                        allowOutsideClick: () => !swal.isLoading()
-                                    });
-                                }} className="btn-editar">Pagar</span>
+                                                },
+                                                allowOutsideClick: () => !swal.isLoading()
+                                            });
+                                        }} className="btn-editar">Pagar</span>
+                                    )
+                                }
                             </div>
                         </div>
                     </div>

@@ -5,8 +5,23 @@ import Usuario from '../model/usuario';
 // Consultar gasto hormiga (Ant)
 export const verAnt = async (req: Request, res: Response) => {
     const { id } = req.body;
-    const Ant = await Hormiga.find({ autor: id });
-    res.send(Ant);
+    try {
+        const Ant = await Hormiga.find({ autor: id });
+        res.send(Ant);
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+// Ver solo un gasto hormiga
+export const verSolounHormiga = async (req: Request, res: Response) => {
+    const { id } = req.body;
+    try {
+        const hormiga = await Hormiga.find({ _id: id });
+        res.send(hormiga);
+    } catch (err) {
+        console.log(err);
+    }
 }
 
 // Agregar gasto hormiga (Ant)
@@ -73,6 +88,6 @@ export const comprasAnt = async (req: Request, res: Response) => {
         res.send({ saldo });
     }
 
-    res.send({"saldo": 0});
-    
+    res.send({ "saldo": 0 });
+
 }

@@ -12,16 +12,33 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.comprasAnt = exports.editarAnt = exports.agregarAnt = exports.verAnt = void 0;
+exports.comprasAnt = exports.editarAnt = exports.agregarAnt = exports.verSolounHormiga = exports.verAnt = void 0;
 const hormiga_1 = __importDefault(require("../model/hormiga"));
 const usuario_1 = __importDefault(require("../model/usuario"));
 // Consultar gasto hormiga (Ant)
 const verAnt = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.body;
-    const Ant = yield hormiga_1.default.find({ autor: id });
-    res.send(Ant);
+    try {
+        const Ant = yield hormiga_1.default.find({ autor: id });
+        res.send(Ant);
+    }
+    catch (err) {
+        console.log(err);
+    }
 });
 exports.verAnt = verAnt;
+// Ver solo un gasto hormiga
+const verSolounHormiga = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.body;
+    try {
+        const hormiga = yield hormiga_1.default.find({ _id: id });
+        res.send(hormiga);
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
+exports.verSolounHormiga = verSolounHormiga;
 // Agregar gasto hormiga (Ant)
 const agregarAnt = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { titulo, descripcion, precio, autor } = req.body;

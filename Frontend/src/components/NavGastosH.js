@@ -37,6 +37,8 @@ const NavGastosH = () => {
                 </div>
             </div>
             <h3 className="tittleGastos">Gastos hormiga</h3>
+            <p>En esta pantalla estan todas las acciones que puedes realizar con tus gastos hormiga</p>
+            <p>Recuerda que tus gastos hormiga deben ser menores a 100.000$</p>
             <br/>
             {compras === undefined? <h3 className="tittHormiga">No tienes gastos hormiga</h3> : compras!==0? <h3 className="tittHormiga">Total consumido en gastos hormiga:<strong className="compraH">{compras}$</strong></h3>:
             <h3 className="tittHormiga">No tienes gastos hormiga</h3>}

@@ -7,11 +7,12 @@ import swal from 'sweetalert2';
 
 const EditarGastoHormiga = () => {
     const [gastoHormiga, setGastoHormig] = useState({});
+    const [fecha, setFecha] = useState();
     const { register, handleSubmit } = useForm();
     const token = getFromLocal('authToken');
     const id_gasto = getFromLocal('id_gasto_hormiga');
     const onSubmit = data => {
-        if (gastoHormiga.titulo !== data.titulo || gastoHormiga.descripcion !== data.descripcion || gastoHormiga.precio !== parseInt(data.precio)) {
+        if (gastoHormiga.titulo !== data.titulo || gastoHormiga.descripcion !== data.descripcion || gastoHormiga.precio !== parseInt(data.precio) || transformer(gastoHormiga.fecha) !== transformer(data.fecha) ) {
             axios.post('/editarant', {
                 "titulo": data.titulo,
                 "descripcion": data.descripcion,
@@ -20,18 +21,18 @@ const EditarGastoHormiga = () => {
                 "token": token
             }).then(res => {
                 swal.fire({
-                    title: "¡Deseo editado con exito!",
+                    title: "¡Gasto hormiga editado con exito!",
                     confirmButtonText: '¡Entendido!',
                     confirmButtonColor: '#F8BF00',
                 }).then(result => {
                     if (result.isConfirmed) {
-                        window.location.href = "/gastos"
+                        window.location.href = "/gastos-hormiga"
                     }
                 });
             })
         } else {
             swal.fire({
-                title: "Error al editar el deseo",
+                title: "Error al editar el gasto hormiga",
                 text: "Para poder editar debes cambiar minimo un campo",
                 icon: "error",
                 onfirmButtonText: '¡Entendido!',
@@ -40,10 +41,17 @@ const EditarGastoHormiga = () => {
         }
     }
 
+    const transformer = (data) => {
+        const fecha = data.split("T");
+        return fecha[0];
+    }
+
     const getGastoHormig = () => {
         axios.post('/verunhormiga', { "id": id_gasto, "token": token })
             .then(res => {
-                setGastoHormig(res.data[0])
+                setGastoHormig(res.data[0]);
+                setFecha(transformer(res.data[0]["fecha"]));
+                console.log(gastoHormiga);
             })
     }
     useEffect(() => {
@@ -72,7 +80,7 @@ const EditarGastoHormiga = () => {
                     </div>
                     <div className="input-field">
                         <i className="fas fa-calendar-alt"></i>
-                        <input type="text" defaultValue={gastoHormiga.fecha_pago} required ref={register} name="fecha_pago" />
+                        <input type="date" defaultValue={fecha} required ref={register} name="fecha" />
                     </div>
                     <input type="submit" value="Editar" className="btn solid" />
                 </form>

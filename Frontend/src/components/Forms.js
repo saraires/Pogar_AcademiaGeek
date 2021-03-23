@@ -3,10 +3,10 @@ import { useForm } from "react-hook-form";
 import axios from "../axios/axios";
 import { saveToLocal } from "../functions/localstorage";
 import swal from 'sweetalert2';
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const Forms = () => {
-  const history= useHistory();
+  const history = useHistory();
   let signin = false;
   let signup = false;
   const esLogin = () => signin = true; signup = false;
@@ -16,47 +16,58 @@ const Forms = () => {
 
   const onSubmit = data => {
     if (signin) {
-      if(data.contrasenaL.length>=8){
+      if (data.contrasenaL.length >= 8) {
         axios.post(`/`, {
           correo: data.correoL,
           contraseña: data.contrasenaL
         }).then((res) => {
-          const token = res.data['authToken'];
-          const id = res.data['usuarioValido']['_id'];
-          saveToLocal("id", id);
-          saveToLocal('authToken', token);
-          history.push("/menu");
+          if (res.status === 200) {
+            const token = res.data['authToken'];
+            const id = res.data['usuarioValido']['_id'];
+            saveToLocal("id", id);
+            saveToLocal('authToken', token);
+            history.push("/menu");
+          } else {
+            swal.fire({
+              title: "Error al iniciar sesión",
+              text: "¡Su información es incorrecta!",
+              footer: "Intente de nuevo",
+              icon: "error",
+              confirmButtonText: "¡Entendido!",
+              confirmButtonColor: "#F8BF00",
+            });
+          }
         }).catch(() => {
           swal.fire({
             title: "Error al iniciar sesión",
-            text: "¡Su información es incorrecta!", 
-            footer: "Intente de nuevo", 
+            text: "Su información es incorrecta",
+            footer: "Intente de nuevo",
             icon: "error",
             confirmButtonText: "¡Entendido!",
             confirmButtonColor: "#F8BF00",
           });
         });
-      }else{
+      } else {
         swal.fire({
           title: "Error al iniciar sesión",
-          text: "¡La contraseña debe tener más de 8 carácteres!", 
+          text: "¡La contraseña debe tener más de 8 carácteres!",
           icon: "error",
           confirmButtonText: "¡Entendido!",
           confirmButtonColor: "#F8BF00",
         });
       }
-      
+
     }
 
     if (signup) {
-      if(data.contrasenaR.length>=8){
+      if (data.contrasenaR.length >= 8) {
         axios.post('/signup', {
           nombre: data.nombre,
           correo: data.correoR,
           contraseña: data.contrasenaR,
           imagen: 'https://user-images.githubusercontent.com/66284121/111956716-145aa600-8ab9-11eb-8220-959165d782a5.jpg'
         }).then((res) => {
-          if(res.status===200){
+          if (res.status === 200) {
             swal.fire({
               title: "¡El registro se realizó con éxito!",
               text: "¡Ya puedes inciar sesión!",
@@ -64,26 +75,35 @@ const Forms = () => {
               confirmButtonText: "¡Entendido!",
               confirmButtonColor: "#F8BF00",
             });
+          } else {
+            swal.fire({
+              title: "¡Hubo un error al realizar el registro!",
+              text: "Revisa de nuevo tu información",
+              icon: "error",
+              confirmButtonText: "¡Entendido!",
+              confirmButtonColor: "#F8BF00",
+            });
           }
-        }).catch(()=>{
+        }).catch(() => {
           swal.fire({
             title: "Error al registrarse",
-            text: "¡Su correo es inválido!", 
+            text: "Su información es incorrecta",
+            footer: "Intente de nuevo",
             icon: "error",
             confirmButtonText: "¡Entendido!",
             confirmButtonColor: "#F8BF00",
           });
         })
-      }else{
+      } else {
         swal.fire({
           title: "Error al registrarse",
-          text: "¡La contraseña debe tener más de 8 carácteres!", 
+          text: "¡La contraseña debe tener más de 8 carácteres!",
           icon: "error",
           confirmButtonText: "¡Entendido!",
           confirmButtonColor: "#F8BF00",
         });
       }
-      
+
     }
 
   };

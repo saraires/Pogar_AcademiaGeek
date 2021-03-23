@@ -12,16 +12,34 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.infoAporte = exports.pagar = exports.gastosNoPagos = exports.gastosPagos = exports.editarGastos = exports.agregarGastos = exports.verGastos = void 0;
+exports.infoAporte = exports.pagar = exports.gastosNoPagos = exports.gastosPagos = exports.editarGastos = exports.agregarGastos = exports.verSolounGasto = exports.verGastos = void 0;
 const gastos_1 = __importDefault(require("../model/gastos"));
 const usuario_1 = __importDefault(require("../model/usuario"));
 // Consultar gastos
 const verGastos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.body;
-    const gastos = yield gastos_1.default.find({ autor: id });
-    res.send(gastos);
+    try {
+        const gastos = yield gastos_1.default.find({ autor: id });
+        res.send(gastos);
+    }
+    catch (err) {
+        console.log(err);
+    }
 });
 exports.verGastos = verGastos;
+// Ver solo un gasto
+const verSolounGasto = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.body;
+    console.log(id);
+    try {
+        const gasto = yield gastos_1.default.findById(id);
+        res.send(gasto);
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
+exports.verSolounGasto = verSolounGasto;
 // Agregar gastos
 const agregarGastos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { titulo, descripcion, precio, fecha_pago, pagado, fijo, contribucion, autor } = req.body;
@@ -56,47 +74,20 @@ const editarGastos = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 exports.editarGastos = editarGastos;
-// -----------------------  GASTOS PAGOS  ----------------------- //
+// Consultar gastos pagos
 const gastosPagos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.body;
     const pagos = yield gastos_1.default.find({ $and: [{ pagado: true }, { autor: id }] });
     res.send(pagos);
 });
 exports.gastosPagos = gastosPagos;
-/*//Fijos
-export const pagosFijo = async (req: Request, res: Response) => {
-    const { _id } = req.body;
-    const pagosfijo = await Gastos.find({ $and: [{ pagado: true }, { fijo: true}, { autor: _id }] })
-    res.send(pagosfijo);
-}
-
-// No Fijos
-export const pagosNoFijo = async (req: Request, res: Response) => {
-    const { _id } = req.body;
-    const pagosnofijo = await Gastos.find({ $and: [{ pagado: true }, { fijo: false}, { autor: _id }] })
-    res.send(pagosnofijo);
-}*/
-// ---------------------  GASTOS NO PAGOS  --------------------- //
+// Consultar gastos no pagos
 const gastosNoPagos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.body;
     const nopagos = yield gastos_1.default.find({ $and: [{ pagado: false }, { autor: id }] });
     res.send(nopagos);
 });
 exports.gastosNoPagos = gastosNoPagos;
-/*// Fijos
-
-export const noPagosFijo = async (req: Request, res: Response) => {
-    const { _id } = req.body;
-    const pagosfijo = await Gastos.find({ $and: [{ pagado: false }, { fijo: true}, { autor: _id }] })
-    res.send(pagosfijo);
-}
-
-// No Fijos
-export const noPagosNoFijo = async (req: Request, res: Response) => {
-    const { _id } = req.body;
-    const pagosnofijo = await Gastos.find({ $and: [{ pagado: false }, { fijo: false}, { autor: _id }] })
-    res.send(pagosnofijo);
-}*/
 // Pagar gastos
 const pagar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id, autor, pago } = req.body; // id es de la tarjeta y autor es el id del usuario

@@ -20,6 +20,8 @@ const NavBarGastos = () => {
             </div>
         </div>
             <h3 className="tittleGastos">Gastos</h3>
+            <p>En esta pantalla estan todas las acciones que puedes realizar con tus gastos</p>
+            <p>Recuerda que tus gastos deben ser mayores a 100.000$</p>
         </div>
     );
 }

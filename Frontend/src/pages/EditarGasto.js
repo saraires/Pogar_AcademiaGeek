@@ -11,7 +11,7 @@ const EditarGasto = () => {
     const token = getFromLocal('authToken');
     const id_gasto = getFromLocal('id_gasto');
     const onSubmit = data => {
-        if (gasto.titulo !== data.titulo || gasto.descripcion !== data.descripcion || gasto.precio !== parseInt(data.precio)) {
+        if (gasto.titulo !== data.titulo || gasto.descripcion !== data.descripcion || gasto.precio !== parseInt(data.precio) || gasto.fecha_pago !== data.fecha_pago) {
             axios.post('/editargasto', {
                 "titulo": data.titulo,
                 "descripcion": data.descripcion,
@@ -41,9 +41,10 @@ const EditarGasto = () => {
     }
 
     const getGasto = () => {
-        axios.post('/vergasto', { "id": id_gasto, "token": token })
+        axios.post('/verungasto', { "id": id_gasto, "token": token })
             .then(res => {
-                setGasto(res.data[0])
+                console.log(res);
+                setGasto(res.data)
             })
     }
     useEffect(() => {

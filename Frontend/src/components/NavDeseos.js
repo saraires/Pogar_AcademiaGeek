@@ -21,6 +21,8 @@ const NavDeseos = () => {
             </div>
         </div>
             <h3 className="tittleGastos">Deseos</h3>
+            <p>En esta pantalla estan todas las acciones que puedes realizar con tus deseos</p>
+            <p>Los deseos alcanzables y no alcanzables los podrás identificar por el icono en el fondo de las tarjetas</p>
        </div>
     );
 }

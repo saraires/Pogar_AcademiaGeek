@@ -61,7 +61,7 @@ const EditarGastoHormiga = () => {
 
     return (
         <div className="conta">
-            <NavBar />
+            <NavBar route="/gastos-hormiga"/>
             <div className="containerG">
                 <form className="sign-in-form" onSubmit={handleSubmit(onSubmit)}>
                     <h2 className="title">Editar gasto</h2>

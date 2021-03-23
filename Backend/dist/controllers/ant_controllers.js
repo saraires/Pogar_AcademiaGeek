@@ -66,7 +66,7 @@ const agregarAnt = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             const saldoFinal = saldo - precio;
             // Actualizamos el saldo del usuario
             const actualizarSaldo = yield usuario_1.default.findByIdAndUpdate(autor, { $set: { saldo: saldoFinal } });
-            res.send(saveAnt).status(200);
+            res.send(saveAnt);
         }
     }
     catch (err) {

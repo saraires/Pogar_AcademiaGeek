@@ -53,7 +53,7 @@ const EditarDeseo = () => {
 
     return (
         <div className="conta">
-            <NavBar />
+            <NavBar route="/deseos" />
             <div className="containerG">
                 <form className="sign-in-form" onSubmit={handleSubmit(onSubmit)}>
                     <br />
